@@ -38,13 +38,13 @@ Label all PR's. The labels are used when generating our CHANGELOGs so it's essen
 
 Currently the labels we use are
 
-|Name         |Description                                        |
-|-------------|---------------------------------------------------|
-|bug          |Something isn't working                            |
-|dependencies |Pull requests that update a dependency file        |
-|documentation|Improvements or additions to documentation         |
-|enhancement  |New feature or request                             |
-|housekeeping |Changes such as refactoring                        |
-|security     |Pull requests that address a security vulnerability|
+|Name         |Description                                                     |
+|-------------|----------------------------------------------------------------|
+|bug          |Something isn't working                                         |
+|dependencies |Pull requests that update a dependency file                     |
+|documentation|Improvements or additions to documentation                      |
+|enhancement  |New feature or request                                          |
+|housekeeping |Refactoring, tidying up or other work which supports the project|
+|security     |Pull requests that address a security vulnerability.            |
 
 If you are unsure what to use just ask another team member.
