@@ -7,6 +7,7 @@ This acts as a repo of guides and documents specific to the team, plus it's wher
 ## Contents
 
 - [Services](/services/README.md)
+- [Guide to ssh](ssh.md)
 - [Ways of working](ways_of_working.md)
 
 ## Contributing to this project
