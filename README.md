@@ -1,6 +1,6 @@
 # SROC Service team
 
-A team of rocking 🎸 folk dedicated to supporting the all things **Strategic Review of Charging**!
+A team of rocking 🎸 folk dedicated to supporting all the things **Strategic Review of Charging**!
 
 This acts as a repo of guides and documents specific to the team, plus it's where we manage our list of issues rather than trying to manage them in individual projects.
 
