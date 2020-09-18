@@ -9,6 +9,7 @@ This acts as a repo of guides and documents specific to the team, plus it's wher
 - [Services](/services/README.md)
 - [Guide to ssh](ssh.md)
 - [Principles](principles.md)
+- [Release process](release_process.md)
 - [Ways of working](ways_of_working.md)
 
 ## Contributing to this project
