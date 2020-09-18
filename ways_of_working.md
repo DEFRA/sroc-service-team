@@ -28,7 +28,7 @@ So open all new PR's as draft, and avoid adding '[WIP]' to the title or descript
 
 #### Convert to draft
 
-If a PR results in changes needing to be made, use the option in the GitHub UI to 'convert to draft'. The once the changes have been made and it ready to be reviewed again clikc the 'ready for review' button.
+If a PR results in changes needing to be made, use the option in the GitHub UI to 'convert to draft'. Then once the changes have been made and it is ready to be reviewed again, click the 'ready for review' button.
 
 Repeat until PR is approved!
 
