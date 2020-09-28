@@ -60,7 +60,7 @@ The development team will then review the changes made to decide whether a major
 
 > IMPORTANT! Ensure you have checked out the main branch for the repo and performed a `git pull` to get the latest code first.
 
-We need to update the version held in the app to match our new version. This does mean changing a code file but you'll notice we don't create a PR. This and [updating the CHANGELOG](#update-the-changlog) are the exceptions.
+We need to update the version held in the app to match our new version. This does mean changing a code file but you'll notice we don't create a PR. This and [updating the CHANGELOG](#update-the-changelog) are the exceptions.
 
 We do this to avoid polluting our CHANGELOGS with lots of `Update VERSION` and `Update CHANGELOG` entries.
 
