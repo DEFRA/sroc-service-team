@@ -1,0 +1,84 @@
+get:
+  operationId: ListTransactions
+  description: "Request to view all transactions meeting specified parameters. List may contain both billed and unbilled transactions."
+  tags:
+    - transaction
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/billrunNumber'
+    - $ref: '../../../schema/parameters.yml#/chargeElementId'
+    - $ref: '../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../schema/parameters.yml#/financialYear'
+    - $ref: '../../../schema/parameters.yml#/licenceNumber'
+    - $ref: '../../../schema/parameters.yml#/page'
+    - $ref: '../../../schema/parameters.yml#/perPage'
+    - $ref: '../../../schema/parameters.yml#/region'
+    - $ref: '../../../schema/parameters.yml#/sort'
+    - $ref: '../../../schema/parameters.yml#/sortDir'
+    - $ref: '../../../schema/parameters.yml#/transactionReference'
+    - $ref: '../../../schema/parameters.yml#/transactionFileReference'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pagination:
+                $ref: '../../../schema/schemas.yml#/pagination'
+              data:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      $ref: '../../../schema/schemas.yml#/transaction'
+
+post:
+  operationId: AddTransaction
+  description: "Creates a transaction without adding it to a bill run. Returns transaction ID."
+  tags:
+    - transaction
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+  responses:
+    '201':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../../schema/schemas.yml#/transactionPostResponse'
+          example:
+            transaction:
+              id: 'e78eb69e-23ba-4436-aeb7-413fb0138806'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../../schema/schemas.yml#/transactionPost'
+        example:
+          periodStart: '01-APR-2019'
+          periodEnd: '31-MAR-2020'
+          credit: false
+          billableDays: 310
+          authorisedDays: 365
+          volume: '0.01'
+          source: 'Supported'
+          season: 'Summer'
+          loss: 'Low'
+          twoPartTariff: false
+          compensationCharge: false
+          eiucSource: 'Tidal'
+          waterUndertaker: false
+          regionalChargingArea: 'Anglian'
+          section127Agreement: true
+          section130Agreement: false
+          customerReference: 'THVV33009'
+          lineDescription: 'Drains within Littleport & Downham IDB'
+          licenceNumber: 'TONY/R01'
+          chargePeriod: '01-APR-2018 - 31-MAR-2019'
+          chargeElementId: ''
+          batchNumber: 'TONY6'
+          region: 'A'
+          areaCode: 'ARCA'

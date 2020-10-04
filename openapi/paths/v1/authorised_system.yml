@@ -1,0 +1,56 @@
+get:
+  operationId: ViewAuthorisedSystem
+  description: "Request details of an 'authorised system'. An authorised system is essentially a user of the API, and this returns details about it including which regimes it is authorised to access."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../schema/parameters.yml#/authorisedSystemId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              authorisedSystem:
+                $ref: '../../schema/schemas.yml#/authorisedSystem'
+          example:
+            authorisedSystem:
+              id: '1b1gshltt176v80nsc4fxxxxxx'
+              name: 'wrls'
+              status: 'active'
+              created_at: '2020-05-01T09:19:22.065Z'
+              updated_at: '2020-05-01T09:19:22.065Z'
+              authorisations:
+                - regime: 'wrls'
+                  last_accessed_at: '2020-09-30T21:23:07.307Z'
+patch:
+  operationId: UpdateAuthorisedSystem
+  description: "Update an 'authorised system'. An authorised system is essentially a user of the API, and this is used to update the details of one."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../schema/parameters.yml#/authorisedSystemId'
+  responses:
+    '204':
+      description: "Success"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../schema/schemas.yml#/authorisedSystemPatch'
+        example:
+          name: 'dashboard'
+          status: 'active'
+          authorisations: [cfd, pas, wml, wrls]
+delete:
+  operationId: DeleteAuthorisedSystem
+  description: "Delete an 'authorised system'. An authorised system is essentially a user of the API, and this is used to delete one."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../schema/parameters.yml#/authorisedSystemId'
+  responses:
+    '204':
+      description: "Success"
