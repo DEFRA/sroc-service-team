@@ -1,0 +1,119 @@
+get:
+  operationId: ViewBillRunTransaction
+  description: "Request to view a single specified transaction included in a specified (billed or unbilled) bill run."
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/transactionId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pagination:
+                $ref: '../../../../schema/schemas.yml#/pagination'
+              data:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      $ref: '../../../../schema/schemas.yml#/transaction'
+          example:
+            transaction:
+              id: 'fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3'
+              region: 'W'
+              periodStart: '01-APR-2019'
+              periodEnd: '31-MAR-2020'
+              customerReference: 'TH230000222'
+              batchNumber: 'TONY10'
+              invoiceDate: null
+              licenceNumber: 'TONY/TF9222/37'
+              chargePeriod: '01-APR-2018 - 31-MAR-2019'
+              chargeElementId: ''
+              billableDays: 310
+              authorisedDays: 365
+              prorataDays: '310/365'
+              volume: 6.22
+              source: 'Supported'
+              sourceFactor: 3
+              season: 'Summer'
+              seasonFactor: 1.6
+              loss: 'Low'
+              lossFactor: 0.03
+              section130Agreement: false
+              licenceHolderChargeAgreement: null
+              section126Factor: 1
+              section127Agreement: false
+              chargeElementAgreement: null
+              twoPartTariff: false
+              compensationCharge: false
+              eiucSource: 'Tidal'
+              eiucSourceFactor: 0
+              waterUndertaker: false
+              regionalChargingArea: 'Anglian'
+              eiuc: 0
+              suc: 2751
+              chargeValue: 2093
+              credit: false
+              transactionDate: null
+              areaCode: 'ARCA'
+              lineDescription: 'Well at Chigley Town Hall'
+              transactionType: null
+              transactionReference: null
+              billRunNumber: 10007
+              transactionStatus: 'unbilled'
+              newLicence: false
+              minimumChargeAdjustment: false
+              approvedForBilling: false
+              deminimis: false
+              transactionFileReference: null
+              calculation:
+                uuid: 'a2140a45-f023-41cf-91e0-636c27d888760'
+                generatedAt: '2020-10-01T12:59:34.433Z'
+                calculation:
+                  chargeValue: 20.93
+                  decisionPoints:
+                    sourceFactor: 18.66
+                    seasonFactor: 29.856
+                    lossFactor: 0.89568
+                    volumeFactor: 6.22
+                    abatementAdjustment: 24.640156800000003
+                    s127Agreement: 24.640156800000003
+                    s130Agreement: 24.640156800000003
+                    secondPartCharge: false
+                    waterUndertaker: false
+                    eiucFactor: 0
+                    compensationCharge: false
+                    eiucSourceFactor: 0
+                    sucFactor: 24.640156800000003
+                  messages: []
+                  sucFactor: 27.51
+                  volumeFactor: 6.22
+                  sourceFactor: 3
+                  seasonFactor: 1.6
+                  lossFactor: 0.03
+                  abatementAdjustment: 'S126 x 1.0'
+                  s127Agreement: null
+                  s130Agreement: null
+                  eiucSourceFactor: 0
+                  eiucFactor: 0
+                chargeValue: 2093
+
+delete:
+  operationId: DeleteBillRunTransaction
+  description: "Removes a specified transaction from a specified bill run and deletes the transaction. Transaction/bill run must be in an unbilled status"
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/transactionId'
+  responses:
+    '204':
+      description: "Success"

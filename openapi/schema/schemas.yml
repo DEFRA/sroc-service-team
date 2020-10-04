@@ -1,0 +1,679 @@
+authorisedSystem:
+  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/clientID'
+    name:
+      type: string
+      example: 'wrls'
+    status:
+      $ref: 'fields.yml#/authorisedSystemStatus'
+    created_at:
+      $ref: 'fields.yml#/timeStamp'
+    updated_at:
+      $ref: 'fields.yml#/timeStamp'
+    authorisations:
+      type: array
+      items:
+        type: object
+        properties:
+          regime:
+            $ref: 'fields.yml#/regime'
+          last_accessed_at:
+            $ref: 'fields.yml#/timeStamp'
+authorisedSystemPatch:
+  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
+  type: object
+  properties:
+    name:
+      type: string
+      example: 'wrls'
+    status:
+      $ref: 'fields.yml#/authorisedSystemStatus'
+    authorisations:
+      type: array
+      items:
+        $ref: 'fields.yml#/regime'
+authorisedSystemPost:
+  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/clientID'
+    name:
+      type: string
+      example: 'wrls'
+    status:
+      $ref: 'fields.yml#/authorisedSystemStatus'
+    authorisations:
+      type: array
+      items:
+        $ref: 'fields.yml#/regime'
+authorisedSystemSummary:
+  description: "Essentially the user account of a system authorised to use the API. The summarised version does not include what authorisations each account has."
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/clientID'
+    name:
+      type: string
+      example: 'wrls'
+    status:
+      $ref: 'fields.yml#/authorisedSystemStatus'
+    created_at:
+      $ref: 'fields.yml#/timeStamp'
+    updated_at:
+      $ref: 'fields.yml#/timeStamp'
+billrun:
+  description: ""
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/billrunId'
+    billRunNumber:
+      $ref: 'fields.yml#/billrunNumber'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    status:
+      $ref: 'fields.yml#/billrunStatus'
+    approvedForBilling:
+      $ref: 'fields.yml#/approvalStatus'
+    preSroc:
+      $ref: 'fields.yml#/preSroc'
+    summary:
+      type: object
+      properties:
+        creditNoteCount:
+          type: integer
+          example: 0
+        creditNoteValue:
+          type: integer
+          example: 0
+        invoiceCount:
+          type: integer
+          example: 2
+        invoiceValue:
+          type: integer
+          example: 4593
+        creditLineCount:
+          type: integer
+          example: 0
+        creditLineValue:
+          type: integer
+          example: 0
+        debitLineCount:
+          type: integer
+          example: 3
+        debitLineValue:
+          type: integer
+          example: 4593
+        zeroValueLineCount:
+          type: integer
+          example: 0
+        netTotal:
+          type: integer
+          example: 4593
+    customers:
+      type: array
+      items:
+        type: object
+        properties:
+          customerReference:
+            $ref: 'fields.yml#/customerReference'
+          summaryByFinancialYear:
+            type: array
+            items:
+              type: object
+              properties:
+                financialYear:
+                  $ref: 'fields.yml#/financialYear'
+                creditLineCount:
+                  type: integer
+                  example: 0
+                creditLineValue:
+                  type: integer
+                  example: 0
+                debitLineCount:
+                  type: integer
+                  example: 2
+                debitLineValue:
+                  type: integer
+                  example: 2500
+                netTotal:
+                  type: integer
+                  example: 2500
+                deminimis:
+                  $ref: 'fields.yml#/deminimisTransaction'
+                transactions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        $ref: 'fields.yml#/transactionId'
+                      chargeValue:
+                        $ref: 'fields.yml#/chargeValue'
+                      licenceNumber:
+                        $ref: 'fields.yml#/licenceNumber'
+                      minimumChargeAdjustment:
+                        $ref: 'fields.yml#/minimumChargeTransaction'
+                      deminimis:
+                        $ref: 'fields.yml#/deminimisTransaction'
+    transactionFileReference:
+      $ref: 'fields.yml#/transactionFileReferenceDat'
+    transactionFileDate:
+      $ref: 'fields.yml#/transactionDate'
+billrunPost:
+  description: ""
+  type: object
+  properties:
+    region:
+      $ref: 'fields.yml#/regionCode'
+billrunPostResponse:
+  description: ""
+  type: object
+  properties:
+    billrun:
+      type: object
+      properties:
+        id:
+          $ref: 'fields.yml#/billrunId'
+        billRunNumber:
+          $ref: 'fields.yml#/billrunNumber'
+billrunSummary:
+  description: "Represents a bill run record"
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/billrunId'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    billRunNumber:
+      $ref: 'fields.yml#/billrunNumber'
+    fileId:
+      $ref: 'fields.yml#/fileId'
+    transactionFileReference:
+      $ref: 'fields.yml#/transactionFileReferenceDat'
+    transactionFileDate:
+      $ref: 'fields.yml#/transactionFileDate'
+    status:
+      $ref: 'fields.yml#/billrunStatus'
+    approvedForBilling:
+      $ref: 'fields.yml#/approvalStatus'
+    preSroc:
+      $ref: 'fields.yml#/preSroc'
+    creditCount:
+      type: integer
+      example: 8
+    creditValue:
+      type: integer
+      example: -3928
+    invoiceCount:
+      type: integer
+      example: 48
+    invoiceValue:
+      type: integer
+      example: 1017868
+    creditLineCount:
+      type: integer
+      example: 8
+    creditLineValue:
+      type: integer
+      example: -3928
+    debitLineCount:
+      type: integer
+      example: 58
+    debitLineValue:
+      type: integer
+      example: 1017868
+    zeroValueLineCount:
+      type: integer
+      example: 0
+    netTotal:
+      type: integer
+      example: 1013940
+calculateCharge:
+  description: ""
+  type: object
+  properties:
+    periodStart:
+      $ref: 'fields.yml#/periodStart'
+    periodEnd:
+      $ref: 'fields.yml#/periodEnd'
+    credit:
+      $ref: 'fields.yml#/creditTransaction'
+    billableDays:
+      $ref: 'fields.yml#/billableDays'
+    authorisedDays:
+      $ref: 'fields.yml#/authorisedDays'
+    volume:
+      $ref: 'fields.yml#/volume'
+    source:
+      $ref: 'fields.yml#/source'
+    season:
+      $ref: 'fields.yml#/season'
+    loss:
+      $ref: 'fields.yml#/loss'
+    twoPartTariff:
+      $ref: 'fields.yml#/supplementaryTwoPartTariff'
+    compensationCharge:
+      $ref: 'fields.yml#/compensationCharge'
+    eiucSource:
+      $ref: 'fields.yml#/eiucAdjustedSource'
+    waterUndertaker:
+      $ref: 'fields.yml#/waterUndertaker'
+    regionalChargingArea:
+      $ref: 'fields.yml#/sucEiucRegionName'
+    section126Factor:
+      $ref: 'fields.yml#/section126Factor'
+    section127Agreement:
+      $ref: 'fields.yml#/section127Agreement'
+    section130Agreement:
+      $ref: 'fields.yml#/section130Agreement'
+calculateChargeResponse:
+  description: ""
+  type: object
+  properties:
+    chargeValue:
+      $ref: 'fields.yml#/chargeValue'
+    sourceFactor:
+      $ref: 'fields.yml#/sourceFactor'
+    seasonFactor:
+      $ref: 'fields.yml#/seasonFactor'
+    lossFactor:
+      $ref: 'fields.yml#/lossFactor'
+    licenceHolderChargeAgreement:
+      $ref: 'fields.yml#/licenceHolderChargeAgreement'
+    chargeElementAgreement:
+      $ref: 'fields.yml#/chargeElementAgreement'
+    eiucSourceFactor:
+      $ref: 'fields.yml#/eiucAdjustedSourceFactor'
+    eiuc:
+      $ref: 'fields.yml#/eiuc'
+    suc:
+      $ref: 'fields.yml#/suc'
+customerChange:
+  description: ""
+  type: object
+  properties:
+    id:
+      description:
+      $ref: 'fields.yml#/customerChangeId'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    customerName:
+      $ref: 'fields.yml#/customerName'
+    addressLine1:
+      $ref: 'fields.yml#/addressLine1'
+    addressLine2:
+      $ref: 'fields.yml#/addressLine2'
+    addressLine3:
+      $ref: 'fields.yml#/addressLine3'
+    addressLine4:
+      $ref: 'fields.yml#/addressLine4'
+    addressLine5:
+      $ref: 'fields.yml#/addressLine5'
+    addressLine6:
+      $ref: 'fields.yml#/addressLine6'
+    postcode:
+      $ref: 'fields.yml#/postcode'
+customerChangePost:
+  description: ""
+  type: object
+  properties:
+    region:
+      $ref: 'fields.yml#/regionCode'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    customerName:
+      $ref: 'fields.yml#/customerName'
+    addressLine1:
+      $ref: 'fields.yml#/addressLine1'
+    addressLine2:
+      $ref: 'fields.yml#/addressLine2'
+    addressLine3:
+      $ref: 'fields.yml#/addressLine3'
+    addressLine4:
+      $ref: 'fields.yml#/addressLine4'
+    addressLine5:
+      $ref: 'fields.yml#/addressLine5'
+    addressLine6:
+      $ref: 'fields.yml#/addressLine6'
+    postcode:
+      $ref: 'fields.yml#/postcode'
+customerChangePostResponse:
+  description: ""
+  type: object
+  properties:
+    customerChange:
+      type: object
+      properties:
+        id:
+          $ref: 'fields.yml#/customerChangeId'
+customerFile:
+  description: ""
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/customerFileId'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    fileName:
+      $ref: 'fields.yml#/customerFileName'
+    status:
+      $ref: 'fields.yml#/customerFileStatus'
+    createdDate:
+      $ref: 'fields.yml#/customerFileDate'
+    customerChanges:
+      type: array
+      items:
+        type: object
+        properties:
+          customerReference:
+            $ref: 'fields.yml#/customerReference'
+customerFilePost:
+  description: ""
+  type: object
+  properties:
+    region:
+      $ref: 'fields.yml#/regionCode'
+customerFileSummary:
+  description: ""
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/customerFileId'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    file_reference:
+      $ref: 'fields.yml#/customerFileNumberString'
+    status:
+      $ref: 'fields.yml#/customerFileStatus'
+    created_at:
+      $ref: 'fields.yml#/timeStamp'
+status:
+  description: "Returned by a call to status, it is an object that contains a copy of the headers found in the original request"
+  type: object
+  properties:
+    accept:
+      type: string
+      example: '*/*'
+    accept-encoding:
+      type: string
+      example: 'gzip, deflate, br'
+    content-type:
+      type: string
+      example: 'application/json'
+    host:
+      type: string
+      example: 'DEVCHABESNLB001-d027d9edf577c9e8.elb.eu-west-1.amazonaws.com'
+pagination:
+  description: "Returned when a response contains multiple results"
+  type: object
+  properties:
+    page:
+      $ref: 'fields.yml#/page'
+    perPage:
+      $ref: 'fields.yml#/perPage'
+    pageCount:
+      type: integer
+      example: 1
+    recordCount:
+      type: integer
+      example: 1
+regime:
+  description: "Charging regime that will have its own charge rules"
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/regimeId'
+    slug:
+      type: string
+      enum: [cfd, pas, wml, wrls]
+      example: 'wrls'
+    name:
+      type: string
+      example: 'Water Resources'
+    pre_sroc_cutoff_date:
+      $ref: 'fields.yml#/timeStamp'
+regimeSummary:
+  description: "Summary of a charging regime"
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/regimeId'
+    name:
+      type: string
+      example: 'Water Resources'
+    slug:
+      $ref: 'fields.yml#/regime'
+transaction:
+  description: ""
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/transactionId'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    periodStart:
+      $ref: 'fields.yml#/periodStart'
+    periodEnd:
+      $ref: 'fields.yml#/periodEnd'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    batchNumber:
+      $ref: 'fields.yml#/batchNumber'
+    invoiceDate:
+      $ref: 'fields.yml#/invoiceDate'
+    licenceNumber:
+      $ref: 'fields.yml#/licenceNumber'
+    chargePeriod:
+      $ref: 'fields.yml#/chargePeriod'
+    chargeElementId:
+      $ref: 'fields.yml#/chargeElementId'
+    billableDays:
+      $ref: 'fields.yml#/billableDays'
+    authorisedDays:
+      $ref: 'fields.yml#/authorisedDays'
+    prorataDays:
+      $ref: 'fields.yml#/prorataDays'
+    volume:
+      $ref: 'fields.yml#/volume'
+    source:
+      $ref: 'fields.yml#/source'
+    sourceFactor:
+      $ref: 'fields.yml#/sourceFactor'
+    season:
+      $ref: 'fields.yml#/season'
+    seasonFactor:
+      $ref: 'fields.yml#/seasonFactor'
+    loss:
+      $ref: 'fields.yml#/loss'
+    lossFactor:
+      $ref: 'fields.yml#/lossFactor'
+    section130Agreement:
+      $ref: 'fields.yml#/section130Agreement'
+    licenceHolderChargeAgreement:
+      $ref: 'fields.yml#/licenceHolderChargeAgreement'
+    section126Factor:
+      $ref: 'fields.yml#/section126Factor'
+    section127Agreement:
+      $ref: 'fields.yml#/section127Agreement'
+    chargeElementAgreement:
+      type: string
+    twoPartTariff:
+      $ref: 'fields.yml#/supplementaryTwoPartTariff'
+    compensationCharge:
+      $ref: 'fields.yml#/compensationCharge'
+    eiucSource:
+      $ref: 'fields.yml#/eiucAdjustedSource'
+    eiucSourceFactor:
+      $ref: 'fields.yml#/eiucAdjustedSourceFactor'
+    waterUndertaker:
+      $ref: 'fields.yml#/waterUndertaker'
+    regionalChargingArea:
+      $ref: 'fields.yml#/sucEiucRegionName'
+    eiuc:
+      $ref: 'fields.yml#/eiuc'
+    suc:
+      $ref: 'fields.yml#/suc'
+    chargeValue:
+      $ref: 'fields.yml#/chargeValue'
+    credit:
+      $ref: 'fields.yml#/creditTransaction'
+    transactionDate:
+      $ref: 'fields.yml#/transactionDate'
+    areaCode:
+      $ref: 'fields.yml#/areaCode'
+    lineDescription:
+      $ref: 'fields.yml#/lineDescription'
+    transactionType:
+      $ref: 'fields.yml#/transactionType'
+    transactionReference:
+      $ref: 'fields.yml#/transactionReference'
+    billRunNumber:
+      $ref: 'fields.yml#/billrunNumber'
+    transactionStatus:
+      $ref: 'fields.yml#/transactionStatus'
+    newLicence:
+      $ref: 'fields.yml#/newLicence'
+    minimumChargeAdjustment:
+      $ref: 'fields.yml#/minimumChargeTransaction'
+    approvedForBilling:
+      $ref: 'fields.yml#/approvalStatus'
+    deminimis:
+      $ref: 'fields.yml#/deminimisTransaction'
+    transactionFileReference:
+      $ref: 'fields.yml#/transactionFileReference'
+    calculation:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: 'df6861da-9679-4733-af0b-290f25e702810'
+        generatedAt:
+          $ref: 'fields.yml#/timeStamp'
+        calculation:
+          type: object
+          properties:
+            chargeValue:
+              $ref: 'fields.yml#/chargeValue'
+            decisionPoints:
+              type: object
+              properties:
+                sourceFactor:
+                  $ref: 'fields.yml#/sourceFactor'
+                seasonFactor:
+                  $ref: 'fields.yml#/seasonFactor'
+                lossFactor:
+                  $ref: 'fields.yml#/lossFactor'
+                volumeFactor:
+                  $ref: 'fields.yml#/volumeFactor'
+                abatementAdjustment:
+                  $ref: 'fields.yml#/abatementAdjustment'
+                s127Agreement:
+                  $ref: 'fields.yml#/section127'
+                s130Agreement:
+                  $ref: 'fields.yml#/section130'
+                secondPartCharge:
+                  $ref: 'fields.yml#/secondPartCharge'
+                waterUndertaker:
+                  $ref: 'fields.yml#/waterUndertaker'
+                eiucFactor:
+                  $ref: 'fields.yml#/eiucFactor'
+                compensationCharge:
+                  $ref: 'fields.yml#/compensationCharge'
+                eiucSourceFactor:
+                  $ref: 'fields.yml#/eiucAdjustedSourceFactor'
+                sucFactor:
+                  $ref: 'fields.yml#/sucFactor'
+            messages:
+              type: array
+              items:
+                type: object
+            sucFactor:
+              $ref: 'fields.yml#/sucFactor'
+            volumeFactor:
+              $ref: 'fields.yml#/volumeFactor'
+            sourceFactor:
+              $ref: 'fields.yml#/sourceFactor'
+            seasonFactor:
+              $ref: 'fields.yml#/seasonFactor'
+            lossFactor:
+              $ref: 'fields.yml#/lossFactor'
+            abatementAdjustment:
+              $ref: 'fields.yml#/chargeElementAgreement'
+            s127Agreement:
+              $ref: 'fields.yml#/section127Agreement'
+            s130Agreement:
+              $ref: 'fields.yml#/section130Agreement'
+            eiucSourceFactor:
+              $ref: 'fields.yml#/eiucAdjustedSourceFactor'
+            eiucFactor:
+              $ref: 'fields.yml#/eiucFactor'
+        chargeValue:
+          $ref: 'fields.yml#/chargeValue'
+transactionPost:
+  description: ""
+  type: object
+  properties:
+    periodStart:
+      $ref: 'fields.yml#/periodStart'
+    periodEnd:
+      $ref: 'fields.yml#/periodEnd'
+    credit:
+      $ref: 'fields.yml#/creditTransaction'
+    billableDays:
+      $ref: 'fields.yml#/billableDays'
+    authorisedDays:
+      $ref: 'fields.yml#/authorisedDays'
+    volume:
+      $ref: 'fields.yml#/volume'
+    source:
+      $ref: 'fields.yml#/source'
+    season:
+      $ref: 'fields.yml#/season'
+    loss:
+      $ref: 'fields.yml#/loss'
+    twoPartTariff:
+      $ref: 'fields.yml#/supplementaryTwoPartTariff'
+    compensationCharge:
+      $ref: 'fields.yml#/compensationCharge'
+    eiucSource:
+      $ref: 'fields.yml#/eiucAdjustedSource'
+    waterUndertaker:
+      $ref: 'fields.yml#/waterUndertaker'
+    regionalChargingArea:
+      $ref: 'fields.yml#/sucEiucRegionName'
+    section127Agreement:
+      $ref: 'fields.yml#/section127Agreement'
+    section130Agreement:
+      $ref: 'fields.yml#/section130Agreement'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    lineDescription:
+      $ref: 'fields.yml#/lineDescription'
+    licenceNumber:
+      $ref: 'fields.yml#/licenceNumber'
+    chargePeriod:
+      $ref: 'fields.yml#/chargePeriod'
+    chargeElementId:
+      $ref: 'fields.yml#/chargeElementId'
+    batchNumber:
+      $ref: 'fields.yml#/batchNumber'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    areaCode:
+      $ref: 'fields.yml#/areaCode'
+transactionPostResponse:
+  description: ""
+  type: object
+  properties:
+    transaction:
+      type: object
+      properties:
+        id:
+          $ref: 'fields.yml#/transactionId'

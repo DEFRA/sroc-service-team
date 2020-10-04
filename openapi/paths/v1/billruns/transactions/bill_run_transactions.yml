@@ -1,0 +1,187 @@
+get:
+  operationId: ListBillRunTransactions
+  description: "Request to view all transactions meeting specified parameters and included in a specified (billed or unbilled) bill run."
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/batchNumber'
+    - $ref: '../../../../schema/parameters.yml#/billrunNumber'
+    - $ref: '../../../../schema/parameters.yml#/chargeElementId'
+    - $ref: '../../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../../schema/parameters.yml#/financialYear'
+    - $ref: '../../../../schema/parameters.yml#/licenceNumber'
+    - $ref: '../../../../schema/parameters.yml#/page'
+    - $ref: '../../../../schema/parameters.yml#/perPage'
+    - $ref: '../../../../schema/parameters.yml#/region'
+    - $ref: '../../../../schema/parameters.yml#/sort'
+    - $ref: '../../../../schema/parameters.yml#/sortDir'
+    - $ref: '../../../../schema/parameters.yml#/transactionReference'
+    - $ref: '../../../../schema/parameters.yml#/transactionFileReference'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pagination:
+                $ref: '../../../../schema/schemas.yml#/pagination'
+              data:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      $ref: '../../../../schema/schemas.yml#/transaction'
+          example:
+            pagination:
+              page: 1
+              perPage: 50
+              pageCount: 1
+              recordCount: 1
+            data:
+              transactions:
+              - id: '0316d4d4-b3b8-4654-952b-3042b59eaeaf'
+                region: 'T'
+                periodStart: '01-APR-2019'
+                periodEnd: '31-MAR-2020'
+                customerReference: 'THVV33009'
+                batchNumber: 'TONY6'
+                invoiceDate: '17-FEB-2020'
+                licenceNumber: '123/456/26/*S/0453/R01'
+                chargePeriod: '01-APR-2018 - 31-MAR-2019'
+                chargeElementId: ''
+                billableDays: 310
+                authorisedDays: 365
+                prorataDays: '310/365'
+                volume: 3.5865
+                source: 'Supported'
+                sourceFactor: 3
+                season: 'Summer'
+                seasonFactor: 1.6
+                loss: 'Low'
+                lossFactor: 0.03
+                section130Agreement: false
+                licenceHolderChargeAgreement: null
+                section126Factor: 1
+                section127Agreement: false
+                chargeElementAgreement: null
+                twoPartTariff: false
+                compensationCharge: false
+                eiucSource: 'Tidal'
+                eiucSourceFactor: 0
+                waterUndertaker: false
+                regionalChargingArea: 'Midlands'
+                eiuc: 0
+                suc: 1495
+                chargeValue: 656
+                credit: false
+                transactionDate: '17-FEB-2020'
+                areaCode: 'ARCA'
+                lineDescription: 'Drains within Littleport & Downham IDB'
+                transactionType: 'I'
+                transactionReference: 'TAI1000102'
+                billRunNumber: 10002
+                transactionStatus: 'billed'
+                newLicence: false
+                minimumChargeAdjustment: false
+                approvedForBilling: true
+                deminimis: false
+                transactionFileReference: 'nalti50002.dat'
+                calculation:
+                  uuid: 'b9827e43-d2bb-41c7-a886-b7bac0e4bf3b0'
+                  generatedAt: '2020-02-17T17:43:12.277Z'
+                  calculation:
+                    chargeValue: 6.56
+                    decisionPoints:
+                      sourceFactor: 10.7595
+                      seasonFactor: 17.2152
+                      lossFactor: 0.5164559999999999
+                      volumeFactor: 3.5865
+                      abatementAdjustment: 7.721017199999999
+                      s127Agreement: 7.721017199999999
+                      s130Agreement: 7.721017199999999
+                      secondPartCharge: false
+                      waterUndertaker: false
+                      eiucFactor: 0
+                      compensationCharge: false
+                      eiucSourceFactor: 0
+                      sucFactor: 7.721017199999999
+                    messages: []
+                    sucFactor: 14.95
+                    volumeFactor: 3.5865
+                    sourceFactor: 3
+                    seasonFactor: 1.6
+                    lossFactor: 0.03
+                    abatementAdjustment: 'S126 x 1.0'
+                    s127Agreement: null
+                    s130Agreement: null
+                    eiucSourceFactor: 0
+                    eiucFactor: 0
+                  chargeValue: 656
+
+post:
+  operationId: AddBillRunTransaction
+  description: "Triggers creation of a transaction and immediately adds it to the specified bill run."
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+  responses:
+    '201':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../schema/schemas.yml#/transactionPostResponse'
+          example:
+            transaction:
+              id: 'fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../../../schema/schemas.yml#/transactionPost'
+        example:
+          periodStart: '01-APR-2019'
+          periodEnd: '31-MAR-2020'
+          credit: false
+          billableDays: 310
+          authorisedDays: 365
+          volume: '6.22'
+          source: 'Supported'
+          season: 'Summer'
+          loss: 'Low'
+          twoPartTariff: false
+          compensationCharge: false
+          eiucSource: 'Tidal'
+          waterUndertaker: false
+          regionalChargingArea: 'Anglian'
+          section127Agreement: false
+          section130Agreement: false
+          customerReference: 'TH230000222'
+          lineDescription: 'Well at Chigley Town Hall'
+          licenceNumber: 'TONY/TF9222/37'
+          chargePeriod: '01-APR-2018 - 31-MAR-2019'
+          chargeElementId: ''
+          batchNumber: 'TONY10'
+          region: 'W'
+          areaCode: 'ARCA'
+delete:
+  operationId: DeleteBillRunTransactions
+  description: "Removes one or many transactions from a specified bill run and deletes the transactions. Based on parameters, for example, all transactions for a customer or licence. Bill run must be unbilled."
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../../schema/parameters.yml#/financialYear'
+    - $ref: '../../../../schema/parameters.yml#/licenceNumber'
+  responses:
+    '204':
+      description: "Success"

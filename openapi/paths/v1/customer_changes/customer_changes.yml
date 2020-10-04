@@ -1,0 +1,79 @@
+get:
+  operationId: ListCustomerChanges
+  description: "Request to view a list of all customer changes meeting specified parameters, that have not yet been included in a customer file and sent to SSCL."
+  tags:
+    - customer
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../schema/parameters.yml#/page'
+    - $ref: '../../../schema/parameters.yml#/perPage'
+    - $ref: '../../../schema/parameters.yml#/region'
+    - $ref: '../../../schema/parameters.yml#/sort'
+    - $ref: '../../../schema/parameters.yml#/sortDir'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pagination:
+                $ref: '../../../schema/schemas.yml#/pagination'
+              data:
+                type: object
+                properties:
+                  customerChanges:
+                    type: array
+                    items:
+                      $ref: '../../../schema/schemas.yml#/customerChange'
+          example:
+            pagination:
+              page: 1
+              perPage: 50
+              pageCount: 1
+              recordCount: 1
+            data:
+              customerChanges:
+                - id: 4643f6c6-dc65-4aaa-883f-f3410b7fa8c8
+                  region: A
+                  customerReference: BB02BEEB
+                  customerName: Huge Factory Ltd
+                  addressLine1: 1 Monster Lane
+                  addressLine2: High Town
+                  addressLine3: null
+                  addressLine4: Chigley
+                  addressLine5: null
+                  addressLine6: null
+                  postcode: null
+
+post:
+  operationId: CreateCustomerChange
+  description: "Provides details of a single new customer record or a change to an existing customer record for inclusion in a customer file and onward transmission to SSCL"
+  tags:
+    - customer
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../../schema/schemas.yml#/customerChangePostResponse'
+          example:
+            customerChange:
+              id: '4643f6c6-dc65-4aaa-883f-f3410b7fa8c8'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../../schema/schemas.yml#/customerChangePost'
+        example:
+          region: A
+          customerReference: BB02BEEB
+          customerName: Huge Factory Ltd
+          addressLine1: 1 Monster Lane
+          addressLine2: High Town
+          addressLine4: Chigley
