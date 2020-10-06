@@ -8,6 +8,7 @@ This acts as a repo of guides and documents specific to the team, plus it's wher
 
 - [Guide to ssh](ssh.md)
 - [OpenAPI documentation](/openapi/README.md)
+- [Postman guide](/postman/README.md)
 - [Principles](principles.md)
 - [Release process](release_process.md)
 - [Services](/services/README.md)
