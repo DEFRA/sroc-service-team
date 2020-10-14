@@ -6,6 +6,7 @@ This acts as a repo of guides and documents specific to the team, plus it's wher
 
 ## Contents
 
+- [Databases](/databases/README.md)
 - [Guide to ssh](ssh.md)
 - [OpenAPI documentation](/openapi/README.md)
 - [Postman guide](/postman/README.md)
