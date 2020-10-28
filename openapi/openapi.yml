@@ -48,7 +48,7 @@ tags:
 paths:
   /:
     get:
-      operationId: Status
+      operationId: Root
       description: "Confirm service is up and running. Exactly the same as `/status`"
       tags:
         - health
