@@ -1,6 +1,10 @@
 get:
   operationId: ViewBillRun
-  description: "Request to view a single (billed or unbilled) bill run based on the bill run ID. Triggers generation of summary stats, which are contained in the response.Request may include optional other parameters which result in response being narrowed down to cover a subset of transactions contained within the bill run. List of individual transactions is not included in the response."
+  description: "Request to view a single (billed or unbilled) bill run based on the bill run ID. Triggers generation of summary stats, which are contained in the response.Request may include optional other parameters which result in response being narrowed down to cover a subset of transactions contained within the bill run. List of individual transactions is not included in the response.
+
+  ## Only one query param permitted
+
+  The endpoint accepts the query params `customerReference` and `licenceNumber`. However, whereas normally you could provide both this endpoint will throw an error if you do."
   tags:
     - billrun
   parameters:
