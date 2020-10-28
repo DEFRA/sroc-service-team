@@ -1,6 +1,16 @@
 get:
   operationId: ViewBillRun
-  description: "Request to view a single (billed or unbilled) bill run based on the bill run ID. Triggers generation of summary stats, which are contained in the response.Request may include optional other parameters which result in response being narrowed down to cover a subset of transactions contained within the bill run. List of individual transactions is not included in the response.
+  description: "Request to view a single (billed or unbilled) bill run based on the bill run ID. Triggers generation of summary stats, which are contained in the response. Request may include optional other parameters which result in response being narrowed down to cover a subset of transactions contained within the bill run. List of individual transactions is not included in the response.
+
+  ## Summary generation
+
+  For each customer and financial year combination in the bill run this endpoint will return a summary of information based on the relevant transactions. This includes determining minimum charge transactions and deminimis.
+
+  If these summaries have not yet been generated the first action will be their generation. For large bill runs this can take some time. If the generation has not completed in **3 seconds** a holding response will be returned instead. This will continue to be returned until the summary has been generated.
+
+  ### Resetting the summary
+
+  Currently the removal of any customers or transactions from the bill run will reset the summary. Any subsequent calls to this endpoint will cause the summary generation to being again.
 
   ## Only one query param permitted
 
@@ -22,75 +32,86 @@ get:
             properties:
               billRun:
                 $ref: '../../../schema/schemas.yml#/billrun'
-          example:
-            billRun:
-              id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
-              billRunNumber: 10001
-              region: 'W'
-              status: 'billed'
-              approvedForBilling: true
-              preSroc: true
-              summary:
-                creditNoteCount: 0
-                creditNoteValue: 0
-                invoiceCount: 2
-                invoiceValue: 6686
-                creditLineCount: 0
-                creditLineValue: 0
-                debitLineCount: 4
-                debitLineValue: 6686
-                zeroValueLineCount: 1
-                netTotal: 6686
-              customers:
-              - customerReference: 'TH150000020'
-                summaryByFinancialYear:
-                - financialYear: 2019
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 2
-                  debitLineValue: 2500
-                  zeroValueLineCount: 0
-                  netTotal: 2500
-                  deminimis: false
-                  transactions:
-                  - id: '5e184548-2852-4876-90b5-3a3016f4375f'
-                    chargeValue: 252
-                    licenceNumber: 'TONY/TFTTT/306'
-                    minimumChargeAdjustment: false
-                    deminimis: false
-                  - id: '34dce57e-3955-4ff1-8bf7-97e443956b75'
-                    chargeValue: 2248
-                    licenceNumber: 'TONY/TFTTT/306'
-                    minimumChargeAdjustment: true
-                    deminimis: false
-              - customerReference: 'TH230000222'
-                summaryByFinancialYear:
-                - financialYear: 2019
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 2
-                  debitLineValue: 4186
-                  zeroValueLineCount: 1
-                  netTotal: 4186
-                  deminimis: false
-                  transactions:
-                  - id: '26e129ec-9025-48d0-a70e-3028750b93ca'
-                    chargeValue: 0
-                    licenceNumber: 'TONY/TF9222/37'
-                    minimumChargeAdjustment: false
-                    deminimis: false
-                  - id: '21926b74-db2e-457f-903b-180c14b16baf'
-                    chargeValue: 2093
-                    licenceNumber: 'TONY/TF9222/37'
-                    minimumChargeAdjustment: false
-                    deminimis: false
-                  - id: 'eb83abf5-79dc-4717-94c1-a1e65e8f7d17'
-                    chargeValue: 2093
-                    licenceNumber: TONY/TF9222/37
-                    minimumChargeAdjustment: false
-                    deminimis: false
-              transactionFileReference: nalwi50001.dat
-              transactionFileDate: 22-SEP-2020
+          examples:
+            'holding response':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'generating_summary'
+                  approvedForBilling: false
+                  preSroc: true
+            'summary generated':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'billed'
+                  approvedForBilling: true
+                  preSroc: true
+                  summary:
+                    creditNoteCount: 0
+                    creditNoteValue: 0
+                    invoiceCount: 2
+                    invoiceValue: 6686
+                    creditLineCount: 0
+                    creditLineValue: 0
+                    debitLineCount: 4
+                    debitLineValue: 6686
+                    zeroValueLineCount: 1
+                    netTotal: 6686
+                  customers:
+                  - customerReference: 'TH150000020'
+                    summaryByFinancialYear:
+                    - financialYear: 2019
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroValueLineCount: 0
+                      netTotal: 2500
+                      deminimis: false
+                      transactions:
+                      - id: '5e184548-2852-4876-90b5-3a3016f4375f'
+                        chargeValue: 252
+                        licenceNumber: 'TONY/TFTTT/306'
+                        minimumChargeAdjustment: false
+                        deminimis: false
+                      - id: '34dce57e-3955-4ff1-8bf7-97e443956b75'
+                        chargeValue: 2248
+                        licenceNumber: 'TONY/TFTTT/306'
+                        minimumChargeAdjustment: true
+                        deminimis: false
+                  - customerReference: 'TH230000222'
+                    summaryByFinancialYear:
+                    - financialYear: 2019
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 4186
+                      zeroValueLineCount: 1
+                      netTotal: 4186
+                      deminimis: false
+                      transactions:
+                      - id: '26e129ec-9025-48d0-a70e-3028750b93ca'
+                        chargeValue: 0
+                        licenceNumber: 'TONY/TF9222/37'
+                        minimumChargeAdjustment: false
+                        deminimis: false
+                      - id: '21926b74-db2e-457f-903b-180c14b16baf'
+                        chargeValue: 2093
+                        licenceNumber: 'TONY/TF9222/37'
+                        minimumChargeAdjustment: false
+                        deminimis: false
+                      - id: 'eb83abf5-79dc-4717-94c1-a1e65e8f7d17'
+                        chargeValue: 2093
+                        licenceNumber: TONY/TF9222/37
+                        minimumChargeAdjustment: false
+                        deminimis: false
+                  transactionFileReference: nalwi50001.dat
+                  transactionFileDate: 22-SEP-2020
 
 delete:
   operationId: DeleteBillRun
