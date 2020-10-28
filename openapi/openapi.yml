@@ -17,8 +17,8 @@ info:
     ### API
 
     - Query params are case senstive. Ensure they match what is in the spec below to avoid `422 - Unprocessable Entity` errors
-    - To generate a bill run summary you need to call the 'View Billrun' endpoint. The API curently appears to error doing this for ones with a large number of transactions (8-9K or more)
-  version: "v0.2.0"
+    - To generate a bill run summary you need to call the 'View Billrun' endpoint. The API currently appears to error doing this for ones with a large number of transactions (8-9K or more)
+  version: "v0.3.0"
   title: Charging Module API
   contact:
     name: SRoC Service Team
@@ -40,12 +40,46 @@ tags:
     description: "Operations related to calculating charges"
   - name: customer
     description: "Operations related to customer files"
+  - name: health
+    description: "Endpoints used to confirm the system is up. Often used by monitoring tools running 'health checks'"
   - name: transaction
     description: "Operations related to transactions"
 
 paths:
+  /:
+    get:
+      operationId: Root
+      description: "Confirm service is up and running. Exactly the same as `/status`"
+      tags:
+        - health
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: 'schema/schemas.yml#/status'
+
   /status:
     $ref: 'paths/status.yml'
+
+  '/admin/regimes':
+    $ref: 'paths/admin/regimes.yml'
+
+  '/admin/regimes/{regime}':
+    $ref: 'paths/admin/regime.yml'
+
+  '/admin/authorised_systems':
+    $ref: 'paths/admin/authorised_systems.yml'
+
+  '/admin/authorised_systems/{authorisedSystemId}':
+    $ref: 'paths/admin/authorised_system.yml'
+
+  '/admin/health/airbrake':
+    $ref: 'paths/admin/health/airbrake.yml'
+
+  '/admin/health/database':
+    $ref: 'paths/admin/health/database.yml'
 
   '/v1/{regime}/billruns':
     $ref: 'paths/v1/billruns/bill_runs.yml'
@@ -88,18 +122,6 @@ paths:
 
   '/v1/{regime}/transactions/{transactionId}':
     $ref: 'paths/v1/transactions/transaction.yml'
-
-  '/v1/regimes':
-    $ref: 'paths/v1/regimes.yml'
-
-  '/v1/regimes/{regime}':
-    $ref: 'paths/v1/regime.yml'
-
-  '/v1/authorised_systems':
-    $ref: 'paths/v1/authorised_systems.yml'
-
-  '/v1/authorised_systems/{authorisedSystemId}':
-    $ref: 'paths/v1/authorised_system.yml'
 
 security:
   - OAuth2: []
