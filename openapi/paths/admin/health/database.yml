@@ -1,0 +1,10 @@
+get:
+  operationId: CheckDatabase
+  description: "Used to check the API is correctly connected to the database in an environment. Will also provide some general stats about the data held
+
+  > The endpoint does return a JSON response. However, it's pretty sizable and just a JSON version of [pg_stat_user_tables](http://www.postgresql.cn/docs/10/monitoring-stats.html#PG-STAT-ALL-TABLES-VIEW). So we don't document it here."
+  tags:
+    - admin
+  responses:
+    '200':
+      description: "Success"

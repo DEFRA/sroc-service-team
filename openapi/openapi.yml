@@ -78,6 +78,9 @@ paths:
   '/admin/health/airbrake':
     $ref: 'paths/admin/health/airbrake.yml'
 
+  '/admin/health/database':
+    $ref: 'paths/admin/health/database.yml'
+
   '/v1/{regime}/billruns':
     $ref: 'paths/v1/billruns/bill_runs.yml'
 
