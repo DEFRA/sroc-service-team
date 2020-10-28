@@ -47,6 +47,18 @@ paths:
   /status:
     $ref: 'paths/status.yml'
 
+  '/admin/regimes':
+    $ref: 'paths/admin/regimes.yml'
+
+  '/admin/regimes/{regime}':
+    $ref: 'paths/admin/regime.yml'
+
+  '/admin/authorised_systems':
+    $ref: 'paths/admin/authorised_systems.yml'
+
+  '/admin/authorised_systems/{authorisedSystemId}':
+    $ref: 'paths/admin/authorised_system.yml'
+
   '/v1/{regime}/billruns':
     $ref: 'paths/v1/billruns/bill_runs.yml'
 
@@ -88,18 +100,6 @@ paths:
 
   '/v1/{regime}/transactions/{transactionId}':
     $ref: 'paths/v1/transactions/transaction.yml'
-
-  '/v1/regimes':
-    $ref: 'paths/v1/regimes.yml'
-
-  '/v1/regimes/{regime}':
-    $ref: 'paths/v1/regime.yml'
-
-  '/v1/authorised_systems':
-    $ref: 'paths/v1/authorised_systems.yml'
-
-  '/v1/authorised_systems/{authorisedSystemId}':
-    $ref: 'paths/v1/authorised_system.yml'
 
 security:
   - OAuth2: []
