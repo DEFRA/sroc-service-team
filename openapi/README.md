@@ -18,19 +18,39 @@ You can also access the [full spec](https://github.com/OAI/OpenAPI-Specification
 
 We use [SwaggerHub](https://swagger.io/tools/swaggerhub/) to publish the spec in a form that all interested parties can interact with to learn about the API.
 
-You can access the published spec at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.2.0#/default/Status>
+For each release of the Charging Module API we
+
+- update the main spec
+- generate a new unified schema
+- tag and save the unified schema to [versions](openapi/versions)
+- create a new version in SwaggerHub and copy the contents of the file into it
+
+For example, you can access the published spec for [v0.2.0](https://github.com/DEFRA/charging-module-api/releases/tag/v0.2.0) at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.2.0>
 
 There's a few steps we have to go through to do this.
 
+### Update the main spec
+
+Update [openapi.yml](openapi/openapi.yml) with any changes made to the API in the new version. This might be documenting changes in how endpoints behave, the schema because an endpoint has amended how it responds etc.
+
+Create the changes on a branch and raise a PR for review by another member of the dev team.
+
 ### Convert to a single file
+
+Once approved we need to create a unified version of the schema i.e. a single file.
 
 Some tools require a single file. The **open-api designer** includes a feature that will compile a unified schema and dereferences all `$refs` into a single JSON file. As `yml` is still the prefered option by most tools, including **SwaggerHub**, we use an online tool like [JSON2YAML](https://www.json2yaml.com/) to convert the file back to a single `*.yml` file.
 
-If you make a change to the OpenAPI files, go through this process, and ensure [openapi/swagger.yml](openapi/swagger.yml) is updated as well.
+Rename the generated file based on the version, for example, [swagger_v0-2-0.yml](openapi/versions/swagger_v0-2-0.yml) then move it to the [versions](openapi/versions) folder.
 
 ### Updating SwaggerHub
 
 Because we have no money, we are having to take advantage of the free version of SwaggerHub! This means only [@cruikshanks](https://github.com/Cruikshanks) can update it. When this needs doing, give him a poke.
+
+He'll create a new version in SwaggerHub and copy the contents of the file into it. The SwaggerHub version will match the Charging Module API version so it should be possible to work out how to access the published spec. For example
+
+- `v0.2.0` is available at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.2.0>
+- `v0.3.0` will be available at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.3.0>
 
 ## Not currently included
 
