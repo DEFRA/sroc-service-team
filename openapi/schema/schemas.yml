@@ -394,13 +394,6 @@ customerFileSummary:
       $ref: 'fields.yml#/customerFileStatus'
     created_at:
       $ref: 'fields.yml#/timeStamp'
-status:
-  description: "Returned by a call to status, it is an object that contains a copy of the headers found in the original request"
-  type: object
-  properties:
-    status:
-      type: string
-      example: 'alive'
 pagination:
   description: "Returned when a response contains multiple results"
   type: object
@@ -441,6 +434,13 @@ regimeSummary:
       example: 'Water Resources'
     slug:
       $ref: 'fields.yml#/regime'
+status:
+  description: "Returned by a call to status, it is an object that contains a copy of the headers found in the original request"
+  type: object
+  properties:
+    status:
+      type: string
+      example: 'alive'
 transaction:
   description: ""
   type: object
