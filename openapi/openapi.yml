@@ -75,6 +75,9 @@ paths:
   '/admin/authorised_systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 
+  '/admin/health/airbrake':
+    $ref: 'paths/admin/health/airbrake.yml'
+
   '/v1/{regime}/billruns':
     $ref: 'paths/v1/billruns/bill_runs.yml'
 
