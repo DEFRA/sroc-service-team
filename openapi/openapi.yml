@@ -46,6 +46,20 @@ tags:
     description: "Operations related to transactions"
 
 paths:
+  /:
+    get:
+      operationId: Status
+      description: "Confirm service is up and running. Exactly the same as `/status`"
+      tags:
+        - health
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: 'schema/schemas.yml#/status'
+
   /status:
     $ref: 'paths/status.yml'
 
