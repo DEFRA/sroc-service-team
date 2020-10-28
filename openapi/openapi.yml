@@ -18,7 +18,7 @@ info:
 
     - Query params are case senstive. Ensure they match what is in the spec below to avoid `422 - Unprocessable Entity` errors
     - To generate a bill run summary you need to call the 'View Billrun' endpoint. The API curently appears to error doing this for ones with a large number of transactions (8-9K or more)
-  version: "v0.2.0"
+  version: "v0.3.0"
   title: Charging Module API
   contact:
     name: SRoC Service Team
