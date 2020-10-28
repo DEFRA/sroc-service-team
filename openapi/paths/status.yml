@@ -1,6 +1,8 @@
 get:
   operationId: Status
   description: "Confirm service is up and running"
+  tags:
+    - health
   responses:
     '200':
       description: "Success"

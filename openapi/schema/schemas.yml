@@ -398,18 +398,9 @@ status:
   description: "Returned by a call to status, it is an object that contains a copy of the headers found in the original request"
   type: object
   properties:
-    accept:
+    status:
       type: string
-      example: '*/*'
-    accept-encoding:
-      type: string
-      example: 'gzip, deflate, br'
-    content-type:
-      type: string
-      example: 'application/json'
-    host:
-      type: string
-      example: 'DEVCHABESNLB001-d027d9edf577c9e8.elb.eu-west-1.amazonaws.com'
+      example: 'alive'
 pagination:
   description: "Returned when a response contains multiple results"
   type: object
