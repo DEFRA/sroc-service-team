@@ -108,9 +108,6 @@ paths:
   '/v1/{regime}/customer_changes':
     $ref: 'paths/v1/customer_changes/customer_changes.yml'
 
-  '/v1/{regime}/customer_changes/{customerChangeId}':
-    $ref: 'paths/v1/customer_changes/customer_change.yml'
-
   '/v1/{regime}/transactions':
     $ref: 'paths/v1/transactions/transactions.yml'
 

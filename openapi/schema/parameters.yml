@@ -36,13 +36,6 @@ chargeElementId:
   description: "DOES NOT MATCH MASTER DATA SPECIFICATION"
   schema:
     $ref: 'fields.yml#/chargeElementId'
-customerChangeId:
-  name: customerChangeId
-  in: path
-  required: true
-  description: "Internal ID (GUID) allocated by the CM when creating customer change record for inclusion in a customer file"
-  schema:
-    $ref: 'fields.yml#/customerChangeId'
 customerFileId:
   name: customerFileId
   in: path
