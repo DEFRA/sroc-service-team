@@ -87,9 +87,6 @@ paths:
   '/v1/{regime}/billruns/{billrunId}/approve':
     $ref: 'paths/v1/billruns/bill_run_approve.yml'
 
-  '/v1/{regime}/billruns/{billrunId}/unapprove':
-    $ref: 'paths/v1/billruns/bill_run_unapprove.yml'
-
   '/v1/{regime}/billruns/{billrunId}/send':
     $ref: 'paths/v1/billruns/bill_run_send.yml'
 
