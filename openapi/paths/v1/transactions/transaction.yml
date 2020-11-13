@@ -96,15 +96,3 @@ get:
                   eiucSourceFactor: 0
                   eiucFactor: 0
                 chargeValue: 2
-
-delete:
-  operationId: DeleteTransaction
-  description: "Removes a single transaction based on the transaction ID. Transaction must be unbilled."
-  tags:
-    - transaction
-  parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/transactionId'
-  responses:
-    '204':
-      description: "Success"
