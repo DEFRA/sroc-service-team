@@ -2,7 +2,7 @@ get:
   operationId: ListCustomerFiles
   description: "Request to view a list of all customer files meeting specified parameters. Returns summary info about each file and a list of customer refs included in each file (but no other customer data)."
   tags:
-    - customer
+    - admin
   parameters:
     - $ref: '../../../schema/parameters.yml#/regime'
     - $ref: '../../../schema/parameters.yml#/customerFileNumber'
@@ -55,7 +55,7 @@ post:
   operationId: CreateCustomerFile
   description: "Triggers creation of a customer file for a given region, including all customer changes for that region that have not previously been included in a file. Note: This endpoint has been developed for testing purposes only as file generation will normally be automated in the CM rather than called by the source."
   tags:
-    - customer
+    - admin
   parameters:
     - $ref: '../../../schema/parameters.yml#/regime'
   responses:
