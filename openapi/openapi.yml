@@ -81,17 +81,11 @@ paths:
   '/admin/health/database':
     $ref: 'paths/admin/health/database.yml'
 
-  '/v1/{regime}/billruns':
-    $ref: 'paths/v1/billruns/bill_runs.yml'
-
   '/v1/{regime}/billruns/{billrunId}':
     $ref: 'paths/v1/billruns/bill_run.yml'
 
   '/v1/{regime}/billruns/{billrunId}/approve':
     $ref: 'paths/v1/billruns/bill_run_approve.yml'
-
-  '/v1/{regime}/billruns/{billrunId}/unapprove':
-    $ref: 'paths/v1/billruns/bill_run_unapprove.yml'
 
   '/v1/{regime}/billruns/{billrunId}/send':
     $ref: 'paths/v1/billruns/bill_run_send.yml'
@@ -113,9 +107,6 @@ paths:
 
   '/v1/{regime}/customer_changes':
     $ref: 'paths/v1/customer_changes/customer_changes.yml'
-
-  '/v1/{regime}/customer_changes/{customerChangeId}':
-    $ref: 'paths/v1/customer_changes/customer_change.yml'
 
   '/v1/{regime}/transactions':
     $ref: 'paths/v1/transactions/transactions.yml'

@@ -293,33 +293,6 @@ calculateChargeResponse:
       $ref: 'fields.yml#/eiuc'
     suc:
       $ref: 'fields.yml#/suc'
-customerChange:
-  description: ""
-  type: object
-  properties:
-    id:
-      description:
-      $ref: 'fields.yml#/customerChangeId'
-    region:
-      $ref: 'fields.yml#/regionCode'
-    customerReference:
-      $ref: 'fields.yml#/customerReference'
-    customerName:
-      $ref: 'fields.yml#/customerName'
-    addressLine1:
-      $ref: 'fields.yml#/addressLine1'
-    addressLine2:
-      $ref: 'fields.yml#/addressLine2'
-    addressLine3:
-      $ref: 'fields.yml#/addressLine3'
-    addressLine4:
-      $ref: 'fields.yml#/addressLine4'
-    addressLine5:
-      $ref: 'fields.yml#/addressLine5'
-    addressLine6:
-      $ref: 'fields.yml#/addressLine6'
-    postcode:
-      $ref: 'fields.yml#/postcode'
 customerChangePost:
   description: ""
   type: object
