@@ -105,8 +105,11 @@ paths:
   '/v1/{regime}/calculate_charge':
     $ref: 'paths/v1/calculate_charge/calculate_charge.yml'
 
-  '/v1/{regime}/customer_changes':
+  '/v1/{regime}/customer-changes':
     $ref: 'paths/v1/customer_changes/customer_changes.yml'
+
+  '/v1/{regime}/customer_changes':
+    $ref: 'paths/v1/customer_changes/deprecated_customer_changes.yml'
 
   '/v1/{regime}/transactions':
     $ref: 'paths/v1/transactions/transactions.yml'
