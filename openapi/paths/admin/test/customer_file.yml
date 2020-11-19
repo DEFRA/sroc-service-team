@@ -2,7 +2,7 @@ get:
   operationId: ViewCustomerFile
   description: "Request to view a single customer file based on a customer file ID. Returns summary info about the file and a list of customer refs included in the file."
   tags:
-    - customer
+    - admin
   parameters:
     - $ref: '../../../schema/parameters.yml#/regime'
     - $ref: '../../../schema/parameters.yml#/customerFileId'

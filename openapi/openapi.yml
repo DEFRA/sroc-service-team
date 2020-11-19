@@ -81,6 +81,12 @@ paths:
   '/admin/health/database':
     $ref: 'paths/admin/health/database.yml'
 
+  '/admin/test/{regime}/customer_files':
+    $ref: 'paths/admin/test/customer_files.yml'
+
+  '/admin/test/{regime}/customer_files/{customerFileId}':
+    $ref: 'paths/admin/test/customer_file.yml'
+
   '/v1/{regime}/billruns/{billrunId}':
     $ref: 'paths/v1/billruns/bill_run.yml'
 
@@ -98,12 +104,6 @@ paths:
 
   '/v1/{regime}/calculate_charge':
     $ref: 'paths/v1/calculate_charge/calculate_charge.yml'
-
-  '/v1/{regime}/customer_files':
-    $ref: 'paths/v1/customer_files/customer_files.yml'
-
-  '/v1/{regime}/customer_files/{customerFileId}':
-    $ref: 'paths/v1/customer_files/customer_file.yml'
 
   '/v1/{regime}/customer_changes':
     $ref: 'paths/v1/customer_changes/customer_changes.yml'
