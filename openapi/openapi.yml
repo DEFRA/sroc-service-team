@@ -102,8 +102,11 @@ paths:
   '/v1/{regime}/billruns/{billrunId}/transactions/{transactionId}':
     $ref: 'paths/v1/billruns/transactions/bill_run_transaction.yml'
 
-  '/v1/{regime}/calculate_charge':
+  '/v1/{regime}/calculate-charge':
     $ref: 'paths/v1/calculate_charge/calculate_charge.yml'
+
+  '/v1/{regime}/calculate_charge':
+    $ref: 'paths/v1/calculate_charge/deprecated_calculate_charge.yml'
 
   '/v1/{regime}/customer-changes':
     $ref: 'paths/v1/customer_changes/customer_changes.yml'

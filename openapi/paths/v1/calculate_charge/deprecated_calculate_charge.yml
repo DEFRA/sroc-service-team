@@ -1,0 +1,52 @@
+post:
+  operationId: CalculateCharge
+  description: "**This endpoint will be removed in the next version of the API**. Does exactly the same thing as the `/calculate-charge` endpoint. It is deprecated and will be removed because it does not follow the standard convention of using dashes instead of underscores."
+  tags:
+    - calculate
+  deprecated: true
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              calculation:
+                $ref: '../../../schema/schemas.yml#/calculateChargeResponse'
+          example:
+            calculation:
+              chargeValue: 772
+              sourceFactor: 3
+              seasonFactor: 1.6
+              lossFactor: 0.03
+              licenceHolderChargeAgreement: null
+              chargeElementAgreement: null
+              eiucSourceFactor: 0
+              eiuc: 0
+              suc: 1495
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../../schema/schemas.yml#/calculateCharge'
+        example:
+          periodStart: 01-APR-2020
+          periodEnd: 31-MAR-2021
+          credit: false
+          billableDays: 214
+          authorisedDays: 214
+          volume: '3.5865'
+          source: Supported
+          season: Summer
+          loss: Low
+          twoPartTariff: false
+          compensationCharge: false
+          eiucSource: Tidal
+          waterUndertaker: false
+          regionalChargingArea: Midlands
+          section126Factor: 1
+          section127Agreement: false
+          section130Agreement: false
