@@ -69,10 +69,10 @@ paths:
   '/admin/regimes/{regime}':
     $ref: 'paths/admin/regime.yml'
 
-  '/admin/authorised_systems':
+  '/admin/authorised-systems':
     $ref: 'paths/admin/authorised_systems.yml'
 
-  '/admin/authorised_systems/{authorisedSystemId}':
+  '/admin/authorised-systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 
   '/admin/health/airbrake':
@@ -81,10 +81,10 @@ paths:
   '/admin/health/database':
     $ref: 'paths/admin/health/database.yml'
 
-  '/admin/test/{regime}/customer_files':
+  '/admin/test/{regime}/customer-files':
     $ref: 'paths/admin/test/customer_files.yml'
 
-  '/admin/test/{regime}/customer_files/{customerFileId}':
+  '/admin/test/{regime}/customer-files/{customerFileId}':
     $ref: 'paths/admin/test/customer_file.yml'
 
   '/v1/{regime}/billruns/{billrunId}':
