@@ -69,10 +69,10 @@ paths:
   '/admin/regimes/{regime}':
     $ref: 'paths/admin/regime.yml'
 
-  '/admin/authorised_systems':
+  '/admin/authorised-systems':
     $ref: 'paths/admin/authorised_systems.yml'
 
-  '/admin/authorised_systems/{authorisedSystemId}':
+  '/admin/authorised-systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 
   '/admin/health/airbrake':
@@ -81,10 +81,10 @@ paths:
   '/admin/health/database':
     $ref: 'paths/admin/health/database.yml'
 
-  '/admin/test/{regime}/customer_files':
+  '/admin/test/{regime}/customer-files':
     $ref: 'paths/admin/test/customer_files.yml'
 
-  '/admin/test/{regime}/customer_files/{customerFileId}':
+  '/admin/test/{regime}/customer-files/{customerFileId}':
     $ref: 'paths/admin/test/customer_file.yml'
 
   '/v1/{regime}/billruns/{billrunId}':
@@ -102,11 +102,17 @@ paths:
   '/v1/{regime}/billruns/{billrunId}/transactions/{transactionId}':
     $ref: 'paths/v1/billruns/transactions/bill_run_transaction.yml'
 
-  '/v1/{regime}/calculate_charge':
+  '/v1/{regime}/calculate-charge':
     $ref: 'paths/v1/calculate_charge/calculate_charge.yml'
 
-  '/v1/{regime}/customer_changes':
+  '/v1/{regime}/calculate_charge':
+    $ref: 'paths/v1/calculate_charge/deprecated_calculate_charge.yml'
+
+  '/v1/{regime}/customer-changes':
     $ref: 'paths/v1/customer_changes/customer_changes.yml'
+
+  '/v1/{regime}/customer_changes':
+    $ref: 'paths/v1/customer_changes/deprecated_customer_changes.yml'
 
   '/v1/{regime}/transactions':
     $ref: 'paths/v1/transactions/transactions.yml'
