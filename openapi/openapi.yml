@@ -1,6 +1,8 @@
 openapi: 3.0.0
 info:
   description: |
+    > This `draft` version represents the next release of the API.
+
     Provides an interface for calculating charges, queuing transactions and generating transaction files used to produce invoices by the Environment Agency.
 
     ## Working with the API
@@ -18,7 +20,7 @@ info:
 
     - Query params are case senstive. Ensure they match what is in the spec below to avoid `422 - Unprocessable Entity` errors
     - To generate a bill run summary you need to call the 'View Billrun' endpoint. It is known bill runs with a large number of transactions (8-9K or more) and a lots of different customers can take a number of hours to complete
-  version: "v0.3.0"
+  version: "draft"
   title: Charging Module API
   contact:
     name: SRoC Service Team
