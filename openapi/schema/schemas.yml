@@ -170,6 +170,8 @@ billrunPost:
   properties:
     region:
       $ref: 'fields.yml#/regionCode'
+  required:
+    - region
 billrunPostResponse:
   description: ""
   type: object
