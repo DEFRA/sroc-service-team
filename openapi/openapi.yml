@@ -87,6 +87,9 @@ paths:
   '/admin/test/{regime}/customer-files/{customerFileId}':
     $ref: 'paths/admin/test/customer_file.yml'
 
+  '/v1/{regime}/billruns':
+    $ref: 'paths/v1/billruns/bill_runs.yml'
+
   '/v1/{regime}/billruns/{billrunId}':
     $ref: 'paths/v1/billruns/bill_run.yml'
 
