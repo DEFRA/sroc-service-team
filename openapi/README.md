@@ -49,8 +49,8 @@ Because we have no money, we are having to take advantage of the free version of
 
 He'll create a new version in SwaggerHub and copy the contents of the file into it. The SwaggerHub version will match the Charging Module API version so it should be possible to work out how to access the published spec. For example
 
-- `v0.2.0` is available at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.2.0>
-- `v0.3.0` will be available at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.3.0>
+- `v0.2.0` available at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.2.0>
+- `v0.3.0` available at <https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.3.0>
 
 ## Not currently included
 
