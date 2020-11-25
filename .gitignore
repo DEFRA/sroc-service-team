@@ -18,3 +18,8 @@ ___*
 /tags
 
 .idea
+
+# Ignore generated OpenAPI unified schema file
+# We generate this file as part of publishing the spec to SwaggerHub. But it's
+# not something we need to keep track of in source control.
+openapi/openapi.json
