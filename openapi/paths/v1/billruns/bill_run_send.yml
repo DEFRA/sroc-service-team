@@ -17,7 +17,7 @@ patch:
               billRun:
                 $ref: '../../../schema/schemas.yml#/billrun'
 post:
-  operationId: SendBillRun
+  operationId: SendBillRunOld
   description: "**This endpoint will be removed in the next version of the API**. Does exactly the same thing as the `PATCH` version. It is deprecated and will be removed because it does not meet our convention of using `PATCH` for endpoints like these."
   tags:
     - billrun

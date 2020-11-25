@@ -1,5 +1,5 @@
 post:
-  operationId: CreateCustomerChange
+  operationId: CreateCustomerChangeOld
   description: "**This endpoint will be removed in the next version of the API**. Does exactly the same thing as the `/customer-change` endpoint. It is deprecated and will be removed because it does not follow the standard convention of using dashes instead of underscores."
   tags:
     - customer
