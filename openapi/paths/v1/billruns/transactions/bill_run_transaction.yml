@@ -72,6 +72,7 @@ get:
               minimumChargeAdjustment: false
               approvedForBilling: false
               deminimis: false
+              netZeroValueInvoice: false
               clientId: hb3ab097-8567-42bd-849e-046aa250a8u8
               transactionFileReference: null
               calculation:

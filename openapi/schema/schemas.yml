@@ -533,6 +533,8 @@ transaction:
       $ref: 'fields.yml#/approvalStatus'
     deminimis:
       $ref: 'fields.yml#/deminimisTransaction'
+    netZeroValueInvoice:
+      $ref: 'fields.yml#/netZeroValueInvoice'
     clientId:
       $ref: 'fields.yml#/clientIdTransaction'
     transactionFileReference:
