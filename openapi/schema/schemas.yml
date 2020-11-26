@@ -634,7 +634,7 @@ transactionPost:
     compensationCharge:
       $ref: 'fields.yml#/compensationCharge'
     eiucSource:
-      $ref: 'fields.yml#/eiucAdjustedSource'
+      $ref: 'fields.yml#/eiucSource'
     waterUndertaker:
       $ref: 'fields.yml#/waterUndertaker'
     regionalChargingArea:
