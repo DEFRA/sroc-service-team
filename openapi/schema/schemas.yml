@@ -273,6 +273,22 @@ calculateCharge:
       $ref: 'fields.yml#/section127Agreement'
     section130Agreement:
       $ref: 'fields.yml#/section130Agreement'
+  required:
+    - periodStart
+    - periodEnd
+    - billableDays
+    - authorisedDays
+    - volume
+    - source
+    - season
+    - loss
+    - section130Agreement
+    - section127Agreement
+    - twoPartTariff
+    - compensationCharge
+    - regionalChargingArea
+    - credit
+    - waterUndertaker
 calculateChargeResponse:
   description: ""
   type: object
@@ -319,6 +335,11 @@ customerChangePost:
       $ref: 'fields.yml#/addressLine6'
     postcode:
       $ref: 'fields.yml#/postcode'
+  required:
+    - region
+    - customerReference
+    - customerName
+    - addressLine1
 customerChangePostResponse:
   description: ""
   type: object
@@ -634,6 +655,27 @@ transactionPost:
       $ref: 'fields.yml#/regionCode'
     areaCode:
       $ref: 'fields.yml#/areaCode'
+  required:
+    - region
+    - periodStart
+    - periodEnd
+    - customerReference
+    - licenceNumber
+    - billableDays
+    - authorisedDays
+    - volume
+    - source
+    - season
+    - loss
+    - section130Agreement
+    - section127Agreement
+    - twoPartTariff
+    - compensationCharge
+    - regionalChargingArea
+    - credit
+    - areaCode
+    - lineDescription
+    - chargePeriod
 transactionPostResponse:
   description: ""
   type: object
