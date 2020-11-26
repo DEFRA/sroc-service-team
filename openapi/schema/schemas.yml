@@ -533,6 +533,8 @@ transaction:
       $ref: 'fields.yml#/approvalStatus'
     deminimis:
       $ref: 'fields.yml#/deminimisTransaction'
+    clientId:
+      $ref: 'fields.yml#/clientIdTransaction'
     transactionFileReference:
       $ref: 'fields.yml#/transactionFileReference'
     calculation:
@@ -657,6 +659,8 @@ transactionPost:
       $ref: 'fields.yml#/areaCode'
     newLicence:
       $ref: 'fields.yml#/newLicence'
+    clientId:
+      $ref: 'fields.yml#/clientIdTransaction'
   required:
     - region
     - periodStart

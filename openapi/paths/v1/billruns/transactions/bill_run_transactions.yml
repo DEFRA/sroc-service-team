@@ -90,6 +90,7 @@ get:
                 minimumChargeAdjustment: false
                 approvedForBilling: true
                 deminimis: false
+                clientId: hb3ab097-8567-42bd-849e-046aa250a8u8
                 transactionFileReference: 'nalti50002.dat'
                 calculation:
                   uuid: 'b9827e43-d2bb-41c7-a886-b7bac0e4bf3b0'

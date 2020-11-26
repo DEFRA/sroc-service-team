@@ -64,6 +64,7 @@ get:
               minimumChargeAdjustment: false
               approvedForBilling: false
               deminimis: false
+              clientId: hb3ab097-8567-42bd-849e-046aa250a8u8
               transactionFileReference: null
               calculation:
                 uuid: '9e2575c2-8435-4564-a846-606ed2b1c2400'

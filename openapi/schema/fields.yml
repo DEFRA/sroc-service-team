@@ -107,6 +107,11 @@ clientID:
   description: "NOT IN MASTER DATA SPECIFICATION"
   type: string
   example: 'i7rnixijjrawj7azzhwwxxxxxx'
+clientIdTransaction:
+  description: "ID of the transaction in the client system. If provided at time of creation the API will first check no existing transactions with the same ID for that regime exist."
+  type: string
+  nullable: true
+  example: 'hb3ab097-8567-42bd-849e-046aa250a8u8'
 compensationCharge:
   description: "Boolean indicator to show whether the transaction relates to a compensation charge"
   type: boolean
