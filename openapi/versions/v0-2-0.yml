@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: |
-    Provides an interface for calculating charges, queuing transactions and generating transaction files used to produce invoices by the Environment Agency.
+    Provides an interface for calculating charges, creating and queuing transactions, and generating transaction and customer files used to produce Environment Agency invoices.
 
     ## Working with the API
 
