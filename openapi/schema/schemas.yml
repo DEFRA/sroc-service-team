@@ -273,6 +273,22 @@ calculateCharge:
       $ref: 'fields.yml#/section127Agreement'
     section130Agreement:
       $ref: 'fields.yml#/section130Agreement'
+  required:
+    - periodStart
+    - periodEnd
+    - billableDays
+    - authorisedDays
+    - volume
+    - source
+    - season
+    - loss
+    - section130Agreement
+    - section127Agreement
+    - twoPartTariff
+    - compensationCharge
+    - regionalChargingArea
+    - credit
+    - waterUndertaker
 calculateChargeResponse:
   description: ""
   type: object
@@ -319,6 +335,11 @@ customerChangePost:
       $ref: 'fields.yml#/addressLine6'
     postcode:
       $ref: 'fields.yml#/postcode'
+  required:
+    - region
+    - customerReference
+    - customerName
+    - addressLine1
 customerChangePostResponse:
   description: ""
   type: object
@@ -512,6 +533,10 @@ transaction:
       $ref: 'fields.yml#/approvalStatus'
     deminimis:
       $ref: 'fields.yml#/deminimisTransaction'
+    netZeroValueInvoice:
+      $ref: 'fields.yml#/netZeroValueInvoice'
+    clientId:
+      $ref: 'fields.yml#/clientIdTransaction'
     transactionFileReference:
       $ref: 'fields.yml#/transactionFileReference'
     calculation:
@@ -609,7 +634,7 @@ transactionPost:
     compensationCharge:
       $ref: 'fields.yml#/compensationCharge'
     eiucSource:
-      $ref: 'fields.yml#/eiucAdjustedSource'
+      $ref: 'fields.yml#/eiucSource'
     waterUndertaker:
       $ref: 'fields.yml#/waterUndertaker'
     regionalChargingArea:
@@ -634,6 +659,31 @@ transactionPost:
       $ref: 'fields.yml#/regionCode'
     areaCode:
       $ref: 'fields.yml#/areaCode'
+    newLicence:
+      $ref: 'fields.yml#/newLicence'
+    clientId:
+      $ref: 'fields.yml#/clientIdTransaction'
+  required:
+    - region
+    - periodStart
+    - periodEnd
+    - customerReference
+    - licenceNumber
+    - billableDays
+    - authorisedDays
+    - volume
+    - source
+    - season
+    - loss
+    - section130Agreement
+    - section127Agreement
+    - twoPartTariff
+    - compensationCharge
+    - regionalChargingArea
+    - credit
+    - areaCode
+    - lineDescription
+    - chargePeriod
 transactionPostResponse:
   description: ""
   type: object
