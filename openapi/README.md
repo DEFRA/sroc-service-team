@@ -29,9 +29,9 @@ You can also access the [full spec](https://github.com/OAI/OpenAPI-Specification
 
 An issue was noted with our Open API workflow. As we make changes to the API we update the spec ready for the next release. But the delivery team and any interested parties can't see those changes till we release the next version.
 
-So now we maintain a [draft version](openapi/versions/draft.yml) which we publish to [SwaggerHub](https://app.swaggerhub.com/apis-docs/sro/charging-module_api/draft) alongside our release versions.
+So now we maintain a [draft version](/openapi/versions/draft.yml) which we publish to [SwaggerHub](https://app.swaggerhub.com/apis-docs/sro/charging-module_api/draft) alongside our release versions.
 
-Anyone making a change to the spec is expected to also regenerate the [draft version](openapi/versions/draft.yml).
+Anyone making a change to the spec is expected to also regenerate the [draft version](/openapi/versions/draft.yml).
 
 ### Generate draft.yml
 
@@ -39,7 +39,7 @@ In order to upload our specs to SwaggerHub we need to create a unified version o
 
 The **open-api designer** includes a feature that will compile a unified schema and dereferences all `$refs` into a single JSON file (`openapi/openapi.json`).
 
-As `yml` is still the prefered option by most tools, including **SwaggerHub**, we use an online tool like [JSON2YAML](https://www.json2yaml.com/) to convert the JSON to yml. Copy the contents of `openapi/openapi.json` to **JSON2YAML**. Once converted replace the contents of [draft.yml](openapi/versions/draft.yml) with the generated YAML.
+As `yml` is still the prefered option by most tools, including **SwaggerHub**, we use an online tool like [JSON2YAML](https://www.json2yaml.com/) to convert the JSON to yml. Copy the contents of `openapi/openapi.json` to **JSON2YAML**. Once converted replace the contents of [draft.yml](/openapi/versions/draft.yml) with the generated YAML.
 
 ### Updating SwaggerHub
 
@@ -63,7 +63,7 @@ If final changes are required follow [Maintaing the Draft version](#maintaing-th
 
 ### Tag and save version of the spec
 
-With [draft.yml](openapi/versions/draft.yml) updated duplicate the file then rename the copy to match the release version of the API, for example `v0-3-0.yml`.
+With [draft.yml](/openapi/versions/draft.yml) updated duplicate the file then rename the copy to match the release version of the API, for example `v0-3-0.yml`.
 
 You then need to make 2 small tweaks to the new file (both are at the top so you won't get lost!)
 
