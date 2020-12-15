@@ -446,8 +446,12 @@ transaction:
     region:
       $ref: 'fields.yml#/regionCode'
     periodStart:
+      description: "The start date of the charge period covered by a transaction. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/periodStart'
     periodEnd:
+      description: "The end date of the charge period covered by a transaction. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/periodEnd'
     customerReference:
       $ref: 'fields.yml#/customerReference'
@@ -456,56 +460,102 @@ transaction:
     invoiceDate:
       $ref: 'fields.yml#/invoiceDate'
     licenceNumber:
+      description: "The reference of the licence to which a charge / transaction relates. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/licenceNumber'
     chargePeriod:
+      description: "The charge period for a transaction (i.e. charge period start date to charge period end date). _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/chargePeriod'
     chargeElementId:
       $ref: 'fields.yml#/chargeElementId'
     billableDays:
+      description: "The number of days covered by a charge. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/billableDays'
     authorisedDays:
+      description: "The number of days per year in which abstraction is authorised under the terms of the licence. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/authorisedDays'
     prorataDays:
+      description: "Pro-rata days, shown as a fraction comprising Billable Days / Authorised Days. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/prorataDays'
     volume:
+      description: "The volume (in thousands of cubic metres) on which the charge is based. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/volume'
     source:
+      description: "Source on which standard charge calculation based. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/source'
     sourceFactor:
+      description: "The source factor applied to the calculation. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/sourceFactor'
     season:
+      description: "Season on which charge calculation based. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/season'
     seasonFactor:
+      description: "The season factor applied to the calculation. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/seasonFactor'
     loss:
+      description: "Loss on which charge calculation based. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/loss'
     lossFactor:
+      description: "The loss factor applied to the calculation. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/lossFactor'
     section130Agreement:
+      description: "Indicator to show whether a section 130 charge agreement applies to the transaction. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/section130Agreement'
     licenceHolderChargeAgreement:
+      description: "Summary of the Section 130 charge calculation in a specific format required by the transaction file. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/licenceHolderChargeAgreement'
     section126Factor:
+      description: "The factor to apply to the charge where a section 126 charge agreement is relevant to the transaction. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/section126Factor'
     section127Agreement:
+      description: "Indicator to show whether a section 127 charge agreement applies to the transaction. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/section127Agreement'
     chargeElementAgreement:
-      type: string
+      description: "Summary of the Section 126 or Section 127 charge calculations in a specific format required by the transaction file. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
+      $ref: 'fields.yml#/chargeElementAgreement'
     twoPartTariff:
+      description: "Boolean indicator to show whether the transaction is for the second part of a 2-part tariff charge. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/supplementaryTwoPartTariff'
     compensationCharge:
+      description: "Boolean indicator to show whether the transaction relates to a compensation charge. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/compensationCharge'
     eiucSource:
       $ref: 'fields.yml#/eiucAdjustedSource'
     eiucSourceFactor:
+      description: "The EIUC adjusted source factor applied to the calculation. _May be blank if the transaction is not for a compensation charge._"
+      nullable: true
       $ref: 'fields.yml#/eiucAdjustedSourceFactor'
     waterUndertaker:
       $ref: 'fields.yml#/waterUndertaker'
     regionalChargingArea:
+      description: "The name of the region relevant to the determination of the SUC and / or EIUC value to be used in the calculation. _May be blank for a minimum charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/sucEiucRegionName'
     eiuc:
+      description: "Environmental Improvement Unit Charge (EIUC) for the transaction. _May be blank if the transaction is not for a compensation charge._"
+      nullable: true
       $ref: 'fields.yml#/eiuc'
     suc:
+      description: "Standard Unit Charge (SUC) for the transaction. _May be blank for a minimum charge or compensation charge transaction._"
+      nullable: true
       $ref: 'fields.yml#/suc'
     chargeValue:
       $ref: 'fields.yml#/chargeValue'
@@ -546,6 +596,7 @@ transaction:
           type: string
           example: 'df6861da-9679-4733-af0b-290f25e702810'
         generatedAt:
+          description: "Date and time at which the rules service generated a charge calculation"
           $ref: 'fields.yml#/timeStamp'
         calculation:
           type: object
@@ -684,6 +735,7 @@ transactionPost:
     - credit
     - areaCode
     - lineDescription
+    - waterUndertaker
     - chargePeriod
 transactionPostResponse:
   description: ""
