@@ -14,11 +14,11 @@ You'll need to have [installed Postman](https://www.postman.com/downloads/) firs
 
 We have an [OpenAPI](https://github.com/OAI/OpenAPI-Specification) spec of the CHA. By importing this into Postman it will automatically create a [Postman collection](https://www.postman.com/collection/) of requests, each setup correctly with path and query params and example request bodies. Using the [tags](https://swagger.io/docs/specification/grouping-operations-with-tags/) included in the spec we can also group the requests in the collection.
 
-### Import the swagger.yml
+### Import the version *.yml
 
-You'll need to have a copy of [openapi/swagger.yml](openapi/swagger.yml) available on your machine
+Each time we generate a release of the [Charging Module API](https://github.com/defra/charging-module-api) we also generate and publish an updated version of the spec to [SwaggerHub](https://swagger.io/tools/swaggerhub/). For example, [version v0.3.0](https://app.swaggerhub.com/apis-docs/sro/charging-module_api/v0.3.0). These versioned specs are what we import to Postman. You can find them in [openapi/versions](/openapi/versions). Depending on which version you are working with, you'll want a copy of the file downloaded and available on your machine.
 
-In Postman select the **Import** option in the top left corner and then locate `swagger.yml`.
+In Postman select the **Import** option in the top left corner and then locate the spec file, for example `v0-3-0.yml`.
 
 <img src="import.png" alt="Screenshot of import button in Postman"/>
 
