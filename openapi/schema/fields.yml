@@ -184,10 +184,6 @@ eiucFactor:
   description: "NOT IN MASTER DATA SPECIFICATION"
   type: integer
   example: 0
-eiucSource:
-  description: "Source on which compensation charge calculation based. This field is required when creating a transacton if `compensationCharge` is set to `true`"
-  type: string
-  example: 'Tidal'
 fileId:
   description: "NOT IN MASTER DATA SPECIFICATION"
   type: string

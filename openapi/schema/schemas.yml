@@ -634,7 +634,8 @@ transactionPost:
     compensationCharge:
       $ref: 'fields.yml#/compensationCharge'
     eiucSource:
-      $ref: 'fields.yml#/eiucSource'
+      description: "Source on which compensation charge calculation based. This field is required when creating a transacton if `compensationCharge` is set to `true`"
+      $ref: 'fields.yml#/eiucAdjustedSource'
     waterUndertaker:
       $ref: 'fields.yml#/waterUndertaker'
     regionalChargingArea:
