@@ -533,7 +533,9 @@ paths:
         in: query
         description: In large result sets use to page through them
         schema:
-          description: NOT IN MASTER DATA SPECIFICATION
+          description: When submitting a request that results in a large set of results,
+            this indicates the page number to view. When returned as part of a response
+            it indicates the page number of the data returned.
           type: integer
           minimum: 1
           example: 1
@@ -541,7 +543,10 @@ paths:
         in: query
         description: In large result sets use to control how many to return per page
         schema:
-          description: NOT IN MASTER DATA SPECIFICATION
+          description: When submitting a request that results in a large set of results,
+            this indicates the number of results to be included in each page. When
+            returned as part of a response it indicates the number of results included
+            on each page
           type: integer
           minimum: 1
           maximum: 100
@@ -575,12 +580,18 @@ paths:
                     type: object
                     properties:
                       page:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the page number to view.
+                          When returned as part of a response it indicates the page
+                          number of the data returned.
                         type: integer
                         minimum: 1
                         example: 1
                       perPage:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the number of results to
+                          be included in each page. When returned as part of a response
+                          it indicates the number of results included on each page
                         type: integer
                         minimum: 1
                         maximum: 100
@@ -1835,7 +1846,8 @@ paths:
         in: query
         description: DOES NOT MATCH MASTER DATA SPECIFICATION
         schema:
-          description: DOES NOT MATCH MASTER DATA SPECIFICATION
+          description: An indicator (normally an integer) to distinguish between the
+            different charge elements on a specific licence.
           type: string
           nullable: true
           example: '1'
@@ -1870,7 +1882,9 @@ paths:
         in: query
         description: In large result sets use to page through them
         schema:
-          description: NOT IN MASTER DATA SPECIFICATION
+          description: When submitting a request that results in a large set of results,
+            this indicates the page number to view. When returned as part of a response
+            it indicates the page number of the data returned.
           type: integer
           minimum: 1
           example: 1
@@ -1878,7 +1892,10 @@ paths:
         in: query
         description: In large result sets use to control how many to return per page
         schema:
-          description: NOT IN MASTER DATA SPECIFICATION
+          description: When submitting a request that results in a large set of results,
+            this indicates the number of results to be included in each page. When
+            returned as part of a response it indicates the number of results included
+            on each page
           type: integer
           minimum: 1
           maximum: 100
@@ -1951,12 +1968,18 @@ paths:
                     type: object
                     properties:
                       page:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the page number to view.
+                          When returned as part of a response it indicates the page
+                          number of the data returned.
                         type: integer
                         minimum: 1
                         example: 1
                       perPage:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the number of results to
+                          be included in each page. When returned as part of a response
+                          it indicates the number of results included on each page
                         type: integer
                         minimum: 1
                         maximum: 100
@@ -1999,12 +2022,16 @@ paths:
                               example: A
                             periodStart:
                               description: The start date of the charge period covered
-                                by a transaction
+                                by a transaction. _May be blank for a minimum charge
+                                transaction._
+                              nullable: true
                               type: string
                               example: 01-APR-2018
                             periodEnd:
                               description: The end date of the charge period covered
-                                by a transaction
+                                by a transaction. _May be blank for a minimum charge
+                                transaction._
+                              nullable: true
                               type: string
                               example: 31-MAR-2019
                             customerReference:
@@ -2029,47 +2056,63 @@ paths:
                               example: 03-JUN-2020
                             licenceNumber:
                               description: The reference of the licence to which a
-                                charge / transaction relates
+                                charge / transaction relates. _May be blank for a
+                                minimum charge or compensation charge transaction._
+                              nullable: true
                               type: string
                               maxLength: 150
                               example: 7/34/16/*G/0093
                             chargePeriod:
                               description: The charge period for a transaction (i.e.
-                                charge period start date to charge period end date)
+                                charge period start date to charge period end date).
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: string
                               example: 01-APR-2018 - 31-MAR-2019
                             chargeElementId:
-                              description: DOES NOT MATCH MASTER DATA SPECIFICATION
+                              description: An indicator (normally an integer) to distinguish
+                                between the different charge elements on a specific
+                                licence.
                               type: string
                               nullable: true
                               example: '1'
                             billableDays:
-                              description: The number of days covered by a charge
+                              description: The number of days covered by a charge.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: integer
                               minimum: 0
                               maximum: 366
                               example: 149
                             authorisedDays:
                               description: The number of days per year in which abstraction
-                                is authorised under the terms of the licence
+                                is authorised under the terms of the licence. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: integer
                               minimum: 0
                               maximum: 366
                               example: 214
                             prorataDays:
                               description: Pro-rata days, shown as a fraction comprising
-                                Billable Days / Authorised Days
+                                Billable Days / Authorised Days. _May be blank for
+                                a minimum charge or compensation charge transaction._
+                              nullable: true
                               type: string
                               example: 149/214
                             volume:
                               description: The volume (in thousands of cubic metres)
-                                on which the charge is based
+                                on which the charge is based. _May be blank for a
+                                minimum charge or compensation charge transaction._
+                              nullable: true
                               type: number
                               minimum: 0
                               example: 19.909
                             source:
                               description: Source on which standard charge calculation
-                                based
+                                based. _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Supported
@@ -2078,11 +2121,16 @@ paths:
                               - Tidal
                               example: Unsupported
                             sourceFactor:
-                              description: The source factor applied to the calculation
+                              description: The source factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 9
                             season:
-                              description: Season on which charge calculation based
+                              description: Season on which charge calculation based.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Summer
@@ -2090,11 +2138,16 @@ paths:
                               - All Year
                               example: Summer
                             seasonFactor:
-                              description: The season factor applied to the calculation
+                              description: The season factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 0.16
                             loss:
-                              description: Loss on which charge calculation based
+                              description: Loss on which charge calculation based.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - High
@@ -2103,43 +2156,63 @@ paths:
                               - Very Low
                               example: Medium
                             lossFactor:
-                              description: The loss factor applied to the calculation
+                              description: The loss factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 0.003
                             section130Agreement:
                               description: Indicator to show whether a section 130
-                                charge agreement applies to the transaction
+                                charge agreement applies to the transaction. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: true
                             licenceHolderChargeAgreement:
                               description: Summary of the Section 130 charge calculation
-                                in a specific format required by the transaction file
-                              type: string
+                                in a specific format required by the transaction file.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
                               nullable: true
+                              type: string
                               example: S130U x 0.5
                             section126Factor:
                               description: The factor to apply to the charge where
                                 a section 126 charge agreement is relevant to the
-                                transaction
+                                transaction. _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: number
                               minimum: 0
                               maximum: 1
                               example: 0.75
                             section127Agreement:
                               description: Indicator to show whether a section 127
-                                charge agreement applies to the transaction
+                                charge agreement applies to the transaction. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: false
                             chargeElementAgreement:
+                              description: Summary of the Section 126 or Section 127
+                                charge calculations in a specific format required
+                                by the transaction file. _May be blank for a minimum
+                                charge or compensation charge transaction._
+                              nullable: true
                               type: string
+                              example: S126 x 0.8
                             twoPartTariff:
                               description: Boolean indicator to show whether the transaction
-                                is for the second part of a 2-part tariff charge
+                                is for the second part of a 2-part tariff charge.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: true
                             compensationCharge:
                               description: Boolean indicator to show whether the transaction
-                                relates to a compensation charge
+                                relates to a compensation charge. _May be blank for
+                                a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: false
                             eiucSource:
@@ -2149,7 +2222,9 @@ paths:
                               example: Tidal
                             eiucSourceFactor:
                               description: The EIUC adjusted source factor applied
-                                to the calculation
+                                to the calculation. _May be blank if the transaction
+                                is not for a compensation charge._
+                              nullable: true
                               type: number
                               example: 0.2
                             waterUndertaker:
@@ -2160,7 +2235,9 @@ paths:
                             regionalChargingArea:
                               description: The name of the region relevant to the
                                 determination of the SUC and / or EIUC value to be
-                                used in the calculation
+                                used in the calculation. _May be blank for a minimum
+                                charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Anglian
@@ -2175,11 +2252,16 @@ paths:
                               example: Northumbria
                             eiuc:
                               description: Environmental Improvement Unit Charge (EIUC)
-                                for the transaction
+                                for the transaction. _May be blank if the transaction
+                                is not for a compensation charge._
+                              nullable: true
                               type: number
                               example: 0.2
                             suc:
-                              description: Standard Unit Charge (SUC) for the transaction
+                              description: Standard Unit Charge (SUC) for the transaction.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 27.51
                             chargeValue:
@@ -2320,7 +2402,7 @@ paths:
                               example: false
                             clientId:
                               description: ID of the transaction in the client system.
-                                If provided at time of creation the API will first
+                                If provided at the time of creation the API will first
                                 check no existing transactions with the same ID for
                                 that regime exist.
                               type: string
@@ -2340,7 +2422,8 @@ paths:
                                   type: string
                                   example: df6861da-9679-4733-af0b-290f25e702810
                                 generatedAt:
-                                  description: NOT IN MASTER DATA SPECIFICATION
+                                  description: Date and time at which the rules service
+                                    generated a charge calculation
                                   type: string
                                   format: datetime
                                   example: '2020-09-11T11:56:41.578Z'
@@ -2372,23 +2455,30 @@ paths:
                                           type: number
                                           example: 0.003
                                         volumeFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: The volume (in thousands of
+                                            cubic metres) on which the charge is based
                                           type: number
                                           example: 0.75
                                         abatementAdjustment:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: The factor to apply to the
+                                            charge where a section 126 charge agreement
+                                            is relevant to the transaction
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         s127Agreement:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Factor applied to a charge
+                                            as the result of a Section 127 agreement
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         s130Agreement:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Factor applied to a charge
+                                            as the result of a Section 130 agreement
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         secondPartCharge:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Boolean indicator to show whether
+                                            the transaction is for the second part
+                                            of a 2-part tariff charge
                                           type: boolean
                                           example: false
                                         waterUndertaker:
@@ -2397,7 +2487,8 @@ paths:
                                           type: boolean
                                           example: false
                                         eiucFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Environmental Improvement Unit
+                                            Charge (EIUC) for the transaction
                                           type: integer
                                           example: 0
                                         compensationCharge:
@@ -2412,7 +2503,8 @@ paths:
                                           type: number
                                           example: 0.2
                                         sucFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Standard Unit Charge (SUC)
+                                            for the transaction
                                           type: number
                                           example: 2.97108
                                     messages:
@@ -2420,11 +2512,13 @@ paths:
                                       items:
                                         type: object
                                     sucFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: Standard Unit Charge (SUC) for
+                                        the transaction
                                       type: number
                                       example: 2.97108
                                     volumeFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: The volume (in thousands of cubic
+                                        metres) on which the charge is based
                                       type: number
                                       example: 0.75
                                     sourceFactor:
@@ -2465,7 +2559,8 @@ paths:
                                       type: number
                                       example: 0.2
                                     eiucFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: Environmental Improvement Unit
+                                        Charge (EIUC) for the transaction
                                       type: integer
                                       example: 0
                                 chargeValue:
@@ -2745,7 +2840,8 @@ paths:
                   type: string
                   example: 01-APR-2018 - 31-MAR-2019
                 chargeElementId:
-                  description: DOES NOT MATCH MASTER DATA SPECIFICATION
+                  description: An indicator (normally an integer) to distinguish between
+                    the different charge elements on a specific licence.
                   type: string
                   nullable: true
                   example: '1'
@@ -2820,7 +2916,7 @@ paths:
                   example: false
                 clientId:
                   description: ID of the transaction in the client system. If provided
-                    at time of creation the API will first check no existing transactions
+                    at the time of creation the API will first check no existing transactions
                     with the same ID for that regime exist.
                   type: string
                   nullable: true
@@ -2845,6 +2941,7 @@ paths:
               - credit
               - areaCode
               - lineDescription
+              - waterUndertaker
               - chargePeriod
             example:
               periodStart: 01-APR-2019
@@ -2987,12 +3084,18 @@ paths:
                     type: object
                     properties:
                       page:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the page number to view.
+                          When returned as part of a response it indicates the page
+                          number of the data returned.
                         type: integer
                         minimum: 1
                         example: 1
                       perPage:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the number of results to
+                          be included in each page. When returned as part of a response
+                          it indicates the number of results included on each page
                         type: integer
                         minimum: 1
                         maximum: 100
@@ -3035,12 +3138,16 @@ paths:
                               example: A
                             periodStart:
                               description: The start date of the charge period covered
-                                by a transaction
+                                by a transaction. _May be blank for a minimum charge
+                                transaction._
+                              nullable: true
                               type: string
                               example: 01-APR-2018
                             periodEnd:
                               description: The end date of the charge period covered
-                                by a transaction
+                                by a transaction. _May be blank for a minimum charge
+                                transaction._
+                              nullable: true
                               type: string
                               example: 31-MAR-2019
                             customerReference:
@@ -3065,47 +3172,63 @@ paths:
                               example: 03-JUN-2020
                             licenceNumber:
                               description: The reference of the licence to which a
-                                charge / transaction relates
+                                charge / transaction relates. _May be blank for a
+                                minimum charge or compensation charge transaction._
+                              nullable: true
                               type: string
                               maxLength: 150
                               example: 7/34/16/*G/0093
                             chargePeriod:
                               description: The charge period for a transaction (i.e.
-                                charge period start date to charge period end date)
+                                charge period start date to charge period end date).
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: string
                               example: 01-APR-2018 - 31-MAR-2019
                             chargeElementId:
-                              description: DOES NOT MATCH MASTER DATA SPECIFICATION
+                              description: An indicator (normally an integer) to distinguish
+                                between the different charge elements on a specific
+                                licence.
                               type: string
                               nullable: true
                               example: '1'
                             billableDays:
-                              description: The number of days covered by a charge
+                              description: The number of days covered by a charge.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: integer
                               minimum: 0
                               maximum: 366
                               example: 149
                             authorisedDays:
                               description: The number of days per year in which abstraction
-                                is authorised under the terms of the licence
+                                is authorised under the terms of the licence. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: integer
                               minimum: 0
                               maximum: 366
                               example: 214
                             prorataDays:
                               description: Pro-rata days, shown as a fraction comprising
-                                Billable Days / Authorised Days
+                                Billable Days / Authorised Days. _May be blank for
+                                a minimum charge or compensation charge transaction._
+                              nullable: true
                               type: string
                               example: 149/214
                             volume:
                               description: The volume (in thousands of cubic metres)
-                                on which the charge is based
+                                on which the charge is based. _May be blank for a
+                                minimum charge or compensation charge transaction._
+                              nullable: true
                               type: number
                               minimum: 0
                               example: 19.909
                             source:
                               description: Source on which standard charge calculation
-                                based
+                                based. _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Supported
@@ -3114,11 +3237,16 @@ paths:
                               - Tidal
                               example: Unsupported
                             sourceFactor:
-                              description: The source factor applied to the calculation
+                              description: The source factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 9
                             season:
-                              description: Season on which charge calculation based
+                              description: Season on which charge calculation based.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Summer
@@ -3126,11 +3254,16 @@ paths:
                               - All Year
                               example: Summer
                             seasonFactor:
-                              description: The season factor applied to the calculation
+                              description: The season factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 0.16
                             loss:
-                              description: Loss on which charge calculation based
+                              description: Loss on which charge calculation based.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - High
@@ -3139,43 +3272,63 @@ paths:
                               - Very Low
                               example: Medium
                             lossFactor:
-                              description: The loss factor applied to the calculation
+                              description: The loss factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 0.003
                             section130Agreement:
                               description: Indicator to show whether a section 130
-                                charge agreement applies to the transaction
+                                charge agreement applies to the transaction. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: true
                             licenceHolderChargeAgreement:
                               description: Summary of the Section 130 charge calculation
-                                in a specific format required by the transaction file
-                              type: string
+                                in a specific format required by the transaction file.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
                               nullable: true
+                              type: string
                               example: S130U x 0.5
                             section126Factor:
                               description: The factor to apply to the charge where
                                 a section 126 charge agreement is relevant to the
-                                transaction
+                                transaction. _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: number
                               minimum: 0
                               maximum: 1
                               example: 0.75
                             section127Agreement:
                               description: Indicator to show whether a section 127
-                                charge agreement applies to the transaction
+                                charge agreement applies to the transaction. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: false
                             chargeElementAgreement:
+                              description: Summary of the Section 126 or Section 127
+                                charge calculations in a specific format required
+                                by the transaction file. _May be blank for a minimum
+                                charge or compensation charge transaction._
+                              nullable: true
                               type: string
+                              example: S126 x 0.8
                             twoPartTariff:
                               description: Boolean indicator to show whether the transaction
-                                is for the second part of a 2-part tariff charge
+                                is for the second part of a 2-part tariff charge.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: true
                             compensationCharge:
                               description: Boolean indicator to show whether the transaction
-                                relates to a compensation charge
+                                relates to a compensation charge. _May be blank for
+                                a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: false
                             eiucSource:
@@ -3185,7 +3338,9 @@ paths:
                               example: Tidal
                             eiucSourceFactor:
                               description: The EIUC adjusted source factor applied
-                                to the calculation
+                                to the calculation. _May be blank if the transaction
+                                is not for a compensation charge._
+                              nullable: true
                               type: number
                               example: 0.2
                             waterUndertaker:
@@ -3196,7 +3351,9 @@ paths:
                             regionalChargingArea:
                               description: The name of the region relevant to the
                                 determination of the SUC and / or EIUC value to be
-                                used in the calculation
+                                used in the calculation. _May be blank for a minimum
+                                charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Anglian
@@ -3211,11 +3368,16 @@ paths:
                               example: Northumbria
                             eiuc:
                               description: Environmental Improvement Unit Charge (EIUC)
-                                for the transaction
+                                for the transaction. _May be blank if the transaction
+                                is not for a compensation charge._
+                              nullable: true
                               type: number
                               example: 0.2
                             suc:
-                              description: Standard Unit Charge (SUC) for the transaction
+                              description: Standard Unit Charge (SUC) for the transaction.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 27.51
                             chargeValue:
@@ -3356,7 +3518,7 @@ paths:
                               example: false
                             clientId:
                               description: ID of the transaction in the client system.
-                                If provided at time of creation the API will first
+                                If provided at the time of creation the API will first
                                 check no existing transactions with the same ID for
                                 that regime exist.
                               type: string
@@ -3376,7 +3538,8 @@ paths:
                                   type: string
                                   example: df6861da-9679-4733-af0b-290f25e702810
                                 generatedAt:
-                                  description: NOT IN MASTER DATA SPECIFICATION
+                                  description: Date and time at which the rules service
+                                    generated a charge calculation
                                   type: string
                                   format: datetime
                                   example: '2020-09-11T11:56:41.578Z'
@@ -3408,23 +3571,30 @@ paths:
                                           type: number
                                           example: 0.003
                                         volumeFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: The volume (in thousands of
+                                            cubic metres) on which the charge is based
                                           type: number
                                           example: 0.75
                                         abatementAdjustment:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: The factor to apply to the
+                                            charge where a section 126 charge agreement
+                                            is relevant to the transaction
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         s127Agreement:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Factor applied to a charge
+                                            as the result of a Section 127 agreement
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         s130Agreement:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Factor applied to a charge
+                                            as the result of a Section 130 agreement
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         secondPartCharge:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Boolean indicator to show whether
+                                            the transaction is for the second part
+                                            of a 2-part tariff charge
                                           type: boolean
                                           example: false
                                         waterUndertaker:
@@ -3433,7 +3603,8 @@ paths:
                                           type: boolean
                                           example: false
                                         eiucFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Environmental Improvement Unit
+                                            Charge (EIUC) for the transaction
                                           type: integer
                                           example: 0
                                         compensationCharge:
@@ -3448,7 +3619,8 @@ paths:
                                           type: number
                                           example: 0.2
                                         sucFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Standard Unit Charge (SUC)
+                                            for the transaction
                                           type: number
                                           example: 2.97108
                                     messages:
@@ -3456,11 +3628,13 @@ paths:
                                       items:
                                         type: object
                                     sucFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: Standard Unit Charge (SUC) for
+                                        the transaction
                                       type: number
                                       example: 2.97108
                                     volumeFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: The volume (in thousands of cubic
+                                        metres) on which the charge is based
                                       type: number
                                       example: 0.75
                                     sourceFactor:
@@ -3501,7 +3675,8 @@ paths:
                                       type: number
                                       example: 0.2
                                     eiucFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: Environmental Improvement Unit
+                                        Charge (EIUC) for the transaction
                                       type: integer
                                       example: 0
                                 chargeValue:
@@ -4403,7 +4578,8 @@ paths:
         in: query
         description: DOES NOT MATCH MASTER DATA SPECIFICATION
         schema:
-          description: DOES NOT MATCH MASTER DATA SPECIFICATION
+          description: An indicator (normally an integer) to distinguish between the
+            different charge elements on a specific licence.
           type: string
           nullable: true
           example: '1'
@@ -4438,7 +4614,9 @@ paths:
         in: query
         description: In large result sets use to page through them
         schema:
-          description: NOT IN MASTER DATA SPECIFICATION
+          description: When submitting a request that results in a large set of results,
+            this indicates the page number to view. When returned as part of a response
+            it indicates the page number of the data returned.
           type: integer
           minimum: 1
           example: 1
@@ -4446,7 +4624,10 @@ paths:
         in: query
         description: In large result sets use to control how many to return per page
         schema:
-          description: NOT IN MASTER DATA SPECIFICATION
+          description: When submitting a request that results in a large set of results,
+            this indicates the number of results to be included in each page. When
+            returned as part of a response it indicates the number of results included
+            on each page
           type: integer
           minimum: 1
           maximum: 100
@@ -4519,12 +4700,18 @@ paths:
                     type: object
                     properties:
                       page:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the page number to view.
+                          When returned as part of a response it indicates the page
+                          number of the data returned.
                         type: integer
                         minimum: 1
                         example: 1
                       perPage:
-                        description: NOT IN MASTER DATA SPECIFICATION
+                        description: When submitting a request that results in a large
+                          set of results, this indicates the number of results to
+                          be included in each page. When returned as part of a response
+                          it indicates the number of results included on each page
                         type: integer
                         minimum: 1
                         maximum: 100
@@ -4567,12 +4754,16 @@ paths:
                               example: A
                             periodStart:
                               description: The start date of the charge period covered
-                                by a transaction
+                                by a transaction. _May be blank for a minimum charge
+                                transaction._
+                              nullable: true
                               type: string
                               example: 01-APR-2018
                             periodEnd:
                               description: The end date of the charge period covered
-                                by a transaction
+                                by a transaction. _May be blank for a minimum charge
+                                transaction._
+                              nullable: true
                               type: string
                               example: 31-MAR-2019
                             customerReference:
@@ -4597,47 +4788,63 @@ paths:
                               example: 03-JUN-2020
                             licenceNumber:
                               description: The reference of the licence to which a
-                                charge / transaction relates
+                                charge / transaction relates. _May be blank for a
+                                minimum charge or compensation charge transaction._
+                              nullable: true
                               type: string
                               maxLength: 150
                               example: 7/34/16/*G/0093
                             chargePeriod:
                               description: The charge period for a transaction (i.e.
-                                charge period start date to charge period end date)
+                                charge period start date to charge period end date).
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: string
                               example: 01-APR-2018 - 31-MAR-2019
                             chargeElementId:
-                              description: DOES NOT MATCH MASTER DATA SPECIFICATION
+                              description: An indicator (normally an integer) to distinguish
+                                between the different charge elements on a specific
+                                licence.
                               type: string
                               nullable: true
                               example: '1'
                             billableDays:
-                              description: The number of days covered by a charge
+                              description: The number of days covered by a charge.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: integer
                               minimum: 0
                               maximum: 366
                               example: 149
                             authorisedDays:
                               description: The number of days per year in which abstraction
-                                is authorised under the terms of the licence
+                                is authorised under the terms of the licence. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: integer
                               minimum: 0
                               maximum: 366
                               example: 214
                             prorataDays:
                               description: Pro-rata days, shown as a fraction comprising
-                                Billable Days / Authorised Days
+                                Billable Days / Authorised Days. _May be blank for
+                                a minimum charge or compensation charge transaction._
+                              nullable: true
                               type: string
                               example: 149/214
                             volume:
                               description: The volume (in thousands of cubic metres)
-                                on which the charge is based
+                                on which the charge is based. _May be blank for a
+                                minimum charge or compensation charge transaction._
+                              nullable: true
                               type: number
                               minimum: 0
                               example: 19.909
                             source:
                               description: Source on which standard charge calculation
-                                based
+                                based. _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Supported
@@ -4646,11 +4853,16 @@ paths:
                               - Tidal
                               example: Unsupported
                             sourceFactor:
-                              description: The source factor applied to the calculation
+                              description: The source factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 9
                             season:
-                              description: Season on which charge calculation based
+                              description: Season on which charge calculation based.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Summer
@@ -4658,11 +4870,16 @@ paths:
                               - All Year
                               example: Summer
                             seasonFactor:
-                              description: The season factor applied to the calculation
+                              description: The season factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 0.16
                             loss:
-                              description: Loss on which charge calculation based
+                              description: Loss on which charge calculation based.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - High
@@ -4671,43 +4888,63 @@ paths:
                               - Very Low
                               example: Medium
                             lossFactor:
-                              description: The loss factor applied to the calculation
+                              description: The loss factor applied to the calculation.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 0.003
                             section130Agreement:
                               description: Indicator to show whether a section 130
-                                charge agreement applies to the transaction
+                                charge agreement applies to the transaction. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: true
                             licenceHolderChargeAgreement:
                               description: Summary of the Section 130 charge calculation
-                                in a specific format required by the transaction file
-                              type: string
+                                in a specific format required by the transaction file.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
                               nullable: true
+                              type: string
                               example: S130U x 0.5
                             section126Factor:
                               description: The factor to apply to the charge where
                                 a section 126 charge agreement is relevant to the
-                                transaction
+                                transaction. _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: number
                               minimum: 0
                               maximum: 1
                               example: 0.75
                             section127Agreement:
                               description: Indicator to show whether a section 127
-                                charge agreement applies to the transaction
+                                charge agreement applies to the transaction. _May
+                                be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: false
                             chargeElementAgreement:
+                              description: Summary of the Section 126 or Section 127
+                                charge calculations in a specific format required
+                                by the transaction file. _May be blank for a minimum
+                                charge or compensation charge transaction._
+                              nullable: true
                               type: string
+                              example: S126 x 0.8
                             twoPartTariff:
                               description: Boolean indicator to show whether the transaction
-                                is for the second part of a 2-part tariff charge
+                                is for the second part of a 2-part tariff charge.
+                                _May be blank for a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: true
                             compensationCharge:
                               description: Boolean indicator to show whether the transaction
-                                relates to a compensation charge
+                                relates to a compensation charge. _May be blank for
+                                a minimum charge transaction._
+                              nullable: true
                               type: boolean
                               example: false
                             eiucSource:
@@ -4717,7 +4954,9 @@ paths:
                               example: Tidal
                             eiucSourceFactor:
                               description: The EIUC adjusted source factor applied
-                                to the calculation
+                                to the calculation. _May be blank if the transaction
+                                is not for a compensation charge._
+                              nullable: true
                               type: number
                               example: 0.2
                             waterUndertaker:
@@ -4728,7 +4967,9 @@ paths:
                             regionalChargingArea:
                               description: The name of the region relevant to the
                                 determination of the SUC and / or EIUC value to be
-                                used in the calculation
+                                used in the calculation. _May be blank for a minimum
+                                charge transaction._
+                              nullable: true
                               type: string
                               enum:
                               - Anglian
@@ -4743,11 +4984,16 @@ paths:
                               example: Northumbria
                             eiuc:
                               description: Environmental Improvement Unit Charge (EIUC)
-                                for the transaction
+                                for the transaction. _May be blank if the transaction
+                                is not for a compensation charge._
+                              nullable: true
                               type: number
                               example: 0.2
                             suc:
-                              description: Standard Unit Charge (SUC) for the transaction
+                              description: Standard Unit Charge (SUC) for the transaction.
+                                _May be blank for a minimum charge or compensation
+                                charge transaction._
+                              nullable: true
                               type: number
                               example: 27.51
                             chargeValue:
@@ -4888,7 +5134,7 @@ paths:
                               example: false
                             clientId:
                               description: ID of the transaction in the client system.
-                                If provided at time of creation the API will first
+                                If provided at the time of creation the API will first
                                 check no existing transactions with the same ID for
                                 that regime exist.
                               type: string
@@ -4908,7 +5154,8 @@ paths:
                                   type: string
                                   example: df6861da-9679-4733-af0b-290f25e702810
                                 generatedAt:
-                                  description: NOT IN MASTER DATA SPECIFICATION
+                                  description: Date and time at which the rules service
+                                    generated a charge calculation
                                   type: string
                                   format: datetime
                                   example: '2020-09-11T11:56:41.578Z'
@@ -4940,23 +5187,30 @@ paths:
                                           type: number
                                           example: 0.003
                                         volumeFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: The volume (in thousands of
+                                            cubic metres) on which the charge is based
                                           type: number
                                           example: 0.75
                                         abatementAdjustment:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: The factor to apply to the
+                                            charge where a section 126 charge agreement
+                                            is relevant to the transaction
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         s127Agreement:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Factor applied to a charge
+                                            as the result of a Section 127 agreement
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         s130Agreement:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Factor applied to a charge
+                                            as the result of a Section 130 agreement
                                           type: number
-                                          example: 2.97108
+                                          example: 0.5
                                         secondPartCharge:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Boolean indicator to show whether
+                                            the transaction is for the second part
+                                            of a 2-part tariff charge
                                           type: boolean
                                           example: false
                                         waterUndertaker:
@@ -4965,7 +5219,8 @@ paths:
                                           type: boolean
                                           example: false
                                         eiucFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Environmental Improvement Unit
+                                            Charge (EIUC) for the transaction
                                           type: integer
                                           example: 0
                                         compensationCharge:
@@ -4980,7 +5235,8 @@ paths:
                                           type: number
                                           example: 0.2
                                         sucFactor:
-                                          description: NOT IN MASTER DATA SPECIFICATION
+                                          description: Standard Unit Charge (SUC)
+                                            for the transaction
                                           type: number
                                           example: 2.97108
                                     messages:
@@ -4988,11 +5244,13 @@ paths:
                                       items:
                                         type: object
                                     sucFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: Standard Unit Charge (SUC) for
+                                        the transaction
                                       type: number
                                       example: 2.97108
                                     volumeFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: The volume (in thousands of cubic
+                                        metres) on which the charge is based
                                       type: number
                                       example: 0.75
                                     sourceFactor:
@@ -5033,7 +5291,8 @@ paths:
                                       type: number
                                       example: 0.2
                                     eiucFactor:
-                                      description: NOT IN MASTER DATA SPECIFICATION
+                                      description: Environmental Improvement Unit
+                                        Charge (EIUC) for the transaction
                                       type: integer
                                       example: 0
                                 chargeValue:
@@ -5107,12 +5366,14 @@ paths:
                         example: A
                       periodStart:
                         description: The start date of the charge period covered by
-                          a transaction
+                          a transaction. _May be blank for a minimum charge transaction._
+                        nullable: true
                         type: string
                         example: 01-APR-2018
                       periodEnd:
                         description: The end date of the charge period covered by
-                          a transaction
+                          a transaction. _May be blank for a minimum charge transaction._
+                        nullable: true
                         type: string
                         example: 31-MAR-2019
                       customerReference:
@@ -5135,46 +5396,61 @@ paths:
                         example: 03-JUN-2020
                       licenceNumber:
                         description: The reference of the licence to which a charge
-                          / transaction relates
+                          / transaction relates. _May be blank for a minimum charge
+                          or compensation charge transaction._
+                        nullable: true
                         type: string
                         maxLength: 150
                         example: 7/34/16/*G/0093
                       chargePeriod:
                         description: The charge period for a transaction (i.e. charge
-                          period start date to charge period end date)
+                          period start date to charge period end date). _May be blank
+                          for a minimum charge or compensation charge transaction._
+                        nullable: true
                         type: string
                         example: 01-APR-2018 - 31-MAR-2019
                       chargeElementId:
-                        description: DOES NOT MATCH MASTER DATA SPECIFICATION
+                        description: An indicator (normally an integer) to distinguish
+                          between the different charge elements on a specific licence.
                         type: string
                         nullable: true
                         example: '1'
                       billableDays:
-                        description: The number of days covered by a charge
+                        description: The number of days covered by a charge. _May
+                          be blank for a minimum charge transaction._
+                        nullable: true
                         type: integer
                         minimum: 0
                         maximum: 366
                         example: 149
                       authorisedDays:
                         description: The number of days per year in which abstraction
-                          is authorised under the terms of the licence
+                          is authorised under the terms of the licence. _May be blank
+                          for a minimum charge transaction._
+                        nullable: true
                         type: integer
                         minimum: 0
                         maximum: 366
                         example: 214
                       prorataDays:
                         description: Pro-rata days, shown as a fraction comprising
-                          Billable Days / Authorised Days
+                          Billable Days / Authorised Days. _May be blank for a minimum
+                          charge or compensation charge transaction._
+                        nullable: true
                         type: string
                         example: 149/214
                       volume:
                         description: The volume (in thousands of cubic metres) on
-                          which the charge is based
+                          which the charge is based. _May be blank for a minimum charge
+                          or compensation charge transaction._
+                        nullable: true
                         type: number
                         minimum: 0
                         example: 19.909
                       source:
-                        description: Source on which standard charge calculation based
+                        description: Source on which standard charge calculation based.
+                          _May be blank for a minimum charge transaction._
+                        nullable: true
                         type: string
                         enum:
                         - Supported
@@ -5183,11 +5459,16 @@ paths:
                         - Tidal
                         example: Unsupported
                       sourceFactor:
-                        description: The source factor applied to the calculation
+                        description: The source factor applied to the calculation.
+                          _May be blank for a minimum charge or compensation charge
+                          transaction._
+                        nullable: true
                         type: number
                         example: 9
                       season:
-                        description: Season on which charge calculation based
+                        description: Season on which charge calculation based. _May
+                          be blank for a minimum charge transaction._
+                        nullable: true
                         type: string
                         enum:
                         - Summer
@@ -5195,11 +5476,16 @@ paths:
                         - All Year
                         example: Summer
                       seasonFactor:
-                        description: The season factor applied to the calculation
+                        description: The season factor applied to the calculation.
+                          _May be blank for a minimum charge or compensation charge
+                          transaction._
+                        nullable: true
                         type: number
                         example: 0.16
                       loss:
-                        description: Loss on which charge calculation based
+                        description: Loss on which charge calculation based. _May
+                          be blank for a minimum charge transaction._
+                        nullable: true
                         type: string
                         enum:
                         - High
@@ -5208,42 +5494,61 @@ paths:
                         - Very Low
                         example: Medium
                       lossFactor:
-                        description: The loss factor applied to the calculation
+                        description: The loss factor applied to the calculation. _May
+                          be blank for a minimum charge or compensation charge transaction._
+                        nullable: true
                         type: number
                         example: 0.003
                       section130Agreement:
                         description: Indicator to show whether a section 130 charge
-                          agreement applies to the transaction
+                          agreement applies to the transaction. _May be blank for
+                          a minimum charge transaction._
+                        nullable: true
                         type: boolean
                         example: true
                       licenceHolderChargeAgreement:
                         description: Summary of the Section 130 charge calculation
-                          in a specific format required by the transaction file
-                        type: string
+                          in a specific format required by the transaction file. _May
+                          be blank for a minimum charge or compensation charge transaction._
                         nullable: true
+                        type: string
                         example: S130U x 0.5
                       section126Factor:
                         description: The factor to apply to the charge where a section
-                          126 charge agreement is relevant to the transaction
+                          126 charge agreement is relevant to the transaction. _May
+                          be blank for a minimum charge transaction._
+                        nullable: true
                         type: number
                         minimum: 0
                         maximum: 1
                         example: 0.75
                       section127Agreement:
                         description: Indicator to show whether a section 127 charge
-                          agreement applies to the transaction
+                          agreement applies to the transaction. _May be blank for
+                          a minimum charge transaction._
+                        nullable: true
                         type: boolean
                         example: false
                       chargeElementAgreement:
+                        description: Summary of the Section 126 or Section 127 charge
+                          calculations in a specific format required by the transaction
+                          file. _May be blank for a minimum charge or compensation
+                          charge transaction._
+                        nullable: true
                         type: string
+                        example: S126 x 0.8
                       twoPartTariff:
                         description: Boolean indicator to show whether the transaction
-                          is for the second part of a 2-part tariff charge
+                          is for the second part of a 2-part tariff charge. _May be
+                          blank for a minimum charge transaction._
+                        nullable: true
                         type: boolean
                         example: true
                       compensationCharge:
                         description: Boolean indicator to show whether the transaction
-                          relates to a compensation charge
+                          relates to a compensation charge. _May be blank for a minimum
+                          charge transaction._
+                        nullable: true
                         type: boolean
                         example: false
                       eiucSource:
@@ -5253,7 +5558,9 @@ paths:
                         example: Tidal
                       eiucSourceFactor:
                         description: The EIUC adjusted source factor applied to the
-                          calculation
+                          calculation. _May be blank if the transaction is not for
+                          a compensation charge._
+                        nullable: true
                         type: number
                         example: 0.2
                       waterUndertaker:
@@ -5263,7 +5570,9 @@ paths:
                         example: false
                       regionalChargingArea:
                         description: The name of the region relevant to the determination
-                          of the SUC and / or EIUC value to be used in the calculation
+                          of the SUC and / or EIUC value to be used in the calculation.
+                          _May be blank for a minimum charge transaction._
+                        nullable: true
                         type: string
                         enum:
                         - Anglian
@@ -5278,11 +5587,16 @@ paths:
                         example: Northumbria
                       eiuc:
                         description: Environmental Improvement Unit Charge (EIUC)
-                          for the transaction
+                          for the transaction. _May be blank if the transaction is
+                          not for a compensation charge._
+                        nullable: true
                         type: number
                         example: 0.2
                       suc:
-                        description: Standard Unit Charge (SUC) for the transaction
+                        description: Standard Unit Charge (SUC) for the transaction.
+                          _May be blank for a minimum charge or compensation charge
+                          transaction._
+                        nullable: true
                         type: number
                         example: 27.51
                       chargeValue:
@@ -5420,8 +5734,9 @@ paths:
                         example: false
                       clientId:
                         description: ID of the transaction in the client system. If
-                          provided at time of creation the API will first check no
-                          existing transactions with the same ID for that regime exist.
+                          provided at the time of creation the API will first check
+                          no existing transactions with the same ID for that regime
+                          exist.
                         type: string
                         nullable: true
                         example: hb3ab097-8567-42bd-849e-046aa250a8u8
@@ -5439,7 +5754,8 @@ paths:
                             type: string
                             example: df6861da-9679-4733-af0b-290f25e702810
                           generatedAt:
-                            description: NOT IN MASTER DATA SPECIFICATION
+                            description: Date and time at which the rules service
+                              generated a charge calculation
                             type: string
                             format: datetime
                             example: '2020-09-11T11:56:41.578Z'
@@ -5469,23 +5785,30 @@ paths:
                                     type: number
                                     example: 0.003
                                   volumeFactor:
-                                    description: NOT IN MASTER DATA SPECIFICATION
+                                    description: The volume (in thousands of cubic
+                                      metres) on which the charge is based
                                     type: number
                                     example: 0.75
                                   abatementAdjustment:
-                                    description: NOT IN MASTER DATA SPECIFICATION
+                                    description: The factor to apply to the charge
+                                      where a section 126 charge agreement is relevant
+                                      to the transaction
                                     type: number
-                                    example: 2.97108
+                                    example: 0.5
                                   s127Agreement:
-                                    description: NOT IN MASTER DATA SPECIFICATION
+                                    description: Factor applied to a charge as the
+                                      result of a Section 127 agreement
                                     type: number
-                                    example: 2.97108
+                                    example: 0.5
                                   s130Agreement:
-                                    description: NOT IN MASTER DATA SPECIFICATION
+                                    description: Factor applied to a charge as the
+                                      result of a Section 130 agreement
                                     type: number
-                                    example: 2.97108
+                                    example: 0.5
                                   secondPartCharge:
-                                    description: NOT IN MASTER DATA SPECIFICATION
+                                    description: Boolean indicator to show whether
+                                      the transaction is for the second part of a
+                                      2-part tariff charge
                                     type: boolean
                                     example: false
                                   waterUndertaker:
@@ -5494,7 +5817,8 @@ paths:
                                     type: boolean
                                     example: false
                                   eiucFactor:
-                                    description: NOT IN MASTER DATA SPECIFICATION
+                                    description: Environmental Improvement Unit Charge
+                                      (EIUC) for the transaction
                                     type: integer
                                     example: 0
                                   compensationCharge:
@@ -5508,7 +5832,8 @@ paths:
                                     type: number
                                     example: 0.2
                                   sucFactor:
-                                    description: NOT IN MASTER DATA SPECIFICATION
+                                    description: Standard Unit Charge (SUC) for the
+                                      transaction
                                     type: number
                                     example: 2.97108
                               messages:
@@ -5516,11 +5841,12 @@ paths:
                                 items:
                                   type: object
                               sucFactor:
-                                description: NOT IN MASTER DATA SPECIFICATION
+                                description: Standard Unit Charge (SUC) for the transaction
                                 type: number
                                 example: 2.97108
                               volumeFactor:
-                                description: NOT IN MASTER DATA SPECIFICATION
+                                description: The volume (in thousands of cubic metres)
+                                  on which the charge is based
                                 type: number
                                 example: 0.75
                               sourceFactor:
@@ -5558,7 +5884,8 @@ paths:
                                 type: number
                                 example: 0.2
                               eiucFactor:
-                                description: NOT IN MASTER DATA SPECIFICATION
+                                description: Environmental Improvement Unit Charge
+                                  (EIUC) for the transaction
                                 type: integer
                                 example: 0
                           chargeValue:
