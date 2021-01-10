@@ -4,13 +4,13 @@ get:
   tags:
     - admin
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/customerFileNumber'
-    - $ref: '../../../schema/parameters.yml#/region'
-    - $ref: '../../../schema/parameters.yml#/page'
-    - $ref: '../../../schema/parameters.yml#/perPage'
-    - $ref: '../../../schema/parameters.yml#/sort'
-    - $ref: '../../../schema/parameters.yml#/sortDir'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/customerFileNumber'
+    - $ref: '../../../../schema/parameters.yml#/region'
+    - $ref: '../../../../schema/parameters.yml#/page'
+    - $ref: '../../../../schema/parameters.yml#/perPage'
+    - $ref: '../../../../schema/parameters.yml#/sort'
+    - $ref: '../../../../schema/parameters.yml#/sortDir'
   responses:
     '200':
       description: "Success"
@@ -20,14 +20,14 @@ get:
             type: object
             properties:
               pagination:
-                $ref: '../../../schema/schemas.yml#/pagination'
+                $ref: '../../../../schema/schemas.yml#/pagination'
               data:
                 type: object
                 properties:
                   customerFiles:
                     type: array
                     items:
-                      $ref: '../../../schema/schemas.yml#/customerFileSummary'
+                      $ref: '../../../../schema/schemas.yml#/customerFileSummary'
           example:
             pagination:
               page: 1
@@ -57,7 +57,7 @@ post:
   tags:
     - admin
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/regime'
   responses:
     '200':
       description: "Success (no action taken)"
@@ -74,7 +74,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../../schema/schemas.yml#/customerFile'
+            $ref: '../../../../schema/schemas.yml#/customerFile'
           example:
             id: 'a5ad120e-69e3-41fc-9688-df244c6ea41c'
             region: 'A'
@@ -87,6 +87,6 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../schema/schemas.yml#/customerFilePost'
+          $ref: '../../../../schema/schemas.yml#/customerFilePost'
         example:
           region: 'A'

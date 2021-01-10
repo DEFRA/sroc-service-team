@@ -14,7 +14,7 @@ get:
               regimes:
                 type: array
                 items:
-                  $ref: '../../schema/schemas.yml#/regime'
+                  $ref: '../../../schema/schemas.yml#/regime'
           example:
             regimes:
               - id: 'ef5ee223-2ee5-4f02-ace5-35330d9f3781'

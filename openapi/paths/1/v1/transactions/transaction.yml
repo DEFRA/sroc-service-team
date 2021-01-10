@@ -4,8 +4,8 @@ get:
   tags:
     - transaction
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/transactionId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/transactionId'
   responses:
     '200':
       description: "Success"
@@ -15,7 +15,7 @@ get:
             type: object
             properties:
               transaction:
-                $ref: '../../../schema/schemas.yml#/transaction'
+                $ref: '../../../../schema/schemas.yml#/transaction'
           example:
             transaction:
               id: 'e78eb69e-23ba-4436-aeb7-413fb0138806'

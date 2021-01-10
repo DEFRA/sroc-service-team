@@ -4,7 +4,7 @@ get:
   tags:
     - admin
   parameters:
-    - $ref: '../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/regime'
   responses:
     '200':
       description: "Success"
@@ -14,7 +14,7 @@ get:
             type: object
             properties:
               regime:
-                $ref: '../../schema/schemas.yml#/regimeSummary'
+                $ref: '../../../schema/schemas.yml#/regimeSummary'
           example:
             regime:
               id: 'f1a7a3f9-dadc-43d8-9eec-7209b6a10af6'

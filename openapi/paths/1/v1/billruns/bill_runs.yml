@@ -4,14 +4,14 @@ post:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/regime'
   responses:
     '201':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../schema/schemas.yml#/billrunPostResponse'
+            $ref: '../../../../schema/schemas.yml#/billrunPostResponse'
           example:
             billRun:
               id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
@@ -20,6 +20,6 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../schema/schemas.yml#/billrunPost'
+          $ref: '../../../../schema/schemas.yml#/billrunPost'
         example:
           region: 'A'

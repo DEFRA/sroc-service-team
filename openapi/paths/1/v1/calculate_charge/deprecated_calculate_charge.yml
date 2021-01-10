@@ -5,7 +5,7 @@ post:
     - calculate
   deprecated: true
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/regime'
   responses:
     '200':
       description: "Success"
@@ -15,7 +15,7 @@ post:
             type: object
             properties:
               calculation:
-                $ref: '../../../schema/schemas.yml#/calculateChargeResponse'
+                $ref: '../../../../schema/schemas.yml#/calculateChargeResponse'
           example:
             calculation:
               chargeValue: 772
@@ -31,7 +31,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../schema/schemas.yml#/calculateCharge'
+          $ref: '../../../../schema/schemas.yml#/calculateCharge'
         example:
           periodStart: 01-APR-2020
           periodEnd: 31-MAR-2021

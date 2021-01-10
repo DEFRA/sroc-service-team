@@ -4,9 +4,9 @@ get:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billrunId'
-    - $ref: '../../../../schema/parameters.yml#/transactionId'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/transactionId'
   responses:
     '200':
       description: "Success"
@@ -16,14 +16,14 @@ get:
             type: object
             properties:
               pagination:
-                $ref: '../../../../schema/schemas.yml#/pagination'
+                $ref: '../../../../../schema/schemas.yml#/pagination'
               data:
                 type: object
                 properties:
                   transactions:
                     type: array
                     items:
-                      $ref: '../../../../schema/schemas.yml#/transaction'
+                      $ref: '../../../../../schema/schemas.yml#/transaction'
           example:
             transaction:
               id: 'fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3'
@@ -113,9 +113,9 @@ delete:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billrunId'
-    - $ref: '../../../../schema/parameters.yml#/transactionId'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/transactionId'
   responses:
     '204':
       description: "Success"

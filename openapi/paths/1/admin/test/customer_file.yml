@@ -4,8 +4,8 @@ get:
   tags:
     - admin
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/customerFileId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/customerFileId'
   responses:
     '200':
       description: "Success"
@@ -15,7 +15,7 @@ get:
             type: object
             properties:
               customerFile:
-                $ref: '../../../schema/schemas.yml#/customerFile'
+                $ref: '../../../../schema/schemas.yml#/customerFile'
           example:
             customerFile:
               id: 'd1b5138a-5634-48b4-8ae7-e50573d5a95c'

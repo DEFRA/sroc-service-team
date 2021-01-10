@@ -14,7 +14,7 @@ get:
               authorisedSystems:
                 type: array
                 items:
-                  $ref: '../../schema/schemas.yml#/authorisedSystemSummary'
+                  $ref: '../../../schema/schemas.yml#/authorisedSystemSummary'
           example:
             authorisedSystems:
               - id: '1b1gshltt176v80nsc4fxxxxxx'
@@ -47,7 +47,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../schema/schemas.yml#/authorisedSystemPost'
+          $ref: '../../../schema/schemas.yml#/authorisedSystemPost'
         example:
           id: 'i7rnixijjrawj7azzhwwxxxxxx'
           name: 'dashboard'

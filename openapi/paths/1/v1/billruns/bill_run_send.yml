@@ -4,8 +4,8 @@ patch:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
   responses:
     '200':
       description: "Success"
@@ -15,7 +15,7 @@ patch:
             type: object
             properties:
               billRun:
-                $ref: '../../../schema/schemas.yml#/billrun'
+                $ref: '../../../../schema/schemas.yml#/billrun'
 post:
   operationId: SendBillRunOld
   description: "**This endpoint will be removed in the next version of the API**. Does exactly the same thing as the `PATCH` version. It is deprecated and will be removed because it does not meet our convention of using `PATCH` for endpoints like these."
@@ -23,8 +23,8 @@ post:
     - billrun
   deprecated: true
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
   responses:
     '200':
       description: "Success"
@@ -34,4 +34,4 @@ post:
             type: object
             properties:
               billRun:
-                $ref: '../../../schema/schemas.yml#/billrun'
+                $ref: '../../../../schema/schemas.yml#/billrun'

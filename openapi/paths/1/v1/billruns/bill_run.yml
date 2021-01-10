@@ -18,10 +18,10 @@ get:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/billrunId'
-    - $ref: '../../../schema/parameters.yml#/customerReference'
-    - $ref: '../../../schema/parameters.yml#/licenceNumber'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../../schema/parameters.yml#/licenceNumber'
   responses:
     '200':
       description: "Success"
@@ -31,7 +31,7 @@ get:
             type: object
             properties:
               billRun:
-                $ref: '../../../schema/schemas.yml#/billrun'
+                $ref: '../../../../schema/schemas.yml#/billrun'
           examples:
             'holding response':
               value:
@@ -119,8 +119,8 @@ delete:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regime'
-    - $ref: '../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
   responses:
     '204':
       description: "Success"

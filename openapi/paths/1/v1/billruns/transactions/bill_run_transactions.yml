@@ -4,21 +4,21 @@ get:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billrunId'
-    - $ref: '../../../../schema/parameters.yml#/batchNumber'
-    - $ref: '../../../../schema/parameters.yml#/billrunNumber'
-    - $ref: '../../../../schema/parameters.yml#/chargeElementId'
-    - $ref: '../../../../schema/parameters.yml#/customerReference'
-    - $ref: '../../../../schema/parameters.yml#/financialYear'
-    - $ref: '../../../../schema/parameters.yml#/licenceNumber'
-    - $ref: '../../../../schema/parameters.yml#/page'
-    - $ref: '../../../../schema/parameters.yml#/perPage'
-    - $ref: '../../../../schema/parameters.yml#/region'
-    - $ref: '../../../../schema/parameters.yml#/sort'
-    - $ref: '../../../../schema/parameters.yml#/sortDir'
-    - $ref: '../../../../schema/parameters.yml#/transactionReference'
-    - $ref: '../../../../schema/parameters.yml#/transactionFileReference'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/batchNumber'
+    - $ref: '../../../../../schema/parameters.yml#/billrunNumber'
+    - $ref: '../../../../../schema/parameters.yml#/chargeElementId'
+    - $ref: '../../../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../../../schema/parameters.yml#/financialYear'
+    - $ref: '../../../../../schema/parameters.yml#/licenceNumber'
+    - $ref: '../../../../../schema/parameters.yml#/page'
+    - $ref: '../../../../../schema/parameters.yml#/perPage'
+    - $ref: '../../../../../schema/parameters.yml#/region'
+    - $ref: '../../../../../schema/parameters.yml#/sort'
+    - $ref: '../../../../../schema/parameters.yml#/sortDir'
+    - $ref: '../../../../../schema/parameters.yml#/transactionReference'
+    - $ref: '../../../../../schema/parameters.yml#/transactionFileReference'
   responses:
     '200':
       description: "Success"
@@ -28,14 +28,14 @@ get:
             type: object
             properties:
               pagination:
-                $ref: '../../../../schema/schemas.yml#/pagination'
+                $ref: '../../../../../schema/schemas.yml#/pagination'
               data:
                 type: object
                 properties:
                   transactions:
                     type: array
                     items:
-                      $ref: '../../../../schema/schemas.yml#/transaction'
+                      $ref: '../../../../../schema/schemas.yml#/transaction'
           example:
             pagination:
               page: 1
@@ -131,15 +131,15 @@ post:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
   responses:
     '201':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../../schema/schemas.yml#/transactionPostResponse'
+            $ref: '../../../../../schema/schemas.yml#/transactionPostResponse'
           example:
             transaction:
               id: 'fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3'
@@ -147,7 +147,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../../schema/schemas.yml#/transactionPost'
+          $ref: '../../../../../schema/schemas.yml#/transactionPost'
         example:
           periodStart: '01-APR-2019'
           periodEnd: '31-MAR-2020'
@@ -179,11 +179,11 @@ delete:
   tags:
     - billrun
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billrunId'
-    - $ref: '../../../../schema/parameters.yml#/customerReference'
-    - $ref: '../../../../schema/parameters.yml#/financialYear'
-    - $ref: '../../../../schema/parameters.yml#/licenceNumber'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../../../schema/parameters.yml#/financialYear'
+    - $ref: '../../../../../schema/parameters.yml#/licenceNumber'
   responses:
     '204':
       description: "Success"
