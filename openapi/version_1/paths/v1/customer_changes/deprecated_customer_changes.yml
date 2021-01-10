@@ -1,0 +1,30 @@
+post:
+  operationId: CreateCustomerChangeOld
+  description: "**This endpoint will be removed in the next version of the API**. Does exactly the same thing as the `/customer-change` endpoint. It is deprecated and will be removed because it does not follow the standard convention of using dashes instead of underscores."
+  tags:
+    - customer
+  deprecated: true
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../schema/schemas.yml#/customerChangePostResponse'
+          example:
+            customerChange:
+              id: '4643f6c6-dc65-4aaa-883f-f3410b7fa8c8'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../../../schema/schemas.yml#/customerChangePost'
+        example:
+          region: A
+          customerReference: BB02BEEB
+          customerName: Huge Factory Ltd
+          addressLine1: 1 Monster Lane
+          addressLine2: High Town
+          addressLine4: Chigley

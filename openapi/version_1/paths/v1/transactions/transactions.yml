@@ -1,0 +1,36 @@
+get:
+  operationId: ListTransactions
+  description: "Request to view all transactions meeting specified parameters. List may contain both billed and unbilled transactions."
+  tags:
+    - transaction
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunNumber'
+    - $ref: '../../../../schema/parameters.yml#/chargeElementId'
+    - $ref: '../../../../schema/parameters.yml#/customerReference'
+    - $ref: '../../../../schema/parameters.yml#/financialYear'
+    - $ref: '../../../../schema/parameters.yml#/licenceNumber'
+    - $ref: '../../../../schema/parameters.yml#/page'
+    - $ref: '../../../../schema/parameters.yml#/perPage'
+    - $ref: '../../../../schema/parameters.yml#/region'
+    - $ref: '../../../../schema/parameters.yml#/sort'
+    - $ref: '../../../../schema/parameters.yml#/sortDir'
+    - $ref: '../../../../schema/parameters.yml#/transactionReference'
+    - $ref: '../../../../schema/parameters.yml#/transactionFileReference'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pagination:
+                $ref: '../../../../schema/schemas.yml#/pagination'
+              data:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      $ref: '../../../../schema/schemas.yml#/transaction'

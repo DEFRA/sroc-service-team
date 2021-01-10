@@ -1,0 +1,92 @@
+get:
+  operationId: ListCustomerFiles
+  description: "Request to view a list of all customer files meeting specified parameters. Returns summary info about each file and a list of customer refs included in each file (but no other customer data)."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/customerFileNumber'
+    - $ref: '../../../../schema/parameters.yml#/region'
+    - $ref: '../../../../schema/parameters.yml#/page'
+    - $ref: '../../../../schema/parameters.yml#/perPage'
+    - $ref: '../../../../schema/parameters.yml#/sort'
+    - $ref: '../../../../schema/parameters.yml#/sortDir'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              pagination:
+                $ref: '../../../../schema/schemas.yml#/pagination'
+              data:
+                type: object
+                properties:
+                  customerFiles:
+                    type: array
+                    items:
+                      $ref: '../../../../schema/schemas.yml#/customerFileSummary'
+          example:
+            pagination:
+              page: 1
+              perPage: 50
+              pageCount: 1
+              recordCount: 3
+            data:
+              customerFiles:
+                - id: 'd1b5138a-5634-48b4-8ae7-e50573d5a95c'
+                  region: 'A'
+                  file_reference: '50001'
+                  status: 'exported'
+                  created_at: '2020-09-29T12:35:05.888Z'
+                - id: '649a1776-5d6e-44bd-9bd1-00d4612d7a2d'
+                  region: 'T'
+                  file_reference: '50001'
+                  status: 'exported'
+                  created_at: '2020-02-17T17:15:00.799Z'
+                - id: '137892fb-4af5-4507-8da2-d149adf94b01'
+                  region: 'T'
+                  file_reference: '50002'
+                  status: 'exported'
+                  created_at: '2020-02-17T17:43:44.903Z'
+post:
+  operationId: CreateCustomerFile
+  description: "Triggers creation of a customer file for a given region, including all customer changes for that region that have not previously been included in a file. Note: This endpoint has been developed for testing purposes only as file generation will normally be automated in the CM rather than called by the source."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+  responses:
+    '200':
+      description: "Success (no action taken)"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: 'No customer changes found'
+    '201':
+      description: "Success (created)"
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../schema/schemas.yml#/customerFile'
+          example:
+            id: 'a5ad120e-69e3-41fc-9688-df244c6ea41c'
+            region: 'A'
+            filename: 'nalac50002.dat'
+            status: 'Awaiting export'
+            createdDate: '01-OCT-2020'
+            customerChanges:
+              - customerReference: 'BB02BEEB'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../../../schema/schemas.yml#/customerFilePost'
+        example:
+          region: 'A'

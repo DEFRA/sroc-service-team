@@ -1,0 +1,22 @@
+get:
+  operationId: ViewRegime
+  description: "Request to view a single regime based on a regime source"
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              regime:
+                $ref: '../../../schema/schemas.yml#/regimeSummary'
+          example:
+            regime:
+              id: 'f1a7a3f9-dadc-43d8-9eec-7209b6a10af6'
+              name: 'Water Resource'
+              slug: 'wrls'

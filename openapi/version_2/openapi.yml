@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  description: |
+    > This `draft` version is intended to facilitate design and development of what will be the first release of Version 2 of the API.
+
+    Provides an interface for calculating charges, creating and queuing transactions, and generating transaction and customer files used to produce Environment Agency invoices.
+
+    This represents Version 2 of the API, which is based on the [sroc-charging-module-api project](https://github.com/DEFRA/sroc-charging-module-api). It is intended to supercede Version 1, which is based on the [charging-module-api project](https://github.com/DEFRA/charging-module-api)
+
+    ## Working with the API
+
+    The [SRoC service team](https://github.com/DEFRA/sroc-service-team) use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
+
+  version: "draft"
+  title: Charging Module API V2
+  contact:
+    name: SROC Service Team
+    email: alan.cruikshanks@environment-agency.gov.uk
+    url: 'https://github.com/DEFRA/sroc-service-team'
+  license:
+    name: Open Government Licence (OGL)
+    url: 'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3'
+servers:
+  - description: Local
+    url: 'http://localhost:3003'
+
+tags:
+  - name: billrun
+    description: "Operations related to bill runs"
+  - name: calculate
+    description: "Operations related to calculating charges"
+  - name: customer
+    description: "Operations related to customer files"
+  - name: transaction
+    description: "Operations related to transactions"
+  - name: suggested
+    description: "Operations that could be made available to client systems"
+  - name: admin
+    description: "Only the admin user can access these endpoints. They are not for use by client systems"
+  - name: health
+    description: "Endpoints used to confirm the system is up. Often used by monitoring tools running 'health checks'"
+
+paths:
+  /:
+    get:
+      operationId: Root
+      description: "Confirm service is up and running. Exactly the same as `/status`"
+      tags:
+        - health
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: '../schema/schemas.yml#/status'
+
+  /status:
+    $ref: 'paths/status.yml'
+
+security:
+  - OAuth2: []
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: "The API uses [AWS Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html) to manage authentication and authorisation. To use it you will first need a cognito client ID and password. You then use these to request a bearer token from AWS Cognito. The bearer token is then sent in the `Authorisation` header of your request"
+      flows:
+        clientCredentials:
+          tokenUrl: 'https://chargingmoduleapi.auth.eu-west-1.amazoncognito.com/oauth2/token'
+          scopes: {}
