@@ -65,67 +65,67 @@ paths:
                 $ref: 'schema/schemas.yml#/status'
 
   /status:
-    $ref: 'paths/1/status.yml'
+    $ref: 'paths/status.yml'
 
   '/admin/regimes':
-    $ref: 'paths/1/admin/regimes.yml'
+    $ref: 'paths/admin/regimes.yml'
 
   '/admin/regimes/{regime}':
-    $ref: 'paths/1/admin/regime.yml'
+    $ref: 'paths/admin/regime.yml'
 
   '/admin/authorised-systems':
-    $ref: 'paths/1/admin/authorised_systems.yml'
+    $ref: 'paths/admin/authorised_systems.yml'
 
   '/admin/authorised-systems/{authorisedSystemId}':
-    $ref: 'paths/1/admin/authorised_system.yml'
+    $ref: 'paths/admin/authorised_system.yml'
 
   '/admin/health/airbrake':
-    $ref: 'paths/1/admin/health/airbrake.yml'
+    $ref: 'paths/admin/health/airbrake.yml'
 
   '/admin/health/database':
-    $ref: 'paths/1/admin/health/database.yml'
+    $ref: 'paths/admin/health/database.yml'
 
   '/admin/test/{regime}/customer-files':
-    $ref: 'paths/1/admin/test/customer_files.yml'
+    $ref: 'paths/admin/test/customer_files.yml'
 
   '/admin/test/{regime}/customer-files/{customerFileId}':
-    $ref: 'paths/1/admin/test/customer_file.yml'
+    $ref: 'paths/admin/test/customer_file.yml'
 
   '/v1/{regime}/billruns':
-    $ref: 'paths/1/v1/billruns/bill_runs.yml'
+    $ref: 'paths/v1/billruns/bill_runs.yml'
 
   '/v1/{regime}/billruns/{billrunId}':
-    $ref: 'paths/1/v1/billruns/bill_run.yml'
+    $ref: 'paths/v1/billruns/bill_run.yml'
 
   '/v1/{regime}/billruns/{billrunId}/approve':
-    $ref: 'paths/1/v1/billruns/bill_run_approve.yml'
+    $ref: 'paths/v1/billruns/bill_run_approve.yml'
 
   '/v1/{regime}/billruns/{billrunId}/send':
-    $ref: 'paths/1/v1/billruns/bill_run_send.yml'
+    $ref: 'paths/v1/billruns/bill_run_send.yml'
 
   '/v1/{regime}/billruns/{billrunId}/transactions':
-    $ref: 'paths/1/v1/billruns/transactions/bill_run_transactions.yml'
+    $ref: 'paths/v1/billruns/transactions/bill_run_transactions.yml'
 
   '/v1/{regime}/billruns/{billrunId}/transactions/{transactionId}':
-    $ref: 'paths/1/v1/billruns/transactions/bill_run_transaction.yml'
+    $ref: 'paths/v1/billruns/transactions/bill_run_transaction.yml'
 
   '/v1/{regime}/calculate-charge':
-    $ref: 'paths/1/v1/calculate_charge/calculate_charge.yml'
+    $ref: 'paths/v1/calculate_charge/calculate_charge.yml'
 
   '/v1/{regime}/calculate_charge':
-    $ref: 'paths/1/v1/calculate_charge/deprecated_calculate_charge.yml'
+    $ref: 'paths/v1/calculate_charge/deprecated_calculate_charge.yml'
 
   '/v1/{regime}/customer-changes':
-    $ref: 'paths/1/v1/customer_changes/customer_changes.yml'
+    $ref: 'paths/v1/customer_changes/customer_changes.yml'
 
   '/v1/{regime}/customer_changes':
-    $ref: 'paths/1/v1/customer_changes/deprecated_customer_changes.yml'
+    $ref: 'paths/v1/customer_changes/deprecated_customer_changes.yml'
 
   '/v1/{regime}/transactions':
-    $ref: 'paths/1/v1/transactions/transactions.yml'
+    $ref: 'paths/v1/transactions/transactions.yml'
 
   '/v1/{regime}/transactions/{transactionId}':
-    $ref: 'paths/1/v1/transactions/transaction.yml'
+    $ref: 'paths/v1/transactions/transaction.yml'
 
 security:
   - OAuth2: []
