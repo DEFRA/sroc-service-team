@@ -31,14 +31,10 @@ tags:
     description: "Operations related to bill runs"
   - name: calculate
     description: "Operations related to calculating charges"
-  - name: customer
-    description: "Operations related to customer files"
   - name: suggested
     description: "Operations that could be made available to client systems"
   - name: health
     description: "Endpoints used to confirm the system is up. Often used by monitoring tools running 'health checks'"
-  - name: transaction
-    description: "Operations related to transactions"
 
 paths:
   /:
