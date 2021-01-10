@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   description: |
-    > This `draft` version is intended to facilitate what will be the first release of Version 2 of the API.
+    > This `draft` version is intended to facilitate design and development of what will be the first release of Version 2 of the API.
 
     Provides an interface for calculating charges, creating and queuing transactions, and generating transaction and customer files used to produce Environment Agency invoices.
 
