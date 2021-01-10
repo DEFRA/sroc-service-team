@@ -19,7 +19,9 @@ ___*
 
 .idea
 
-# Ignore generated OpenAPI unified schema file
-# We generate this file as part of publishing the spec to SwaggerHub. But it's
-# not something we need to keep track of in source control.
+# Ignore generated OpenAPI unified schema files
+# We generate these files as part of publishing the spec to SwaggerHub. But they
+# are not something we need to keep track of in source control.
 openapi/openapi.json
+openapi/version_1/openapi.json
+openapi/version_2/openapi.json
