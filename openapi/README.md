@@ -28,7 +28,7 @@ Other versions available are
 
 This represents the latest version of the API and is based on the [sroc-charging-module-api project](https://github.com/DEFRA/sroc-charging-module-api). It is intended to resolve the quality and performance issues in version 1. It has also been designed to provide more flexibility and less duplication as new regimes are added.
 
-It is not yet available to users and the team is still working on what endpoints will be available on release, and how they will behave. At this time only the `draft` version is available at <https://app.swaggerhub.com/apis-docs/sro/sroc-charging-module_api/draft>.
+It is not yet available to users and the team is still working on what endpoints will be available on release, and how they will behave. At this time only the `draft` version is available at <https://app.swaggerhub.com/apis-docs/sro/sroc-charging-module-api/draft>.
 
 ## Working on the documents
 
