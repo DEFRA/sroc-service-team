@@ -58,6 +58,12 @@ paths:
   /status:
     $ref: 'paths/status.yml'
 
+  '/admin/health/airbrake':
+    $ref: 'paths/admin/health/airbrake.yml'
+
+  '/admin/health/database':
+    $ref: 'paths/admin/health/database.yml'
+
 security:
   - OAuth2: []
 
