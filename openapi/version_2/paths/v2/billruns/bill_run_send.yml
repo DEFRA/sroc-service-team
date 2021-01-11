@@ -1,0 +1,25 @@
+patch:
+  operationId: SendBillRun
+  description: "Triggers creation of a transaction file containing all transactions in the bill run. Bill run must be `approved` else the request will be rejected."
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+  responses:
+    '204':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              billRun:
+                type: object
+                properties:
+                  transactionFileReference:
+                    $ref: '../../../../schema/fields.yml#/transactionFileReferenceDat'
+                  transactionFileDate:
+                    $ref: '../../../../schema/fields.yml#/transactionDate'
+    '409':
+      description: "Conflict - status of the bill run means the summary cannot be generated. For example, the bill run is not approved or is already billed."
