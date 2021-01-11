@@ -1,0 +1,55 @@
+get:
+  operationId: ViewInvoice
+  description: "Request to view details of an invoice."
+  tags:
+    - suggested
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/invoiceId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          example:
+            invoice:
+              id: 'fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3'
+              billRunId: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+              customerReference: 'TH230000222'
+              financialYear: 2018
+              creditLineCount: 0
+              creditLineValue: 0
+              debitLineCount: 2
+              debitLineValue: 4186
+              zeroValueLineCount: 1
+              newLicenceCount: 0
+              netTotal: 4186
+              licences:
+                - id: '559943dd-8d08-4c95-9600-9c6c7d08d0d8'
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 2
+                  debitLineValue: 4186
+                  zeroValueLineCount: 0
+                  newLicenceCount: 0
+                  netTotal: 4186
+                - id: 'b297f240-7a32-444c-a2c4-add07869760f'
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 0
+                  debitLineValue: 0
+                  zeroValueLineCount: 1
+                  newLicenceCount: 0
+                  netTotal: 0
+
+delete:
+  operationId: DeleteInvoice
+  description: "Delete the specified invoice and all linked licences and transactions. As part of the deletion the linked bill run will be updated."
+  tags:
+    - suggested
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/invoiceId'
+  responses:
+    '204':
+      description: "Success"

@@ -61,6 +61,20 @@ financialYear:
   description: "The financial year (1 April to 31 March) within which the charge period of a transaction falls"
   schema:
     $ref: 'fields.yml#/financialYear'
+invoiceId:
+  name: invoiceId
+  in: path
+  required: true
+  description: "Internal ID (GUID) allocated by the CM when creating an invoice."
+  schema:
+    $ref: 'fields.yml#/invoiceId'
+licenceId:
+  name: licenceId
+  in: path
+  required: true
+  description: "Internal ID (GUID) allocated by the CM when creating a licence."
+  schema:
+    $ref: 'fields.yml#/licenceId'
 licenceNumber:
   name: licenceNumber
   in: query

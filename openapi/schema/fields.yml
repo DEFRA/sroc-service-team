@@ -216,11 +216,21 @@ invoiceDate:
   type: string
   nullable: true
   example: 03-JUN-2020
+invoiceId:
+  description: "Internal ID (GUID) allocated by the CM when creating an invoice."
+  type: string
+  format: uuid
+  example: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
 licenceHolderChargeAgreement:
   description: "Summary of the Section 130 charge calculation in a specific format required by the transaction file"
   type: string
   nullable: true
   example: 'S130U x 0.5'
+licenceId:
+  description: "Internal ID (GUID) allocated by the CM when creating a licence."
+  type: string
+  format: uuid
+  example: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
 licenceNumber:
   description: "The reference of the licence to which a charge / transaction relates"
   type: string
