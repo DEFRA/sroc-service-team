@@ -58,6 +58,9 @@ paths:
   /status:
     $ref: 'paths/status.yml'
 
+  '/admin/regimes':
+    $ref: 'paths/admin/regimes.yml'
+
   '/admin/regimes/{regimeId}':
     $ref: 'paths/admin/regime.yml'
 
