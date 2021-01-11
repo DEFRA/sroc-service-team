@@ -67,6 +67,11 @@ get:
                       zeroValueLineCount: 0
                       netTotal: 2500
                       deminimis: false
+                      licences:
+                        - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
+                          licenceNumber: 'FOOO/BARRR/306'
+                        - id: '77502697-e274-491a-bd6d-84ec557b0485'
+                          licenceNumber: 'FOOO/BARRR/307'
             '03 Generating summary':
               value:
                 billRun:
@@ -97,6 +102,11 @@ get:
                       zeroValueLineCount: 0
                       netTotal: 2500
                       deminimis: false
+                      licences:
+                        - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
+                          licenceNumber: 'FOOO/BARRR/306'
+                        - id: '77502697-e274-491a-bd6d-84ec557b0485'
+                          licenceNumber: 'FOOO/BARRR/307'
             '04 Summary generated':
               value:
                 billRun:
@@ -127,3 +137,8 @@ get:
                       zeroValueLineCount: 0
                       netTotal: 2500
                       deminimis: false
+                      licences:
+                        - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
+                          licenceNumber: 'FOOO/BARRR/306'
+                        - id: '77502697-e274-491a-bd6d-84ec557b0485'
+                          licenceNumber: 'FOOO/BARRR/307'

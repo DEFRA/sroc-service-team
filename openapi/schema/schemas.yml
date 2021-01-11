@@ -222,7 +222,7 @@ billrunV2:
       example: 0
     invoiceCount:
       type: integer
-      example: 2
+      example: 1
     invoiceValue:
       type: integer
       example: 4593
@@ -263,15 +263,24 @@ billrunV2:
             example: 0
           debitLineCount:
             type: integer
-            example: 2
+            example: 3
           debitLineValue:
             type: integer
-            example: 2500
+            example: 4593
           netTotal:
             type: integer
-            example: 2500
+            example: 4593
           deminimis:
             $ref: 'fields.yml#/deminimisTransaction'
+          licences:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  $ref: 'fields.yml#/licenceId'
+                licenceNumber:
+                  $ref: 'fields.yml#/licenceNumber'
     transactionFileReference:
       $ref: 'fields.yml#/transactionFileReferenceDat'
     transactionFileDate:
