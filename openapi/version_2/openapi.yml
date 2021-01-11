@@ -64,6 +64,9 @@ paths:
   '/admin/regimes/{regimeId}':
     $ref: 'paths/admin/regime.yml'
 
+  '/admin/authorised-systems':
+    $ref: 'paths/admin/authorised_systems.yml'
+
   '/admin/authorised-systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 

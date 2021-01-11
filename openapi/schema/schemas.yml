@@ -69,6 +69,21 @@ authorisedSystemPost:
       type: array
       items:
         $ref: 'fields.yml#/regime'
+authorisedSystemPostV2:
+  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
+  type: object
+  properties:
+    clientId:
+      $ref: 'fields.yml#/clientID'
+    name:
+      type: string
+      example: 'wrls'
+    status:
+      $ref: 'fields.yml#/authorisedSystemStatus'
+    authorisations:
+      type: array
+      items:
+        $ref: 'fields.yml#/regime'
 authorisedSystemSummary:
   description: "Essentially the user account of a system authorised to use the API. The summarised version does not include what authorisations each account has."
   type: object
