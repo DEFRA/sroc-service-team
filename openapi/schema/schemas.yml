@@ -22,6 +22,25 @@ authorisedSystem:
             $ref: 'fields.yml#/regime'
           last_accessed_at:
             $ref: 'fields.yml#/timeStamp'
+authorisedSystemV2:
+  description: "Essentially the user account of a system authorised to use the API. Includes what regimes each account is authorised to make requests for."
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/authorisedSystemId'
+    clientId:
+      $ref: 'fields.yml#/clientID'
+    name:
+      type: string
+      example: 'wrls'
+    status:
+      $ref: 'fields.yml#/authorisedSystemStatus'
+    admin:
+      $ref: 'fields.yml#/admin'
+    createdAt:
+      $ref: 'fields.yml#/timeStamp'
+    updatedAt:
+      $ref: 'fields.yml#/timeStamp'
 authorisedSystemPatch:
   description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
   type: object
@@ -430,6 +449,25 @@ regimeSummary:
       example: 'Water Resources'
     slug:
       $ref: 'fields.yml#/regime'
+regimeV2:
+  description: "Charging regime that will have its own charge rules"
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/regimeId'
+    slug:
+      type: string
+      enum: [cfd, pas, wml, wrls]
+      example: 'wrls'
+    name:
+      type: string
+      example: 'Water Resources'
+    preSrocCutoffDate:
+      $ref: 'fields.yml#/timeStamp'
+    createdAt:
+      $ref: 'fields.yml#/timeStamp'
+    updatedAt:
+      $ref: 'fields.yml#/timeStamp'
 status:
   description: "Returned by a call to status, it is an object that contains a copy of the headers found in the original request"
   type: object

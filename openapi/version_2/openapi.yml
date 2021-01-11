@@ -58,6 +58,12 @@ paths:
   /status:
     $ref: 'paths/status.yml'
 
+  '/admin/regimes/{regimeId}':
+    $ref: 'paths/admin/regime.yml'
+
+  '/admin/authorised-systems/{authorisedSystemId}':
+    $ref: 'paths/admin/authorised_system.yml'
+
   '/admin/health/airbrake':
     $ref: 'paths/admin/health/airbrake.yml'
 
