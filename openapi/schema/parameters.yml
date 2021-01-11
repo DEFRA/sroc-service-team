@@ -2,9 +2,9 @@ authorisedSystemId:
   name: authorisedSystemId
   in: path
   required: true
-  description: "Client ID provided by AWS Cognito"
+  description: "Internal ID (GUID) allocated by the CM when creating an authorised system."
   schema:
-    $ref: 'fields.yml#/clientID'
+    $ref: 'fields.yml#/authorisedSystemId'
 batchNumber:
   name: batchNumber
   in: query
@@ -86,6 +86,13 @@ regime:
   description: "Charging regime to use"
   schema:
     $ref: 'fields.yml#/regime'
+regimeId:
+  name: regimeId
+  in: path
+  required: true
+  description: "Internal ID (GUID) allocated by the CM when creating a regime."
+  schema:
+    $ref: 'fields.yml#/regimeId'
 region:
   name: region
   in: query

@@ -2,6 +2,10 @@ abatementAdjustment:
   description: "The factor to apply to the charge where a section 126 charge agreement is relevant to the transaction"
   type: number
   example: 0.5
+admin:
+  description: "Boolean indicator to show whether or not the authorised system is an 'admin' user of the API"
+  type: boolean
+  example: false
 addressLine1:
   description: "First line of billing address for a customer"
   type: string
@@ -51,6 +55,11 @@ authorisedDays:
   minimum: 0
   maximum: 366
   example: 214
+authorisedSystemId:
+  description: "Internal ID (GUID) allocated by the CM when creating an authorised system."
+  type: string
+  format: uuid
+  example: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
 authorisedSystemStatus:
   type: string
   example: 'active'
@@ -281,7 +290,7 @@ regime:
   enum: [cfd, pas, wml, wrls]
   example: 'wrls'
 regimeId:
-  description: "NOT IN MASTER DATA SPECIFICATION"
+  description: "Internal ID (GUID) allocated by the CM when creating a regime."
   type: string
   format: uuid
   example: 'fd2ab097-3097-42bd-849e-046aa250a0d0'

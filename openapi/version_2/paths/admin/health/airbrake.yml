@@ -1,0 +1,8 @@
+get:
+  operationId: CheckAirbrake
+  description: "Used to confirm Airbrake is connected correctly to an environment"
+  tags:
+    - admin
+  responses:
+    '500':
+      description: "An error has been thrown on purpose by the API. Check either the production or non-production instance of Errbit to confirm it received the error"
