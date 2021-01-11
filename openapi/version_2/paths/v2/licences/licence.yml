@@ -16,6 +16,7 @@ get:
               id: 'fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3'
               billRunId: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
               invoiceId: '559943dd-8d08-4c95-9600-9c6c7d08d0d8'
+              licenceNumber: 'FOOO/BARRR/306'
               creditLineCount: 0
               creditLineValue: 0
               debitLineCount: 2
