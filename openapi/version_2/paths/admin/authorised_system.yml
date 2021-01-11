@@ -11,9 +11,7 @@ get:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              $ref: '../../../schema/schemas.yml#/authorisedSystemV2'
+            $ref: '../../../schema/schemas.yml#/authorisedSystemV2'
           example:
             id: 'b36d674f-b97c-4685-95f3-aacae8c97bde'
             clientId: '1b1gshltt176v80nsc4fxxxxxx'
