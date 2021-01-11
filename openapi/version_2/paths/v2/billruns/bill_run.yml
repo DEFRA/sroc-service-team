@@ -26,17 +26,16 @@ get:
                   status: 'initialised'
                   approvedForBilling: false
                   preSroc: true
-                  summary:
-                    creditNoteCount: 0
-                    creditNoteValue: 0
-                    invoiceCount: 0
-                    invoiceValue: 0
-                    creditLineCount: 0
-                    creditLineValue: 0
-                    debitLineCount: 0
-                    debitLineValue: 0
-                    zeroValueLineCount: 0
-                    netTotal: 0
+                  creditNoteCount: 0
+                  creditNoteValue: 0
+                  invoiceCount: 0
+                  invoiceValue: 0
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 0
+                  debitLineValue: 0
+                  zeroValueLineCount: 0
+                  netTotal: 0
                   invoices: []
             '02 Transactions added':
               value:
@@ -47,21 +46,20 @@ get:
                   status: 'initialised'
                   approvedForBilling: false
                   preSroc: true
-                  summary:
-                    creditNoteCount: 0
-                    creditNoteValue: 0
-                    invoiceCount: 0
-                    invoiceValue: 0
-                    creditLineCount: 0
-                    creditLineValue: 0
-                    debitLineCount: 2
-                    debitLineValue: 2500
-                    zeroValueLineCount: 0
-                    netTotal: 2500
+                  creditNoteCount: 0
+                  creditNoteValue: 0
+                  invoiceCount: 0
+                  invoiceValue: 0
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 2
+                  debitLineValue: 2500
+                  zeroValueLineCount: 0
+                  netTotal: 2500
                   invoices:
-                  - customerReference: 'TH150000020'
-                    summaryByFinancialYear:
-                    - financialYear: 2019
+                    - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      customerReference: 'TH150000020'
+                      financialYear: 2019
                       creditLineCount: 0
                       creditLineValue: 0
                       debitLineCount: 2
@@ -78,21 +76,20 @@ get:
                   status: 'generating'
                   approvedForBilling: false
                   preSroc: true
-                  summary:
-                    creditNoteCount: 0
-                    creditNoteValue: 0
-                    invoiceCount: 0
-                    invoiceValue: 0
-                    creditLineCount: 0
-                    creditLineValue: 0
-                    debitLineCount: 2
-                    debitLineValue: 2500
-                    zeroValueLineCount: 0
-                    netTotal: 2500
+                  creditNoteCount: 0
+                  creditNoteValue: 0
+                  invoiceCount: 0
+                  invoiceValue: 0
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 2
+                  debitLineValue: 2500
+                  zeroValueLineCount: 0
+                  netTotal: 2500
                   invoices:
-                  - customerReference: 'TH150000020'
-                    summaryByFinancialYear:
-                    - financialYear: 2019
+                    - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      customerReference: 'TH150000020'
+                      financialYear: 2019
                       creditLineCount: 0
                       creditLineValue: 0
                       debitLineCount: 2
@@ -109,21 +106,20 @@ get:
                   status: 'summarised'
                   approvedForBilling: false
                   preSroc: true
-                  summary:
-                    creditNoteCount: 0
-                    creditNoteValue: 0
-                    invoiceCount: 1
-                    invoiceValue: 2500
-                    creditLineCount: 0
-                    creditLineValue: 0
-                    debitLineCount: 2
-                    debitLineValue: 2500
-                    zeroValueLineCount: 0
-                    netTotal: 2500
+                  creditNoteCount: 0
+                  creditNoteValue: 0
+                  invoiceCount: 1
+                  invoiceValue: 2500
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 2
+                  debitLineValue: 2500
+                  zeroValueLineCount: 0
+                  netTotal: 2500
                   invoices:
-                  - customerReference: 'TH150000020'
-                    summaryByFinancialYear:
-                    - financialYear: 2019
+                    - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      customerReference: 'TH150000020'
+                      financialYear: 2019
                       creditLineCount: 0
                       creditLineValue: 0
                       debitLineCount: 2

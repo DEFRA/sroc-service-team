@@ -214,70 +214,64 @@ billrunV2:
       $ref: 'fields.yml#/approvalStatus'
     preSroc:
       $ref: 'fields.yml#/preSroc'
-    summary:
-      type: object
-      properties:
-        creditNoteCount:
-          type: integer
-          example: 0
-        creditNoteValue:
-          type: integer
-          example: 0
-        invoiceCount:
-          type: integer
-          example: 2
-        invoiceValue:
-          type: integer
-          example: 4593
-        creditLineCount:
-          type: integer
-          example: 0
-        creditLineValue:
-          type: integer
-          example: 0
-        debitLineCount:
-          type: integer
-          example: 3
-        debitLineValue:
-          type: integer
-          example: 4593
-        zeroValueLineCount:
-          type: integer
-          example: 0
-        netTotal:
-          type: integer
-          example: 4593
+    creditNoteCount:
+      type: integer
+      example: 0
+    creditNoteValue:
+      type: integer
+      example: 0
+    invoiceCount:
+      type: integer
+      example: 2
+    invoiceValue:
+      type: integer
+      example: 4593
+    creditLineCount:
+      type: integer
+      example: 0
+    creditLineValue:
+      type: integer
+      example: 0
+    debitLineCount:
+      type: integer
+      example: 3
+    debitLineValue:
+      type: integer
+      example: 4593
+    zeroValueLineCount:
+      type: integer
+      example: 0
+    netTotal:
+      type: integer
+      example: 4593
     invoices:
       type: array
       items:
         type: object
         properties:
+          id:
+            $ref: 'fields.yml#/invoiceId'
           customerReference:
             $ref: 'fields.yml#/customerReference'
-          summaryByFinancialYear:
-            type: array
-            items:
-              type: object
-              properties:
-                financialYear:
-                  $ref: 'fields.yml#/financialYear'
-                creditLineCount:
-                  type: integer
-                  example: 0
-                creditLineValue:
-                  type: integer
-                  example: 0
-                debitLineCount:
-                  type: integer
-                  example: 2
-                debitLineValue:
-                  type: integer
-                  example: 2500
-                netTotal:
-                  type: integer
-                  example: 2500
-                deminimis:
-                  $ref: 'fields.yml#/deminimisTransaction'
+          financialYear:
+            $ref: 'fields.yml#/financialYear'
+          creditLineCount:
+            type: integer
+            example: 0
+          creditLineValue:
+            type: integer
+            example: 0
+          debitLineCount:
+            type: integer
+            example: 2
+          debitLineValue:
+            type: integer
+            example: 2500
+          netTotal:
+            type: integer
+            example: 2500
+          deminimis:
+            $ref: 'fields.yml#/deminimisTransaction'
     transactionFileReference:
       $ref: 'fields.yml#/transactionFileReferenceDat'
     transactionFileDate:
