@@ -79,6 +79,9 @@ paths:
   '/v2/{regime}/billruns':
     $ref: 'paths/v2/billruns/bill_runs.yml'
 
+  '/v2/{regime}/billruns/{billrunId}/generate':
+    $ref: 'paths/v2/billruns/bill_run_generate.yml'
+
   '/v2/{regime}/billruns/{billrunId}/transactions':
     $ref: 'paths/v2/billruns/transactions/bill_run_transactions.yml'
 

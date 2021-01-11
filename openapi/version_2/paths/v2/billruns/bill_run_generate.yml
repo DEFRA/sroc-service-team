@@ -1,0 +1,13 @@
+patch:
+  operationId: GenerateBillRun
+  description: "Generate the summary for the specified bill run. Bill run must be unbilled. Must take place before bill run is sent."
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+  responses:
+    '204':
+      description: "Success"
+    '409':
+      description: "Conflict - status of the bill run means the summary cannot be generated. For example, the bill run is billed or the summary has already been generated."
