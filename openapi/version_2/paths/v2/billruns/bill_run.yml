@@ -1,0 +1,133 @@
+get:
+  operationId: ViewBillRun
+  description: "Request to view a single bill run based on the bill run ID."
+  tags:
+    - billrun
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              billRun:
+                $ref: '../../../../schema/schemas.yml#/billrunV2'
+          examples:
+            '01 Just created':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'initialised'
+                  approvedForBilling: false
+                  preSroc: true
+                  summary:
+                    creditNoteCount: 0
+                    creditNoteValue: 0
+                    invoiceCount: 0
+                    invoiceValue: 0
+                    creditLineCount: 0
+                    creditLineValue: 0
+                    debitLineCount: 0
+                    debitLineValue: 0
+                    zeroValueLineCount: 0
+                    netTotal: 0
+                  invoices: []
+            '02 Transactions added':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'initialised'
+                  approvedForBilling: false
+                  preSroc: true
+                  summary:
+                    creditNoteCount: 0
+                    creditNoteValue: 0
+                    invoiceCount: 0
+                    invoiceValue: 0
+                    creditLineCount: 0
+                    creditLineValue: 0
+                    debitLineCount: 2
+                    debitLineValue: 2500
+                    zeroValueLineCount: 0
+                    netTotal: 2500
+                  invoices:
+                  - customerReference: 'TH150000020'
+                    summaryByFinancialYear:
+                    - financialYear: 2019
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroValueLineCount: 0
+                      netTotal: 2500
+                      deminimis: false
+            '03 Generating summary':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'generating'
+                  approvedForBilling: false
+                  preSroc: true
+                  summary:
+                    creditNoteCount: 0
+                    creditNoteValue: 0
+                    invoiceCount: 0
+                    invoiceValue: 0
+                    creditLineCount: 0
+                    creditLineValue: 0
+                    debitLineCount: 2
+                    debitLineValue: 2500
+                    zeroValueLineCount: 0
+                    netTotal: 2500
+                  invoices:
+                  - customerReference: 'TH150000020'
+                    summaryByFinancialYear:
+                    - financialYear: 2019
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroValueLineCount: 0
+                      netTotal: 2500
+                      deminimis: false
+            '04 Summary generated':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'summarised'
+                  approvedForBilling: false
+                  preSroc: true
+                  summary:
+                    creditNoteCount: 0
+                    creditNoteValue: 0
+                    invoiceCount: 1
+                    invoiceValue: 2500
+                    creditLineCount: 0
+                    creditLineValue: 0
+                    debitLineCount: 2
+                    debitLineValue: 2500
+                    zeroValueLineCount: 0
+                    netTotal: 2500
+                  invoices:
+                  - customerReference: 'TH150000020'
+                    summaryByFinancialYear:
+                    - financialYear: 2019
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroValueLineCount: 0
+                      netTotal: 2500
+                      deminimis: false
