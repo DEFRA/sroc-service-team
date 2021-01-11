@@ -76,6 +76,9 @@ paths:
   '/admin/health/database':
     $ref: 'paths/admin/health/database.yml'
 
+  '/v2/{regime}/billruns':
+    $ref: 'paths/v2/billruns/bill_runs.yml'
+
   '/v2/{regime}/calculate-charge':
     $ref: 'paths/v2/calculate_charge/calculate_charge.yml'
 
