@@ -11,11 +11,6 @@ get:
       description: "Success"
       content:
         application/json:
-          schema:
-            type: object
-            properties:
-              billRun:
-                $ref: '../../../../schema/schemas.yml#/billrunV2'
           examples:
             '01 Just created':
               value:
