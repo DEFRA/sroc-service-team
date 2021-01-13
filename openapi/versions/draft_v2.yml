@@ -623,152 +623,6 @@ paths:
           description: Success
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  billRun:
-                    description: ''
-                    type: object
-                    properties:
-                      id:
-                        description: Internal ID (GUID) allocated by the CM when creating
-                          a bill run.
-                        type: string
-                        format: uuid
-                        example: fd2ab097-3097-42bd-849e-046aa250a0d0
-                      billRunNumber:
-                        description: The five-digit bill run number of the file generated
-                          by the CM in which the transaction was included
-                        type: integer
-                        minimum: 10000
-                        maximum: 99999
-                        example: 14283
-                      region:
-                        description: A single-digit region identifier for a transaction
-                          or customer
-                        type: string
-                        enum:
-                        - A
-                        - B
-                        - E
-                        - N
-                        - S
-                        - T
-                        - W
-                        - Y
-                        example: A
-                      status:
-                        description: Indicator to show the progress of a bill run
-                          towards billed status
-                        type: string
-                        enum:
-                        - billed
-                        - billing_not_required
-                        - generating_summary
-                        - initialised
-                        - pending
-                        example: billed
-                      approvedForBilling:
-                        description: Boolean indicator to show whether or not a user
-                          has confirmed that the transaction is ready to be included
-                          in a transaction file
-                        type: boolean
-                        example: true
-                      preSroc:
-                        description: Boolean indicator to show whether a bill run
-                          is for pre-SRoC or SRoC (where true indicates pre-SRoC and
-                          false is SRoC)
-                        type: boolean
-                        example: true
-                      summary:
-                        type: object
-                        properties:
-                          creditNoteCount:
-                            type: integer
-                            example: 0
-                          creditNoteValue:
-                            type: integer
-                            example: 0
-                          invoiceCount:
-                            type: integer
-                            example: 2
-                          invoiceValue:
-                            type: integer
-                            example: 4593
-                          creditLineCount:
-                            type: integer
-                            example: 0
-                          creditLineValue:
-                            type: integer
-                            example: 0
-                          debitLineCount:
-                            type: integer
-                            example: 3
-                          debitLineValue:
-                            type: integer
-                            example: 4593
-                          zeroValueLineCount:
-                            type: integer
-                            example: 0
-                          netTotal:
-                            type: integer
-                            example: 4593
-                      invoices:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            customerReference:
-                              description: Customer Number of the invoicee
-                              type: string
-                              example: B19120000A
-                            summaryByFinancialYear:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  financialYear:
-                                    description: The financial year (1 April to 31
-                                      March) within which the charge period of a transaction
-                                      falls
-                                    type: integer
-                                    minimum: 2014
-                                    example: 2019
-                                  creditLineCount:
-                                    type: integer
-                                    example: 0
-                                  creditLineValue:
-                                    type: integer
-                                    example: 0
-                                  debitLineCount:
-                                    type: integer
-                                    example: 2
-                                  debitLineValue:
-                                    type: integer
-                                    example: 2500
-                                  netTotal:
-                                    type: integer
-                                    example: 2500
-                                  deminimis:
-                                    description: Boolean flag to indicate whether
-                                      a transaction was part of an invoice that was
-                                      not included in a transaction file (i.e not
-                                      charged to the customer) due to falling below
-                                      the de-minimis value of £5
-                                    type: boolean
-                                    example: false
-                      transactionFileReference:
-                        description: NOT IN MASTER DATA SPECIFICATION
-                        type: string
-                        example: nalai50001.dat
-                      transactionFileDate:
-                        description: Estimated date of issue of the invoice.  In reality
-                          this will be the date of generation of the transaction file,
-                          and SSCL will over-write it with the actual invoice date
-                          on receipt of the transaction file
-                        type: string
-                        nullable: true
-                        example: 03-JUN-2020
               examples:
                 01 Just created:
                   value:
@@ -779,17 +633,16 @@ paths:
                       status: initialised
                       approvedForBilling: false
                       preSroc: true
-                      summary:
-                        creditNoteCount: 0
-                        creditNoteValue: 0
-                        invoiceCount: 0
-                        invoiceValue: 0
-                        creditLineCount: 0
-                        creditLineValue: 0
-                        debitLineCount: 0
-                        debitLineValue: 0
-                        zeroValueLineCount: 0
-                        netTotal: 0
+                      creditNoteCount: 0
+                      creditNoteValue: 0
+                      invoiceCount: 0
+                      invoiceValue: 0
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 0
+                      debitLineValue: 0
+                      zeroValueLineCount: 0
+                      netTotal: 0
                       invoices: []
                 02 Transactions added:
                   value:
@@ -800,28 +653,32 @@ paths:
                       status: initialised
                       approvedForBilling: false
                       preSroc: true
-                      summary:
-                        creditNoteCount: 0
-                        creditNoteValue: 0
-                        invoiceCount: 0
-                        invoiceValue: 0
+                      creditNoteCount: 0
+                      creditNoteValue: 0
+                      invoiceCount: 0
+                      invoiceValue: 0
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroValueLineCount: 0
+                      netTotal: 2500
+                      invoices:
+                      - id: aa630ae0-0e51-4166-9025-66576c513f7f
+                        customerReference: TH150000020
+                        financialYear: 2019
                         creditLineCount: 0
                         creditLineValue: 0
                         debitLineCount: 2
                         debitLineValue: 2500
                         zeroValueLineCount: 0
                         netTotal: 2500
-                      invoices:
-                      - customerReference: TH150000020
-                        summaryByFinancialYear:
-                        - financialYear: 2019
-                          creditLineCount: 0
-                          creditLineValue: 0
-                          debitLineCount: 2
-                          debitLineValue: 2500
-                          zeroValueLineCount: 0
-                          netTotal: 2500
-                          deminimis: false
+                        deminimis: false
+                        licences:
+                        - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
+                          licenceNumber: FOOO/BARRR/306
+                        - id: 77502697-e274-491a-bd6d-84ec557b0485
+                          licenceNumber: FOOO/BARRR/307
                 03 Generating summary:
                   value:
                     billRun:
@@ -831,28 +688,32 @@ paths:
                       status: generating
                       approvedForBilling: false
                       preSroc: true
-                      summary:
-                        creditNoteCount: 0
-                        creditNoteValue: 0
-                        invoiceCount: 0
-                        invoiceValue: 0
+                      creditNoteCount: 0
+                      creditNoteValue: 0
+                      invoiceCount: 0
+                      invoiceValue: 0
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroValueLineCount: 0
+                      netTotal: 2500
+                      invoices:
+                      - id: aa630ae0-0e51-4166-9025-66576c513f7f
+                        customerReference: TH150000020
+                        financialYear: 2019
                         creditLineCount: 0
                         creditLineValue: 0
                         debitLineCount: 2
                         debitLineValue: 2500
                         zeroValueLineCount: 0
                         netTotal: 2500
-                      invoices:
-                      - customerReference: TH150000020
-                        summaryByFinancialYear:
-                        - financialYear: 2019
-                          creditLineCount: 0
-                          creditLineValue: 0
-                          debitLineCount: 2
-                          debitLineValue: 2500
-                          zeroValueLineCount: 0
-                          netTotal: 2500
-                          deminimis: false
+                        deminimis: false
+                        licences:
+                        - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
+                          licenceNumber: FOOO/BARRR/306
+                        - id: 77502697-e274-491a-bd6d-84ec557b0485
+                          licenceNumber: FOOO/BARRR/307
                 04 Summary generated:
                   value:
                     billRun:
@@ -862,28 +723,32 @@ paths:
                       status: summarised
                       approvedForBilling: false
                       preSroc: true
-                      summary:
-                        creditNoteCount: 0
-                        creditNoteValue: 0
-                        invoiceCount: 1
-                        invoiceValue: 2500
+                      creditNoteCount: 0
+                      creditNoteValue: 0
+                      invoiceCount: 1
+                      invoiceValue: 2500
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroValueLineCount: 0
+                      netTotal: 2500
+                      invoices:
+                      - id: aa630ae0-0e51-4166-9025-66576c513f7f
+                        customerReference: TH150000020
+                        financialYear: 2019
                         creditLineCount: 0
                         creditLineValue: 0
                         debitLineCount: 2
                         debitLineValue: 2500
                         zeroValueLineCount: 0
                         netTotal: 2500
-                      invoices:
-                      - customerReference: TH150000020
-                        summaryByFinancialYear:
-                        - financialYear: 2019
-                          creditLineCount: 0
-                          creditLineValue: 0
-                          debitLineCount: 2
-                          debitLineValue: 2500
-                          zeroValueLineCount: 0
-                          netTotal: 2500
-                          deminimis: false
+                        deminimis: false
+                        licences:
+                        - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
+                          licenceNumber: FOOO/BARRR/306
+                        - id: 77502697-e274-491a-bd6d-84ec557b0485
+                          licenceNumber: FOOO/BARRR/307
   "/v2/{regime}/bill-runs/{billrunId}/generate":
     patch:
       operationId: GenerateBillRun
@@ -1532,6 +1397,194 @@ paths:
               section126Factor: 1
               section127Agreement: false
               section130Agreement: false
+  "/v2/{regime}/invoices/{invoiceId}":
+    get:
+      operationId: ViewInvoice
+      description: Request to view details of an invoice.
+      tags:
+      - suggested
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: invoiceId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating an invoice.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating an invoice.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                invoice:
+                  id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
+                  billRunId: fd2ab097-3097-42bd-849e-046aa250a0d0
+                  customerReference: TH230000222
+                  financialYear: 2018
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 2
+                  debitLineValue: 4186
+                  zeroValueLineCount: 1
+                  newLicenceCount: 0
+                  netTotal: 4186
+                  licences:
+                  - id: 559943dd-8d08-4c95-9600-9c6c7d08d0d8
+                    creditLineCount: 0
+                    creditLineValue: 0
+                    debitLineCount: 2
+                    debitLineValue: 4186
+                    zeroValueLineCount: 0
+                    newLicenceCount: 0
+                    netTotal: 4186
+                  - id: b297f240-7a32-444c-a2c4-add07869760f
+                    creditLineCount: 0
+                    creditLineValue: 0
+                    debitLineCount: 0
+                    debitLineValue: 0
+                    zeroValueLineCount: 1
+                    newLicenceCount: 0
+                    netTotal: 0
+    delete:
+      operationId: DeleteInvoice
+      description: Delete the specified invoice and all linked licences and transactions.
+        As part of the deletion the linked bill run will be updated.
+      tags:
+      - suggested
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: invoiceId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating an invoice.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating an invoice.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '204':
+          description: Success
+  "/v2/{regime}/licences/{licenceId}":
+    get:
+      operationId: ViewLicence
+      description: Request to view details of a licence.
+      tags:
+      - suggested
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: licenceId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a licence.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a licence.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                licence:
+                  id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
+                  billRunId: fd2ab097-3097-42bd-849e-046aa250a0d0
+                  invoiceId: 559943dd-8d08-4c95-9600-9c6c7d08d0d8
+                  licenceNumber: FOOO/BARRR/306
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 2
+                  debitLineValue: 4186
+                  zeroValueLineCount: 1
+                  newLicenceCount: 3
+                  netTotal: 4186
+                  transactions:
+                  - id: fe36eccb-4d58-4cb0-8062-01f7c2b886c2
+                    region: A
+                    credit: false
+                    chargeValue: 2093
+                  - id: '08a74e38-3652-44b9-8459-c364d3a3e524'
+                    region: A
+                    credit: false
+                    chargeValue: 2093
+                  - id: 9b1cc7c7-4b19-42cc-8d17-90f121edebbb
+                    region: A
+                    credit: false
+                    chargeValue: 0
+    delete:
+      operationId: DeleteLicence
+      description: Delete the specified licence and all linked transactions. As part
+        of the deletion the linked invoice and bill run will also be updated.
+      tags:
+      - suggested
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: licenceId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a licence.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a licence.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '204':
+          description: Success
 security:
 - OAuth2: []
 components:
