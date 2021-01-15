@@ -665,6 +665,7 @@ paths:
                       netTotal: 2500
                       invoices:
                       - id: aa630ae0-0e51-4166-9025-66576c513f7f
+                        summarised: false
                         customerReference: TH150000020
                         financialYear: 2019
                         creditLineCount: 0
@@ -674,6 +675,9 @@ paths:
                         zeroValueLineCount: 0
                         netTotal: 2500
                         deminimis: false
+                        netZeroValue: false
+                        transactionType: ''
+                        transactionReference: ''
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -700,6 +704,7 @@ paths:
                       netTotal: 2500
                       invoices:
                       - id: aa630ae0-0e51-4166-9025-66576c513f7f
+                        summarised: false
                         customerReference: TH150000020
                         financialYear: 2019
                         creditLineCount: 0
@@ -709,6 +714,9 @@ paths:
                         zeroValueLineCount: 0
                         netTotal: 2500
                         deminimis: false
+                        netZeroValue: false
+                        transactionType: ''
+                        transactionReference: ''
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -735,6 +743,7 @@ paths:
                       netTotal: 2500
                       invoices:
                       - id: aa630ae0-0e51-4166-9025-66576c513f7f
+                        summarised: true
                         customerReference: TH150000020
                         financialYear: 2019
                         creditLineCount: 0
@@ -744,6 +753,9 @@ paths:
                         zeroValueLineCount: 0
                         netTotal: 2500
                         deminimis: false
+                        netZeroValue: false
+                        transactionType: ''
+                        transactionReference: ''
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -1486,6 +1498,7 @@ paths:
                 invoice:
                   id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
                   billRunId: fd2ab097-3097-42bd-849e-046aa250a0d0
+                  summarised: true
                   customerReference: TH230000222
                   financialYear: 2018
                   creditLineCount: 0
@@ -1495,6 +1508,10 @@ paths:
                   zeroValueLineCount: 1
                   newLicenceCount: 0
                   netTotal: 4186
+                  deminimis: false
+                  netZeroValue: false
+                  transactionType: ''
+                  transactionReference: ''
                   licences:
                   - id: 559943dd-8d08-4c95-9600-9c6c7d08d0d8
                     creditLineCount: 0
