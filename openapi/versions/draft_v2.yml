@@ -749,6 +749,57 @@ paths:
                           licenceNumber: FOOO/BARRR/306
                         - id: 77502697-e274-491a-bd6d-84ec557b0485
                           licenceNumber: FOOO/BARRR/307
+  "/v2/{regime}/billruns/{billrunId}/status":
+    get:
+      operationId: ViewBillRunStatus
+      description: Request to view the status of a single bill run based on the bill
+        run ID. It is intended to help client systems quickly determine if a bill
+        run is ready to be viewed after a `/generate` request and reduce the load
+        on the API.
+      tags:
+      - billrun
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                01 Just created:
+                  value:
+                    status: initialised
+                02 Transactions added:
+                  value:
+                    status: initialised
+                03 Generating summary:
+                  value:
+                    status: generating
+                04 Summary generated:
+                  value:
+                    status: summarised
   "/v2/{regime}/bill-runs/{billrunId}/generate":
     patch:
       operationId: GenerateBillRun
