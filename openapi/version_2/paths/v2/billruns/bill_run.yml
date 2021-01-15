@@ -53,6 +53,7 @@ get:
                   netTotal: 2500
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      summarised: false
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -88,6 +89,7 @@ get:
                   netTotal: 2500
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      summarised: false
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -123,6 +125,7 @@ get:
                   netTotal: 2500
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      summarised: true
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
