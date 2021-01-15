@@ -31,6 +31,7 @@ get:
                   debitLineValue: 0
                   zeroValueLineCount: 0
                   netTotal: 0
+                  transactionFileReference: ''
                   invoices: []
             '02 Transactions added':
               value:
@@ -51,6 +52,7 @@ get:
                   debitLineValue: 2500
                   zeroValueLineCount: 0
                   netTotal: 2500
+                  transactionFileReference: ''
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
                       summarised: false
@@ -90,6 +92,7 @@ get:
                   debitLineValue: 2500
                   zeroValueLineCount: 0
                   netTotal: 2500
+                  transactionFileReference: ''
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
                       summarised: false
@@ -129,6 +132,7 @@ get:
                   debitLineValue: 2500
                   zeroValueLineCount: 0
                   netTotal: 2500
+                  transactionFileReference: ''
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
                       summarised: true
