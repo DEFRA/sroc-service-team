@@ -53,6 +53,7 @@ get:
                   netTotal: 2500
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      summarised: false
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -62,6 +63,9 @@ get:
                       zeroValueLineCount: 0
                       netTotal: 2500
                       deminimis: false
+                      netZeroValue: false
+                      transactionType: ''
+                      transactionReference: ''
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -88,6 +92,7 @@ get:
                   netTotal: 2500
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      summarised: false
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -97,6 +102,9 @@ get:
                       zeroValueLineCount: 0
                       netTotal: 2500
                       deminimis: false
+                      netZeroValue: false
+                      transactionType: ''
+                      transactionReference: ''
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -123,6 +131,7 @@ get:
                   netTotal: 2500
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      summarised: true
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -132,6 +141,9 @@ get:
                       zeroValueLineCount: 0
                       netTotal: 2500
                       deminimis: false
+                      netZeroValue: false
+                      transactionType: ''
+                      transactionReference: ''
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
