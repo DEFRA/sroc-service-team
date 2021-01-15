@@ -79,16 +79,19 @@ paths:
   '/v2/{regime}/bill-runs':
     $ref: 'paths/v2/billruns/bill_runs.yml'
 
-  '/v2/{regime}/billruns/{billrunId}':
+  '/v2/{regime}/billruns/{billRunId}':
     $ref: 'paths/v2/billruns/bill_run.yml'
 
-  '/v2/{regime}/bill-runs/{billrunId}/generate':
+  '/v2/{regime}/billruns/{billRunId}/status':
+    $ref: 'paths/v2/billruns/bill_run_status.yml'
+
+  '/v2/{regime}/bill-runs/{billRunId}/generate':
     $ref: 'paths/v2/billruns/bill_run_generate.yml'
 
-  '/v2/{regime}/billruns/{billrunId}/send':
+  '/v2/{regime}/billruns/{billRunId}/send':
     $ref: 'paths/v2/billruns/bill_run_send.yml'
 
-  '/v2/{regime}/bill-runs/{billrunId}/transactions':
+  '/v2/{regime}/bill-runs/{billRunId}/transactions':
     $ref: 'paths/v2/billruns/transactions/bill_run_transactions.yml'
 
   '/v2/{regime}/calculate-charge':
