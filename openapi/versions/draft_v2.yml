@@ -588,7 +588,7 @@ paths:
               - region
             example:
               region: A
-  "/v2/{regime}/billruns/{billrunId}":
+  "/v2/{regime}/bill-runs/{billrunId}":
     get:
       operationId: ViewBillRun
       description: Request to view a single bill run based on the bill run ID.
@@ -761,7 +761,7 @@ paths:
                           licenceNumber: FOOO/BARRR/306
                         - id: 77502697-e274-491a-bd6d-84ec557b0485
                           licenceNumber: FOOO/BARRR/307
-  "/v2/{regime}/billruns/{billrunId}/status":
+  "/v2/{regime}/bill-runs/{billrunId}/status":
     get:
       operationId: ViewBillRunStatus
       description: Request to view the status of a single bill run based on the bill
@@ -850,7 +850,7 @@ paths:
           description: Conflict - status of the bill run means the summary cannot
             be generated. For example, the bill run is billed or the summary has already
             been generated.
-  "/v2/{regime}/billruns/{billrunId}/send":
+  "/v2/{regime}/bill-runs/{billrunId}/send":
     patch:
       operationId: SendBillRun
       description: Triggers creation of a transaction file containing all transactions
