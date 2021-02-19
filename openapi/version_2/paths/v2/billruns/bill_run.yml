@@ -20,7 +20,7 @@ get:
                   region: 'W'
                   status: 'initialised'
                   approvedForBilling: false
-                  preSroc: true
+                  ruleset: 'presroc'
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 0
@@ -41,7 +41,7 @@ get:
                   region: 'W'
                   status: 'initialised'
                   approvedForBilling: false
-                  preSroc: true
+                  ruleset: 'presroc'
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 0
@@ -55,7 +55,6 @@ get:
                   transactionFileReference: ''
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
-                      summarised: false
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -63,16 +62,15 @@ get:
                       debitLineCount: 2
                       debitLineValue: 2500
                       zeroValueLineCount: 0
-                      netTotal: 2500
-                      deminimis: false
-                      netZeroValue: false
-                      transactionType: ''
-                      transactionReference: ''
+                      deminimisInvoice: false
+                      zeroValueInvoice: false
+                      minimumChargeInvoice: false
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
+                      netTotal: 2500
             '03 Generating summary':
               value:
                 billRun:
@@ -81,7 +79,7 @@ get:
                   region: 'W'
                   status: 'generating'
                   approvedForBilling: false
-                  preSroc: true
+                  ruleset: 'presroc'
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 0
@@ -95,7 +93,6 @@ get:
                   transactionFileReference: ''
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
-                      summarised: false
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -103,25 +100,24 @@ get:
                       debitLineCount: 2
                       debitLineValue: 2500
                       zeroValueLineCount: 0
-                      netTotal: 2500
-                      deminimis: false
-                      netZeroValue: false
-                      transactionType: ''
-                      transactionReference: ''
+                      deminimisInvoice: false
+                      zeroValueInvoice: false
+                      minimumChargeInvoice: false
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
+                      netTotal: 2500
             '04 Summary generated':
               value:
                 billRun:
                   id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
                   billRunNumber: 10001
                   region: 'W'
-                  status: 'summarised'
+                  status: 'generated'
                   approvedForBilling: false
-                  preSroc: true
+                  ruleset: 'presroc'
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 1
@@ -135,7 +131,6 @@ get:
                   transactionFileReference: ''
                   invoices:
                     - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
-                      summarised: true
                       customerReference: 'TH150000020'
                       financialYear: 2019
                       creditLineCount: 0
@@ -143,13 +138,12 @@ get:
                       debitLineCount: 2
                       debitLineValue: 2500
                       zeroValueLineCount: 0
-                      netTotal: 2500
-                      deminimis: false
-                      netZeroValue: false
-                      transactionType: ''
-                      transactionReference: ''
+                      deminimisInvoice: false
+                      zeroValueInvoice: false
+                      minimumChargeInvoice: false
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
+                      netTotal: 2500
