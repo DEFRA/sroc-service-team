@@ -14,3 +14,8 @@ We make these accessible on [Docker Hub](https://hub.docker.com/).
 Along with the images we provide instructions on how to get up and running with them using [Docker Compose](https://docs.docker.com/compose/) and a [makefile](https://en.wikipedia.org/wiki/Makefile).
 
 This folder is where we store a copy of the instructions and example files for each version.
+
+## Instruction and example files
+
+- [Version 1 of the API](/version_1)
+- [Version 2 of the API](/version_2)
