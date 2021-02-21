@@ -19,6 +19,14 @@ ___*
 
 .idea
 
+# Docker Compose environment files https://docs.docker.com/compose/env-file/
+# Ignore the .env file as this may contain actual credentials. The .env.example
+# file gets committed which acts as documentation on what environment
+# variables will need to be set up
+.env
+.env.local
+.env_docker
+
 # Ignore generated OpenAPI unified schema files
 # We generate these files as part of publishing the spec to SwaggerHub. But they
 # are not something we need to keep track of in source control.
