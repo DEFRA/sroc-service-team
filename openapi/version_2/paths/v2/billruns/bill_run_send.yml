@@ -12,14 +12,17 @@ patch:
       content:
         application/json:
           schema:
-            type: object
-            properties:
+            example:
               billRun:
-                type: object
-                properties:
-                  transactionFileReference:
-                    $ref: '../../../../schema/fields.yml#/transactionFileReferenceDat'
-                  transactionFileDate:
-                    $ref: '../../../../schema/fields.yml#/transactionDate'
-    '409':
-      description: "Conflict - status of the bill run means the summary cannot be generated. For example, the bill run is not approved or is already billed."
+                id: fd2ab097-3097-42bd-849e-046aa250a0d0
+                transactionFileReference: nalai50001.dat
+                transactionFileDate: 02-JUN-2020
+    '422':
+      description: "Failed - bill run cannot be sent because there is an issue with its data"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 422
+              error: Unprocessable Entity
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be sent because its status is billed

@@ -11,15 +11,13 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../../../schema/schemas.yml#/billrunPostResponse'
-          example:
-            billRun:
-              id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
-              billRunNumber: 10004
+            example:
+              billRun:
+                id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
+                billRunNumber: 10004
   requestBody:
     content:
       application/json:
         schema:
-          $ref: '../../../../schema/schemas.yml#/billrunPost'
-        example:
-          region: 'A'
+          example:
+            region: 'A'

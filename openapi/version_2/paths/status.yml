@@ -9,4 +9,5 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../schema/schemas.yml#/status'
+            example:
+              status: alive
