@@ -15,6 +15,22 @@ post:
               billRun:
                 id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
                 billRunNumber: 10004
+    '422':
+      description: "Failed - bill run cannot be generated because there is an issue with its data"
+      content:
+        application/json:
+          examples:
+            'Missing region':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: \"region\" is required
+            'Region is unknown':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: \"region\" must be one of [A, B, E, N, S, T, W, Y]
+
   requestBody:
     content:
       application/json:
