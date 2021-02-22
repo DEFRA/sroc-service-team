@@ -1,6 +1,6 @@
 get:
   operationId: ViewBillRunInvoice
-  description: "Request to view details of an invoice."
+  description: "Request to view details of an invoice. As we have an invoice entity we want to drive all interactions using its ID. We would also prefer to structure the schema as `invoice -> licence -> transactions` as this matches our structure in the database. However, the actual detail provided below is just to provide a rough example."
   tags:
     - suggested
   parameters:

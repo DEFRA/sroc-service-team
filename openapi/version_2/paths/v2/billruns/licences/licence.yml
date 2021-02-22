@@ -1,6 +1,6 @@
 get:
   operationId: ViewBillRunLicence
-  description: "Request to view details of a licence."
+  description: "Request to view details of an licence. As we have a licence entity we want to drive all interactions using its ID. We would also prefer to structure the schema as `licence -> transactions` as this matches our structure in the database. However, the actual detail provided below is just to provide a rough example."
   tags:
     - suggested
   parameters:
