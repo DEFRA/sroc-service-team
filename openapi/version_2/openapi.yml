@@ -11,6 +11,14 @@ info:
 
     The [SRoC service team](https://github.com/DEFRA/sroc-service-team) use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
 
+    ## Build status
+
+    We have grouped the endpoints by build status rather than function. We hope this makes it easier to see what the position for each endpoint is; is it accessible, is it tested, is it relevant.
+
+    As the status of endpoints change the SROC team will make the updated versions of the API available on [Docker Hub](https://hub.docker.com/r/environmentagency/sroc-charging-module-api).
+
+    They will also endeavour to update this spec to match. If unsure about anything, or you see a conflict please contact the team first.
+
   version: "draft"
   title: Charging Module API V2
   contact:
@@ -25,20 +33,22 @@ servers:
     url: 'http://localhost:3003'
 
 tags:
-  - name: billrun
-    description: "Operations related to bill runs"
-  - name: calculate
-    description: "Operations related to calculating charges"
-  - name: customer
-    description: "Operations related to customer files"
-  - name: transaction
-    description: "Operations related to transactions"
+  - name: ready
+    description: "Tested by SROC team, and reviewed by WRLS. Ready for formal sign-off phase"
+  - name: tested
+    description: "Tested by SROC team but awaiting review and feedback from WRLS team"
+  - name: available
+    description: "Available to start using but has not yet been formally tested by SROC team"
+  - name: unavailable
+    description: "These will become available eventually but are yet to be fully implemented"
+  - name: deprioritised
+    description: "These are intended to be delivered but not as MVP"
   - name: suggested
-    description: "Operations that could be made available to client systems"
+    description: "These could be made available to client systems"
+  - name: status
+    description: "Used to confirm the status of the service. Available to all and ready to use"
   - name: admin
-    description: "Only the admin user can access these endpoints. They are not for use by client systems"
-  - name: health
-    description: "Endpoints used to confirm the system is up. Often used by monitoring tools running 'health checks'"
+    description: "Used to administer, monitor, and test the service. Only available when authenticating as an 'admin'"
 
 paths:
   /:
@@ -46,7 +56,7 @@ paths:
       operationId: Root
       description: "Confirm service is up and running. Exactly the same as `/status`"
       tags:
-        - health
+        - status
       responses:
         '200':
           description: "Success"
@@ -82,6 +92,9 @@ paths:
   '/v2/{regime}/bill-runs/{billrunId}':
     $ref: 'paths/v2/billruns/bill_run.yml'
 
+  '/v2/{regime}/bill-runs/{billrunId}/approve':
+    $ref: 'paths/v2/billruns/bill_run_approve.yml'
+
   '/v2/{regime}/bill-runs/{billrunId}/status':
     $ref: 'paths/v2/billruns/bill_run_status.yml'
 
@@ -91,17 +104,29 @@ paths:
   '/v2/{regime}/bill-runs/{billrunId}/send':
     $ref: 'paths/v2/billruns/bill_run_send.yml'
 
+  '/v2/{regime}/bill-runs/{billrunId}/invoices/{invoiceId}':
+    $ref: 'paths/v2/billruns/invoices/invoice.yml'
+
+  '/v2/{regime}/bill-runs/{billrunId}/licences/{licenceId}':
+    $ref: 'paths/v2/billruns/licences/licence.yml'
+
   '/v2/{regime}/bill-runs/{billrunId}/transactions':
     $ref: 'paths/v2/billruns/transactions/bill_run_transactions.yml'
+
+  '/v2/{regime}/bill-runs/{billrunId}/transactions/{transactionId}':
+    $ref: 'paths/v2/billruns/transactions/bill_run_transaction.yml'
 
   '/v2/{regime}/calculate-charge':
     $ref: 'paths/v2/calculate_charge/calculate_charge.yml'
 
-  '/v2/{regime}/invoices/{invoiceId}':
-    $ref: 'paths/v2/invoices/invoice.yml'
+  '/v2/{regime}/customer-changes':
+    $ref: 'paths/v2/customer_changes/customer_changes.yml'
 
-  '/v2/{regime}/licences/{licenceId}':
-    $ref: 'paths/v2/licences/licence.yml'
+  '/v2/{regime}/transactions':
+    $ref: 'paths/v2/transactions/transactions.yml'
+
+  '/v2/{regime}/transactions/{transactionId}':
+    $ref: 'paths/v2/transactions/transaction.yml'
 
 security:
   - OAuth2: []

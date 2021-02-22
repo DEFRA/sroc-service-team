@@ -1,11 +1,12 @@
 get:
-  operationId: ViewInvoice
-  description: "Request to view details of an invoice."
+  operationId: ViewBillRunInvoice
+  description: "Request to view details of an invoice. As we have an invoice entity we want to drive all interactions using its ID. We would also prefer to structure the schema as `invoice -> licence -> transactions` as this matches our structure in the database. However, the actual detail provided below is just to provide a rough example."
   tags:
-    - suggested
+    - unavailable
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/invoiceId'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/invoiceId'
   responses:
     '200':
       description: "Success"
@@ -38,6 +39,17 @@ get:
                   zeroValueLineCount: 0
                   newLicenceCount: 0
                   netTotal: 4186
+                  transactions:
+                    - id: 'fe36eccb-4d58-4cb0-8062-01f7c2b886c2'
+                      region: 'A'
+                      credit: false
+                      chargeValue: 2093
+                      minimumChargeAdjustment: false
+                    - id: '08a74e38-3652-44b9-8459-c364d3a3e524'
+                      region: 'A'
+                      credit: false
+                      chargeValue: 2093
+                      minimumChargeAdjustment: false
                 - id: 'b297f240-7a32-444c-a2c4-add07869760f'
                   creditLineCount: 0
                   creditLineValue: 0
@@ -46,15 +58,22 @@ get:
                   zeroValueLineCount: 1
                   newLicenceCount: 0
                   netTotal: 0
+                  transactions:
+                    - id: '9b1cc7c7-4b19-42cc-8d17-90f121edebbb'
+                      region: 'A'
+                      credit: false
+                      chargeValue: 0
+                      minimumChargeAdjustment: false
 
 delete:
-  operationId: DeleteInvoice
+  operationId: DeleteBillRunInvoice
   description: "Delete the specified invoice and all linked licences and transactions. As part of the deletion the linked bill run will be updated."
   tags:
-    - suggested
+    - unavailable
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/invoiceId'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/invoiceId'
   responses:
     '204':
       description: "Success"

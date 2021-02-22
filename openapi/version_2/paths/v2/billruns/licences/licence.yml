@@ -1,11 +1,12 @@
 get:
-  operationId: ViewLicence
-  description: "Request to view details of a licence."
+  operationId: ViewBillRunLicence
+  description: "Request to view details of an licence. As we have a licence entity we want to drive all interactions using its ID. We would also prefer to structure the schema as `licence -> transactions` as this matches our structure in the database. However, the actual detail provided below is just to provide a rough example."
   tags:
     - suggested
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/licenceId'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/licenceId'
   responses:
     '200':
       description: "Success"
@@ -29,23 +30,27 @@ get:
                   region: 'A'
                   credit: false
                   chargeValue: 2093
+                  minimumChargeAdjustment: false
                 - id: '08a74e38-3652-44b9-8459-c364d3a3e524'
                   region: 'A'
                   credit: false
                   chargeValue: 2093
+                  minimumChargeAdjustment: false
                 - id: '9b1cc7c7-4b19-42cc-8d17-90f121edebbb'
                   region: 'A'
                   credit: false
                   chargeValue: 0
+                  minimumChargeAdjustment: false
 
 delete:
-  operationId: DeleteLicence
+  operationId: DeleteBillRunLicence
   description: "Delete the specified licence and all linked transactions. As part of the deletion the linked invoice and bill run will also be updated."
   tags:
-    - suggested
+    - unavailable
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/licenceId'
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/licenceId'
   responses:
     '204':
       description: "Success"

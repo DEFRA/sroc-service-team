@@ -2,7 +2,7 @@ patch:
   operationId: GenerateBillRun
   description: "Generate the summary for the specified bill run. Bill run must be unbilled. Must take place before bill run is sent."
   tags:
-    - billrun
+    - available
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billrunId'
@@ -10,4 +10,31 @@ patch:
     '204':
       description: "Success"
     '409':
-      description: "Conflict - status of the bill run means the summary cannot be generated. For example, the bill run is billed or the summary has already been generated."
+      description: "Failed - the bill run is already being generated"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 409
+              error: Conflict
+              message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is already being generated
+    '422':
+      description: "Failed - bill run cannot be generated because there is an issue with its data"
+      content:
+        application/json:
+          examples:
+            'Bill run unknown':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown
+            'Invalid bill run status':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be edited because its status is billed
+            'No transactions':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be generated because it has no transactions

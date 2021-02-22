@@ -1,0 +1,16 @@
+get:
+  operationId: ViewBillRunTransaction
+  description: "Request to view a single specified transaction included in a specified (billed or unbilled) bill run."
+  tags:
+    - unavailable
+  parameters:
+    - $ref: '../../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/transactionId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object

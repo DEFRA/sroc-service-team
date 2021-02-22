@@ -10,6 +10,14 @@ info:
     ## Working with the API
 
     The [SRoC service team](https://github.com/DEFRA/sroc-service-team) use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
+
+    ## Build status
+
+    We have grouped the endpoints by build status rather than function. We hope this makes it easier to see what the position for each endpoint is; is it accessible, is it tested, is it relevant.
+
+    As the status of endpoints change the SROC team will make the updated versions of the API available on [Docker Hub](https://hub.docker.com/r/environmentagency/sroc-charging-module-api).
+
+    They will also endeavour to update this spec to match. If unsure about anything, or you see a conflict please contact the team first.
   version: draft
   title: Charging Module API V2
   contact:
@@ -23,29 +31,33 @@ servers:
 - description: Local
   url: http://localhost:3003
 tags:
-- name: billrun
-  description: Operations related to bill runs
-- name: calculate
-  description: Operations related to calculating charges
-- name: customer
-  description: Operations related to customer files
-- name: transaction
-  description: Operations related to transactions
+- name: ready
+  description: Tested by SROC team, and reviewed by WRLS. Ready for formal sign-off
+    phase
+- name: tested
+  description: Tested by SROC team but awaiting review and feedback from WRLS team
+- name: available
+  description: Available to start using but has not yet been formally tested by SROC
+    team
+- name: unavailable
+  description: These will become available eventually but are yet to be fully implemented
+- name: deprioritised
+  description: These are intended to be delivered but not as MVP
 - name: suggested
-  description: Operations that could be made available to client systems
+  description: These could be made available to client systems
+- name: status
+  description: Used to confirm the status of the service. Available to all and ready
+    to use
 - name: admin
-  description: Only the admin user can access these endpoints. They are not for use
-    by client systems
-- name: health
-  description: Endpoints used to confirm the system is up. Often used by monitoring
-    tools running 'health checks'
+  description: Used to administer, monitor, and test the service. Only available when
+    authenticating as an 'admin'
 paths:
   "/":
     get:
       operationId: Root
       description: Confirm service is up and running. Exactly the same as `/status`
       tags:
-      - health
+      - status
       responses:
         '200':
           description: Success
@@ -64,20 +76,15 @@ paths:
       operationId: Status
       description: Confirm service is up and running
       tags:
-      - health
+      - status
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                description: Returned by a call to status, it is an object that contains
-                  a copy of the headers found in the original request
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: alive
+                example:
+                  status: alive
   "/admin/regimes":
     get:
       operationId: ListRegimes
@@ -519,7 +526,7 @@ paths:
       description: This endpoint triggers creation of a bill run record for a region.
         Bill run contains no transactions on creation.
       tags:
-      - billrun
+      - tested
       parameters:
       - name: regime
         in: path
@@ -540,60 +547,38 @@ paths:
           content:
             application/json:
               schema:
-                description: ''
-                type: object
-                properties:
-                  billrun:
-                    type: object
-                    properties:
-                      id:
-                        description: Internal ID (GUID) allocated by the CM when creating
-                          a bill run.
-                        type: string
-                        format: uuid
-                        example: fd2ab097-3097-42bd-849e-046aa250a0d0
-                      billRunNumber:
-                        description: The five-digit bill run number of the file generated
-                          by the CM in which the transaction was included
-                        type: integer
-                        minimum: 10000
-                        maximum: 99999
-                        example: 14283
-              example:
-                billRun:
-                  id: 2bbbe459-966e-4026-b5d2-2f10867bdddd
-                  billRunNumber: 10004
+                example:
+                  billRun:
+                    id: 2bbbe459-966e-4026-b5d2-2f10867bdddd
+                    billRunNumber: 10004
+        '422':
+          description: Failed - bill run cannot be generated because there is an issue
+            with its data
+          content:
+            application/json:
+              examples:
+                Missing region:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: \"region\" is required
+                Region is unknown:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: \"region\" must be one of [A, B, E, N, S, T, W, Y]
       requestBody:
         content:
           application/json:
             schema:
-              description: ''
-              type: object
-              properties:
-                region:
-                  description: A single-digit region identifier for a transaction
-                    or customer
-                  type: string
-                  enum:
-                  - A
-                  - B
-                  - E
-                  - N
-                  - S
-                  - T
-                  - W
-                  - Y
-                  example: A
-              required:
-              - region
-            example:
-              region: A
+              example:
+                region: A
   "/v2/{regime}/bill-runs/{billrunId}":
     get:
       operationId: ViewBillRun
       description: Request to view a single bill run based on the bill run ID.
       tags:
-      - billrun
+      - available
       parameters:
       - name: regime
         in: path
@@ -632,7 +617,6 @@ paths:
                       region: W
                       status: initialised
                       approvedForBilling: false
-                      ruleset: presroc
                       creditNoteCount: 0
                       creditNoteValue: 0
                       invoiceCount: 0
@@ -653,7 +637,6 @@ paths:
                       region: W
                       status: initialised
                       approvedForBilling: false
-                      ruleset: presroc
                       creditNoteCount: 0
                       creditNoteValue: 0
                       invoiceCount: 0
@@ -691,7 +674,6 @@ paths:
                       region: W
                       status: generating
                       approvedForBilling: false
-                      ruleset: presroc
                       creditNoteCount: 0
                       creditNoteValue: 0
                       invoiceCount: 0
@@ -729,7 +711,6 @@ paths:
                       region: W
                       status: generated
                       approvedForBilling: false
-                      ruleset: presroc
                       creditNoteCount: 0
                       creditNoteValue: 0
                       invoiceCount: 1
@@ -759,6 +740,40 @@ paths:
                         - id: 77502697-e274-491a-bd6d-84ec557b0485
                           licenceNumber: FOOO/BARRR/307
                         netTotal: 2500
+  "/v2/{regime}/bill-runs/{billrunId}/approve":
+    patch:
+      operationId: ApproveBillRun
+      description: Approves all transactions in a specified bill run.  Bill run must
+        be unbilled.  Must take place before bill run is sent.
+      tags:
+      - unavailable
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '204':
+          description: Success
   "/v2/{regime}/bill-runs/{billrunId}/status":
     get:
       operationId: ViewBillRunStatus
@@ -767,7 +782,7 @@ paths:
         run is ready to be viewed after a `/generate` request and reduce the load
         on the API.
       tags:
-      - billrun
+      - available
       parameters:
       - name: regime
         in: path
@@ -816,7 +831,7 @@ paths:
       description: Generate the summary for the specified bill run. Bill run must
         be unbilled. Must take place before bill run is sent.
       tags:
-      - billrun
+      - available
       parameters:
       - name: regime
         in: path
@@ -845,16 +860,45 @@ paths:
         '204':
           description: Success
         '409':
-          description: Conflict - status of the bill run means the summary cannot
-            be generated. For example, the bill run is billed or the summary has already
-            been generated.
+          description: Failed - the bill run is already being generated
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 409
+                  error: Conflict
+                  message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0
+                    is already being generated
+        '422':
+          description: Failed - bill run cannot be generated because there is an issue
+            with its data
+          content:
+            application/json:
+              examples:
+                Bill run unknown:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown
+                Invalid bill run status:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot
+                      be edited because its status is billed
+                No transactions:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0
+                      cannot be generated because it has no transactions
   "/v2/{regime}/bill-runs/{billrunId}/send":
     patch:
       operationId: SendBillRun
       description: Triggers creation of a transaction file containing all transactions
         in the bill run. Bill run must be `approved` else the request will be rejected.
       tags:
-      - billrun
+      - unavailable
       parameters:
       - name: regime
         in: path
@@ -885,34 +929,32 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
+                example:
                   billRun:
-                    type: object
-                    properties:
-                      transactionFileReference:
-                        description: NOT IN MASTER DATA SPECIFICATION
-                        type: string
-                        example: nalai50001.dat
-                      transactionFileDate:
-                        description: Estimated date of issue of the invoice.  In reality
-                          this will be the date of generation of the transaction file,
-                          and SSCL will over-write it with the actual invoice date
-                          on receipt of the transaction file
-                        type: string
-                        nullable: true
-                        example: 03-JUN-2020
-        '409':
-          description: Conflict - status of the bill run means the summary cannot
-            be generated. For example, the bill run is not approved or is already
-            billed.
-  "/v2/{regime}/bill-runs/{billrunId}/transactions":
-    post:
-      operationId: AddBillRunTransaction
-      description: Triggers creation of a transaction and immediately adds it to the
-        specified bill run.
+                    id: fd2ab097-3097-42bd-849e-046aa250a0d0
+                    transactionFileReference: nalai50001.dat
+                    transactionFileDate: 02-JUN-2020
+        '422':
+          description: Failed - bill run cannot be sent because there is an issue
+            with its data
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 422
+                  error: Unprocessable Entity
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be
+                    sent because its status is billed
+  "/v2/{regime}/bill-runs/{billrunId}/invoices/{invoiceId}":
+    get:
+      operationId: ViewBillRunInvoice
+      description: Request to view details of an invoice. As we have an invoice entity
+        we want to drive all interactions using its ID. We would also prefer to structure
+        the schema as `invoice -> licence -> transactions` as this matches our structure
+        in the database. However, the actual detail provided below is just to provide
+        a rough example.
       tags:
-      - billrun
+      - unavailable
       parameters:
       - name: regime
         in: path
@@ -937,547 +979,6 @@ paths:
           type: string
           format: uuid
           example: fd2ab097-3097-42bd-849e-046aa250a0d0
-      responses:
-        '201':
-          description: Success
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  transaction:
-                    type: object
-                    properties:
-                      id:
-                        description: Internal ID (GUID) allocated by the CM when creating
-                          a transaction, not necessarily visible to the user
-                        type: string
-                        format: uuid
-                        example: fd2ab097-3097-42bd-849e-046aa250a0d0
-              example:
-                transaction:
-                  id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                periodStart:
-                  description: The start date of the charge period covered by a transaction
-                  type: string
-                  example: 01-APR-2018
-                periodEnd:
-                  description: The end date of the charge period covered by a transaction
-                  type: string
-                  example: 31-MAR-2019
-                credit:
-                  description: Boolean indicator to show whether the transaction is
-                    a credit (negative value)
-                  type: boolean
-                  example: false
-                billableDays:
-                  description: The number of days covered by a charge
-                  type: integer
-                  minimum: 0
-                  maximum: 366
-                  example: 149
-                authorisedDays:
-                  description: The number of days per year in which abstraction is
-                    authorised under the terms of the licence
-                  type: integer
-                  minimum: 0
-                  maximum: 366
-                  example: 214
-                volume:
-                  description: The volume (in thousands of cubic metres) on which
-                    the charge is based
-                  type: number
-                  minimum: 0
-                  example: 19.909
-                source:
-                  description: Source on which standard charge calculation based
-                  type: string
-                  enum:
-                  - Supported
-                  - Kielder
-                  - Unsupported
-                  - Tidal
-                  example: Unsupported
-                season:
-                  description: Season on which charge calculation based
-                  type: string
-                  enum:
-                  - Summer
-                  - Winter
-                  - All Year
-                  example: Summer
-                loss:
-                  description: Loss on which charge calculation based
-                  type: string
-                  enum:
-                  - High
-                  - Medium
-                  - Low
-                  - Very Low
-                  example: Medium
-                twoPartTariff:
-                  description: Boolean indicator to show whether the transaction is
-                    for the second part of a 2-part tariff charge
-                  type: boolean
-                  example: true
-                compensationCharge:
-                  description: Boolean indicator to show whether the transaction relates
-                    to a compensation charge
-                  type: boolean
-                  example: false
-                eiucSource:
-                  description: Source on which compensation charge calculation based.
-                    This field is required when creating a transacton if `compensationCharge`
-                    is set to `true`
-                  type: string
-                  example: Tidal
-                waterUndertaker:
-                  description: Boolean indicator to show whether the transaction is
-                    for a water undertaker
-                  type: boolean
-                  example: false
-                regionalChargingArea:
-                  description: The name of the region relevant to the determination
-                    of the SUC and / or EIUC value to be used in the calculation
-                  type: string
-                  enum:
-                  - Anglian
-                  - Midlands
-                  - South West
-                  - North West
-                  - Southern
-                  - Thames
-                  - Northumbria
-                  - Yorkshire
-                  - Wales
-                  example: Northumbria
-                section127Agreement:
-                  description: Indicator to show whether a section 127 charge agreement
-                    applies to the transaction
-                  type: boolean
-                  example: false
-                section130Agreement:
-                  description: Indicator to show whether a section 130 charge agreement
-                    applies to the transaction
-                  type: boolean
-                  example: true
-                customerReference:
-                  description: Customer Number of the invoicee
-                  type: string
-                  example: B19120000A
-                lineDescription:
-                  description: Description of the reason for the charge, to appear
-                    on the invoice sent to the customer
-                  type: string
-                  maxLength: 240
-                  example: Borehole at Runhall, Norfolk.
-                licenceNumber:
-                  description: The reference of the licence to which a charge / transaction
-                    relates
-                  type: string
-                  maxLength: 150
-                  example: 7/34/16/*G/0093
-                chargePeriod:
-                  description: The charge period for a transaction (i.e. charge period
-                    start date to charge period end date)
-                  type: string
-                  example: 01-APR-2018 - 31-MAR-2019
-                chargeElementId:
-                  description: An indicator (normally an integer) to distinguish between
-                    the different charge elements on a specific licence.
-                  type: string
-                  nullable: true
-                  example: '1'
-                batchNumber:
-                  description: Number to be generated by WRLS indicating the 'batch'
-                    in which creation of a transaction was requested
-                  type: string
-                  nullable: true
-                  example: TONY100
-                region:
-                  description: A single-digit region identifier for a transaction
-                    or customer
-                  type: string
-                  enum:
-                  - A
-                  - B
-                  - E
-                  - N
-                  - S
-                  - T
-                  - W
-                  - Y
-                  example: A
-                areaCode:
-                  description: Code identifying the historic area (within a region)
-                    for the transaction.
-                  type: string
-                  enum:
-                  - ARCA
-                  - AREA
-                  - ARNA
-                  - CASC
-                  - MIDLS
-                  - MIDLT
-                  - MIDUS
-                  - MIDUT
-                  - AACOR
-                  - AADEV
-                  - AANWX
-                  - AASWX
-                  - NWCEN
-                  - NWNTH
-                  - NWSTH
-                  - HAAR
-                  - KAEA
-                  - SAAR
-                  - AGY2N
-                  - AGY2S
-                  - AGY3
-                  - AGY3N
-                  - AGY3S
-                  - AGY4N
-                  - AGY4S
-                  - N
-                  - SE
-                  - SE1
-                  - SE2
-                  - SW
-                  - ABNRTH
-                  - DALES
-                  - NAREA
-                  - RIDIN
-                  - DEFAULT
-                  - MULTI
-                  example: NWCEN
-                newLicence:
-                  description: Boolean indicator to show whether a transaction has
-                    arisen as the result of a new licence being created (note that
-                    'new' may also incorporate licence renewals or transfers of a
-                    licence to a new customer)
-                  type: boolean
-                  example: false
-                clientId:
-                  description: ID of the transaction in the client system. If provided
-                    at the time of creation the API will first check no existing transactions
-                    with the same ID for that regime exist.
-                  type: string
-                  nullable: true
-                  example: hb3ab097-8567-42bd-849e-046aa250a8u8
-              required:
-              - region
-              - periodStart
-              - periodEnd
-              - customerReference
-              - licenceNumber
-              - billableDays
-              - authorisedDays
-              - volume
-              - source
-              - season
-              - loss
-              - section130Agreement
-              - section127Agreement
-              - twoPartTariff
-              - compensationCharge
-              - regionalChargingArea
-              - credit
-              - areaCode
-              - lineDescription
-              - waterUndertaker
-              - chargePeriod
-            example:
-              periodStart: 01-APR-2019
-              periodEnd: 31-MAR-2020
-              credit: false
-              billableDays: 310
-              authorisedDays: 365
-              volume: '6.22'
-              source: Supported
-              season: Summer
-              loss: Low
-              twoPartTariff: false
-              compensationCharge: false
-              eiucSource: Tidal
-              waterUndertaker: false
-              regionalChargingArea: Anglian
-              section127Agreement: false
-              section130Agreement: false
-              customerReference: TH230000222
-              lineDescription: Well at Chigley Town Hall
-              licenceNumber: TONY/TF9222/37
-              chargePeriod: 01-APR-2018 - 31-MAR-2019
-              chargeElementId: ''
-              batchNumber: TONY10
-              region: W
-              areaCode: ARCA
-  "/v2/{regime}/calculate-charge":
-    post:
-      operationId: CalculateCharge
-      description: Request to calculate a standalone charge based on a set of charge
-        parameters, without creating a transaction. Input and output data is not retained
-        in the CM.
-      tags:
-      - calculate
-      parameters:
-      - name: regime
-        in: path
-        required: true
-        description: Charging regime to use
-        schema:
-          description: NOT IN MASTER DATA SPECIFICATION
-          type: string
-          enum:
-          - cfd
-          - pas
-          - wml
-          - wrls
-          example: wrls
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  calculation:
-                    description: ''
-                    type: object
-                    properties:
-                      chargeValue:
-                        description: The value of the transaction in pounds and pence,
-                          as calculated by the rules service
-                        type: number
-                        example: 929
-                      sourceFactor:
-                        description: The source factor applied to the calculation
-                        type: number
-                        example: 9
-                      seasonFactor:
-                        description: The season factor applied to the calculation
-                        type: number
-                        example: 0.16
-                      lossFactor:
-                        description: The loss factor applied to the calculation
-                        type: number
-                        example: 0.003
-                      licenceHolderChargeAgreement:
-                        description: Summary of the Section 130 charge calculation
-                          in a specific format required by the transaction file
-                        type: string
-                        nullable: true
-                        example: S130U x 0.5
-                      chargeElementAgreement:
-                        description: Summary of the Section 126 or Section 127 charge
-                          calculations in a specific format required by the transaction
-                          file
-                        type: string
-                        nullable: true
-                        example: S126 x 0.8
-                      eiucSourceFactor:
-                        description: The EIUC adjusted source factor applied to the
-                          calculation
-                        type: number
-                        example: 0.2
-                      eiuc:
-                        description: Environmental Improvement Unit Charge (EIUC)
-                          for the transaction
-                        type: number
-                        example: 0.2
-                      suc:
-                        description: Standard Unit Charge (SUC) for the transaction
-                        type: number
-                        example: 27.51
-              example:
-                calculation:
-                  chargeValue: 772
-                  sourceFactor: 3
-                  seasonFactor: 1.6
-                  lossFactor: 0.03
-                  licenceHolderChargeAgreement:
-                  chargeElementAgreement:
-                  eiucSourceFactor: 0
-                  eiuc: 0
-                  suc: 1495
-      requestBody:
-        content:
-          application/json:
-            schema:
-              description: ''
-              type: object
-              properties:
-                periodStart:
-                  description: The start date of the charge period covered by a transaction
-                  type: string
-                  example: 01-APR-2018
-                periodEnd:
-                  description: The end date of the charge period covered by a transaction
-                  type: string
-                  example: 31-MAR-2019
-                credit:
-                  description: Boolean indicator to show whether the transaction is
-                    a credit (negative value)
-                  type: boolean
-                  example: false
-                billableDays:
-                  description: The number of days covered by a charge
-                  type: integer
-                  minimum: 0
-                  maximum: 366
-                  example: 149
-                authorisedDays:
-                  description: The number of days per year in which abstraction is
-                    authorised under the terms of the licence
-                  type: integer
-                  minimum: 0
-                  maximum: 366
-                  example: 214
-                volume:
-                  description: The volume (in thousands of cubic metres) on which
-                    the charge is based
-                  type: number
-                  minimum: 0
-                  example: 19.909
-                source:
-                  description: Source on which standard charge calculation based
-                  type: string
-                  enum:
-                  - Supported
-                  - Kielder
-                  - Unsupported
-                  - Tidal
-                  example: Unsupported
-                season:
-                  description: Season on which charge calculation based
-                  type: string
-                  enum:
-                  - Summer
-                  - Winter
-                  - All Year
-                  example: Summer
-                loss:
-                  description: Loss on which charge calculation based
-                  type: string
-                  enum:
-                  - High
-                  - Medium
-                  - Low
-                  - Very Low
-                  example: Medium
-                twoPartTariff:
-                  description: Boolean indicator to show whether the transaction is
-                    for the second part of a 2-part tariff charge
-                  type: boolean
-                  example: true
-                compensationCharge:
-                  description: Boolean indicator to show whether the transaction relates
-                    to a compensation charge
-                  type: boolean
-                  example: false
-                eiucSource:
-                  description: Source on which compensation charge calculation based
-                  type: string
-                  example: Tidal
-                waterUndertaker:
-                  description: Boolean indicator to show whether the transaction is
-                    for a water undertaker
-                  type: boolean
-                  example: false
-                regionalChargingArea:
-                  description: The name of the region relevant to the determination
-                    of the SUC and / or EIUC value to be used in the calculation
-                  type: string
-                  enum:
-                  - Anglian
-                  - Midlands
-                  - South West
-                  - North West
-                  - Southern
-                  - Thames
-                  - Northumbria
-                  - Yorkshire
-                  - Wales
-                  example: Northumbria
-                section126Factor:
-                  description: The factor to apply to the charge where a section 126
-                    charge agreement is relevant to the transaction
-                  type: number
-                  minimum: 0
-                  maximum: 1
-                  example: 0.75
-                section127Agreement:
-                  description: Indicator to show whether a section 127 charge agreement
-                    applies to the transaction
-                  type: boolean
-                  example: false
-                section130Agreement:
-                  description: Indicator to show whether a section 130 charge agreement
-                    applies to the transaction
-                  type: boolean
-                  example: true
-              required:
-              - periodStart
-              - periodEnd
-              - billableDays
-              - authorisedDays
-              - volume
-              - source
-              - season
-              - loss
-              - section130Agreement
-              - section127Agreement
-              - twoPartTariff
-              - compensationCharge
-              - regionalChargingArea
-              - credit
-              - waterUndertaker
-            example:
-              periodStart: 01-APR-2020
-              periodEnd: 31-MAR-2021
-              credit: false
-              billableDays: 214
-              authorisedDays: 214
-              volume: '3.5865'
-              source: Supported
-              season: Summer
-              loss: Low
-              twoPartTariff: false
-              compensationCharge: false
-              eiucSource: Tidal
-              waterUndertaker: false
-              regionalChargingArea: Midlands
-              section126Factor: 1
-              section127Agreement: false
-              section130Agreement: false
-  "/v2/{regime}/invoices/{invoiceId}":
-    get:
-      operationId: ViewInvoice
-      description: Request to view details of an invoice.
-      tags:
-      - suggested
-      parameters:
-      - name: regime
-        in: path
-        required: true
-        description: Charging regime to use
-        schema:
-          description: NOT IN MASTER DATA SPECIFICATION
-          type: string
-          enum:
-          - cfd
-          - pas
-          - wml
-          - wrls
-          example: wrls
       - name: invoiceId
         in: path
         required: true
@@ -1519,6 +1020,17 @@ paths:
                     zeroValueLineCount: 0
                     newLicenceCount: 0
                     netTotal: 4186
+                    transactions:
+                    - id: fe36eccb-4d58-4cb0-8062-01f7c2b886c2
+                      region: A
+                      credit: false
+                      chargeValue: 2093
+                      minimumChargeAdjustment: false
+                    - id: '08a74e38-3652-44b9-8459-c364d3a3e524'
+                      region: A
+                      credit: false
+                      chargeValue: 2093
+                      minimumChargeAdjustment: false
                   - id: b297f240-7a32-444c-a2c4-add07869760f
                     creditLineCount: 0
                     creditLineValue: 0
@@ -1527,12 +1039,18 @@ paths:
                     zeroValueLineCount: 1
                     newLicenceCount: 0
                     netTotal: 0
+                    transactions:
+                    - id: 9b1cc7c7-4b19-42cc-8d17-90f121edebbb
+                      region: A
+                      credit: false
+                      chargeValue: 0
+                      minimumChargeAdjustment: false
     delete:
-      operationId: DeleteInvoice
+      operationId: DeleteBillRunInvoice
       description: Delete the specified invoice and all linked licences and transactions.
         As part of the deletion the linked bill run will be updated.
       tags:
-      - suggested
+      - unavailable
       parameters:
       - name: regime
         in: path
@@ -1547,6 +1065,16 @@ paths:
           - wml
           - wrls
           example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
       - name: invoiceId
         in: path
         required: true
@@ -1559,10 +1087,14 @@ paths:
       responses:
         '204':
           description: Success
-  "/v2/{regime}/licences/{licenceId}":
+  "/v2/{regime}/bill-runs/{billrunId}/licences/{licenceId}":
     get:
-      operationId: ViewLicence
-      description: Request to view details of a licence.
+      operationId: ViewBillRunLicence
+      description: Request to view details of an licence. As we have a licence entity
+        we want to drive all interactions using its ID. We would also prefer to structure
+        the schema as `licence -> transactions` as this matches our structure in the
+        database. However, the actual detail provided below is just to provide a rough
+        example.
       tags:
       - suggested
       parameters:
@@ -1579,6 +1111,16 @@ paths:
           - wml
           - wrls
           example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
       - name: licenceId
         in: path
         required: true
@@ -1611,20 +1153,23 @@ paths:
                     region: A
                     credit: false
                     chargeValue: 2093
+                    minimumChargeAdjustment: false
                   - id: '08a74e38-3652-44b9-8459-c364d3a3e524'
                     region: A
                     credit: false
                     chargeValue: 2093
+                    minimumChargeAdjustment: false
                   - id: 9b1cc7c7-4b19-42cc-8d17-90f121edebbb
                     region: A
                     credit: false
                     chargeValue: 0
+                    minimumChargeAdjustment: false
     delete:
-      operationId: DeleteLicence
+      operationId: DeleteBillRunLicence
       description: Delete the specified licence and all linked transactions. As part
         of the deletion the linked invoice and bill run will also be updated.
       tags:
-      - suggested
+      - unavailable
       parameters:
       - name: regime
         in: path
@@ -1639,6 +1184,16 @@ paths:
           - wml
           - wrls
           example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
       - name: licenceId
         in: path
         required: true
@@ -1651,6 +1206,309 @@ paths:
       responses:
         '204':
           description: Success
+  "/v2/{regime}/bill-runs/{billrunId}/transactions":
+    post:
+      operationId: AddBillRunTransaction
+      description: Triggers creation of a transaction and immediately adds it to the
+        specified bill run.
+      tags:
+      - available
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                example:
+                  transaction:
+                    id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
+                    clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                periodStart: 01-APR-2019
+                periodEnd: 31-MAR-2020
+                credit: false
+                billableDays: 310
+                authorisedDays: 365
+                volume: '6.22'
+                source: Supported
+                season: Summer
+                loss: Low
+                twoPartTariff: false
+                compensationCharge: false
+                eiucSource: Tidal
+                waterUndertaker: false
+                regionalChargingArea: Anglian
+                section127Agreement: false
+                section130Agreement: false
+                customerReference: TH230000222
+                lineDescription: Well at Chigley Town Hall
+                licenceNumber: TONY/TF9222/37
+                chargePeriod: 01-APR-2018 - 31-MAR-2019
+                chargeElementId: ''
+                batchNumber: TONY10
+                region: W
+                areaCode: ARCA
+  "/v2/{regime}/bill-runs/{billrunId}/transactions/{transactionId}":
+    get:
+      operationId: ViewBillRunTransaction
+      description: Request to view a single specified transaction included in a specified
+        (billed or unbilled) bill run.
+      tags:
+      - unavailable
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      - name: transactionId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a transaction,
+          not necessarily visible to the user
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a transaction,
+            not necessarily visible to the user
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+  "/v2/{regime}/calculate-charge":
+    post:
+      operationId: CalculateCharge
+      description: Request to calculate a standalone charge based on a set of charge
+        parameters, without creating a transaction. Input and output data is not retained
+        in the CM.
+      tags:
+      - tested
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                example:
+                  calculation:
+                    chargeValue: 772
+                    sourceFactor: 3
+                    seasonFactor: 1.6
+                    lossFactor: 0.03
+                    licenceHolderChargeAgreement:
+                    chargeElementAgreement:
+                    eiucSourceFactor: 0
+                    eiuc: 0
+                    suc: 1495
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                periodStart: 01-APR-2020
+                periodEnd: 31-MAR-2021
+                credit: false
+                billableDays: 214
+                authorisedDays: 214
+                volume: '3.5865'
+                source: Supported
+                season: Summer
+                loss: Low
+                twoPartTariff: false
+                compensationCharge: false
+                eiucSource: Tidal
+                waterUndertaker: false
+                regionalChargingArea: Midlands
+                section126Factor: 1
+                section127Agreement: false
+                section130Agreement: false
+  "/v2/{regime}/customer-changes":
+    post:
+      operationId: CreateCustomerChange
+      description: Provides details of a single new customer record or a change to
+        an existing customer record for inclusion in a customer file and onward transmission
+        to SSCL
+      tags:
+      - unavailable
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  "/v2/{regime}/transactions":
+    get:
+      operationId: ListTransactions
+      description: Request to view all transactions meeting specified parameters.
+        List may contain both billed and unbilled transactions.
+      tags:
+      - deprioritised
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: page
+        in: query
+        description: In large result sets use to page through them
+        schema:
+          description: When submitting a request that results in a large set of results,
+            this indicates the page number to view. When returned as part of a response
+            it indicates the page number of the data returned.
+          type: integer
+          minimum: 1
+          example: 1
+      - name: perPage
+        in: query
+        description: In large result sets use to control how many to return per page
+        schema:
+          description: When submitting a request that results in a large set of results,
+            this indicates the number of results to be included in each page. When
+            returned as part of a response it indicates the number of results included
+            on each page
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 50
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+  "/v2/{regime}/transactions/{transactionId}":
+    get:
+      operationId: ViewTransaction
+      description: Request to view a single transaction based on the transaction ID.
+        Transaction may be billed or unbilled.
+      tags:
+      - deprioritised
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: transactionId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a transaction,
+          not necessarily visible to the user
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a transaction,
+            not necessarily visible to the user
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
 security:
 - OAuth2: []
 components:
