@@ -2,7 +2,7 @@ get:
   operationId: ViewBillRun
   description: "Request to view a single bill run based on the bill run ID."
   tags:
-    - billrun
+    - available
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billrunId'

@@ -2,7 +2,7 @@ patch:
   operationId: SendBillRun
   description: "Triggers creation of a transaction file containing all transactions in the bill run. Bill run must be `approved` else the request will be rejected."
   tags:
-    - billrun
+    - unavailable
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billrunId'

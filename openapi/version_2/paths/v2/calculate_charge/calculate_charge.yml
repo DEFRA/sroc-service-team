@@ -2,7 +2,7 @@ post:
   operationId: CalculateCharge
   description: "Request to calculate a standalone charge based on a set of charge parameters, without creating a transaction. Input and output data is not retained in the CM."
   tags:
-    - calculate
+    - tested
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
   responses:

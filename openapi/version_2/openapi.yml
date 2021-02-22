@@ -25,20 +25,22 @@ servers:
     url: 'http://localhost:3003'
 
 tags:
-  - name: billrun
-    description: "Operations related to bill runs"
-  - name: calculate
-    description: "Operations related to calculating charges"
-  - name: customer
-    description: "Operations related to customer files"
-  - name: transaction
-    description: "Operations related to transactions"
+  - name: ready
+    description: "Tested by SROC team, and reviewed by WRLS. Ready for formal sign-off phase"
+  - name: tested
+    description: "Tested by SROC team but awaiting review and feedback from WRLS team"
+  - name: available
+    description: "Available to start using but has not yet been formally tested by SROC team"
+  - name: unavailable
+    description: "These will become available eventually but are yet to be fully implemented"
+  - name: deprioritised
+    description: "These are intended to be delivered but not as MVP"
   - name: suggested
-    description: "Operations that could be made available to client systems"
+    description: "These could be made available to client systems"
+  - name: status
+    description: "Used to confirm the status of the service. Available to all and ready to use"
   - name: admin
-    description: "Only the admin user can access these endpoints. They are not for use by client systems"
-  - name: health
-    description: "Endpoints used to confirm the system is up. Often used by monitoring tools running 'health checks'"
+    description: "Used to administer, monitor, and test the service. Only available when authenticating as an 'admin'"
 
 paths:
   /:
@@ -46,7 +48,7 @@ paths:
       operationId: Root
       description: "Confirm service is up and running. Exactly the same as `/status`"
       tags:
-        - health
+        - status
       responses:
         '200':
           description: "Success"
