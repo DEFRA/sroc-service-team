@@ -2,7 +2,7 @@ get:
   operationId: ViewBillRunInvoice
   description: "Request to view details of an invoice. As we have an invoice entity we want to drive all interactions using its ID. We would also prefer to structure the schema as `invoice -> licence -> transactions` as this matches our structure in the database. However, the actual detail provided below is just to provide a rough example."
   tags:
-    - suggested
+    - unavailable
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../../schema/parameters.yml#/billrunId'
@@ -69,7 +69,7 @@ delete:
   operationId: DeleteBillRunInvoice
   description: "Delete the specified invoice and all linked licences and transactions. As part of the deletion the linked bill run will be updated."
   tags:
-    - suggested
+    - unavailable
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../../schema/parameters.yml#/billrunId'
