@@ -113,6 +113,12 @@ paths:
   '/v2/{regime}/calculate-charge':
     $ref: 'paths/v2/calculate_charge/calculate_charge.yml'
 
+  '/v2/{regime}/transactions':
+    $ref: 'paths/v2/transactions/transactions.yml'
+
+  '/v2/{regime}/transactions/{transactionId}':
+    $ref: 'paths/v2/transactions/transaction.yml'
+
 security:
   - OAuth2: []
 

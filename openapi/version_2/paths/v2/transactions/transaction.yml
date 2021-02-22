@@ -1,0 +1,15 @@
+get:
+  operationId: ViewTransaction
+  description: "Request to view a single transaction based on the transaction ID. Transaction may be billed or unbilled."
+  tags:
+    - deprioritised
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/transactionId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
