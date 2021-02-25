@@ -139,3 +139,39 @@ get:
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
                       netTotal: 2500
+            '05 Approved':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'approved'
+                  creditNoteCount: 0
+                  creditNoteValue: 0
+                  invoiceCount: 1
+                  invoiceValue: 2500
+                  creditLineCount: 0
+                  creditLineValue: 0
+                  debitLineCount: 2
+                  debitLineValue: 2500
+                  zeroLineCount: 0
+                  netTotal: 2500
+                  transactionFileReference: ''
+                  invoices:
+                    - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      customerReference: 'TH150000020'
+                      financialYear: 2019
+                      creditLineCount: 0
+                      creditLineValue: 0
+                      debitLineCount: 2
+                      debitLineValue: 2500
+                      zeroLineCount: 0
+                      deminimisInvoice: false
+                      zeroValueInvoice: false
+                      minimumChargeInvoice: false
+                      licences:
+                        - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
+                          licenceNumber: 'FOOO/BARRR/306'
+                        - id: '77502697-e274-491a-bd6d-84ec557b0485'
+                          licenceNumber: 'FOOO/BARRR/307'
+                      netTotal: 2500
