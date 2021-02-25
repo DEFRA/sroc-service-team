@@ -19,7 +19,6 @@ get:
                   billRunNumber: 10001
                   region: 'W'
                   status: 'initialised'
-                  approvedForBilling: false
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 0
@@ -39,7 +38,6 @@ get:
                   billRunNumber: 10001
                   region: 'W'
                   status: 'initialised'
-                  approvedForBilling: false
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 0
@@ -76,7 +74,6 @@ get:
                   billRunNumber: 10001
                   region: 'W'
                   status: 'generating'
-                  approvedForBilling: false
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 0
@@ -113,7 +110,6 @@ get:
                   billRunNumber: 10001
                   region: 'W'
                   status: 'generated'
-                  approvedForBilling: false
                   creditNoteCount: 0
                   creditNoteValue: 0
                   invoiceCount: 1
