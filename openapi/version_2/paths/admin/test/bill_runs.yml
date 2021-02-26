@@ -12,7 +12,9 @@ post:
 
   - `minimum-charge` - 3 debit transactions that total less than £25 and are all subject to minimum charge
 
+
   Every invoice created results in 3 transactions. So, the following request would result in a bill run with 100 invoices and 300 transactions.
+
 
   ```
   {
@@ -26,7 +28,9 @@ post:
   }
   ```
 
+
   The endpoint has been designed to generate the bill run as quickly as possible. To do this we **do not** call the rules service. The values used are based on real calculations, but should the rules service calculation change it won't be reflected here.
+
 
   The endpoint returns the new bill run ID immediately, but may take sometime to create all the invoices. If you have access to it, check the log for a message that will confirm when the process is complete.
   "
