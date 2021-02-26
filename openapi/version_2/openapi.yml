@@ -86,6 +86,9 @@ paths:
   '/admin/health/database':
     $ref: 'paths/admin/health/database.yml'
 
+  '/admin/test/{regime}/bill-runs/':
+    $ref: 'paths/admin/test/bill_runs.yml'
+
   '/v2/{regime}/bill-runs':
     $ref: 'paths/v2/billruns/bill_runs.yml'
 

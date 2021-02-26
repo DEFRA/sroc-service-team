@@ -775,10 +775,10 @@ paths:
   "/v2/{regime}/bill-runs/{billrunId}/approve":
     patch:
       operationId: ApproveBillRun
-      description: Approves all transactions in a specified bill run.  Bill run must
-        be unbilled.  Must take place before bill run is sent.
+      description: Approves a specified bill run. Bill run must have a status of 'generated'.
+        Must take place before bill run is sent.
       tags:
-      - unavailable
+      - available
       parameters:
       - name: regime
         in: path
@@ -806,6 +806,16 @@ paths:
       responses:
         '204':
           description: Success
+        '409':
+          description: Failed - the bill run is not in the right state
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 409
+                  error: Conflict
+                  message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 does not
+                    have a status of 'generated'.
   "/v2/{regime}/bill-runs/{billrunId}/status":
     get:
       operationId: ViewBillRunStatus
