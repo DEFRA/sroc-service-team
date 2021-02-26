@@ -89,7 +89,7 @@ get:
               error: Not found
               message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
     '409':
-      description: "Failed - the invoice is unknown"
+      description: "Failed - the invoice is not linked to that bill run"
       content:
         application/json:
           schema:
