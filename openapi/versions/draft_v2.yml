@@ -602,6 +602,51 @@ paths:
                   count: 10
                 - type: minimum-charge
                   count: 10
+  "/admin/test/transaction/{transactionId}":
+    get:
+      operationId: ViewTestTransaction
+      description: |-
+        Request to view _all_ data on a transaction. Includes bill run, invoice and licence details.
+        > _The example provided only contains a subset of all the properties returned. It is intended to give just an indication of the structure._
+      tags:
+      - admin
+      parameters:
+      - name: transactionId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a transaction,
+          not necessarily visible to the user
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a transaction,
+            not necessarily visible to the user
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                id: 8b5c01e6-3e73-409a-acb6-8dbd80ea4d3b
+                billRunId: 647196ac-83a8-4f5a-8436-6a2dac00b72d
+                chargeValue: 2093
+                chargeCredit: true
+                billRun:
+                  id: 647196ac-83a8-4f5a-8436-6a2dac00b72d
+                  regimeId: d9346370-fd6d-4a30-abc3-8eb884019fc4
+                  region: A
+                  status: approved
+                licence:
+                  id: 9db3b7b1-62a3-4ab1-8ff4-c62af40792cc
+                  invoiceId: 96d6cde4-8eb9-47d8-bd4a-43f50b2f70e7
+                  billRunId: 647196ac-83a8-4f5a-8436-6a2dac00b72d
+                  licenceNumber: TONY/TF9222/38
+                invoice:
+                  id: 96d6cde4-8eb9-47d8-bd4a-43f50b2f70e7
+                  billRunId: 647196ac-83a8-4f5a-8436-6a2dac00b72d
+                  customerReference: TH230000222
+                  financialYear: 2018
   "/v2/{regime}/bill-runs":
     post:
       operationId: CreateBillRun
