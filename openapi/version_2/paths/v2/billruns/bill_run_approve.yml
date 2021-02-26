@@ -2,7 +2,7 @@ patch:
   operationId: ApproveBillRun
   description: "Approves all transactions in a specified bill run.  Bill run must be unbilled.  Must take place before bill run is sent."
   tags:
-    - unavailable
+    - available
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billrunId'
