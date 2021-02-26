@@ -18,9 +18,12 @@ get:
             '02 Transactions added':
               value:
                 status: 'initialised'
-            '03 Generating summary':
+            '03 Generating bill run':
               value:
                 status: 'generating'
-            '04 Summary generated':
+            '04 Bill run generated':
               value:
-                status: 'summarised'
+                status: 'generated'
+            '05 Approved':
+              value:
+                status: 'aproved'
