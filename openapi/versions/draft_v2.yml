@@ -983,11 +983,9 @@ paths:
   "/v2/{regime}/bill-runs/{billrunId}/invoices/{invoiceId}":
     get:
       operationId: ViewBillRunInvoice
-      description: Request to view details of an invoice. As we have an invoice entity
-        we want to drive all interactions using its ID. We would also prefer to structure
-        the schema as `invoice -> licence -> transactions` as this matches our structure
-        in the database. However, the actual detail provided below is just to provide
-        a rough example.
+      description: Request to view details of an invoice. Returns information about
+        the invoice, each of the licences linked to it, and all transactions linked
+        to each licence.
       tags:
       - unavailable
       parameters:
@@ -1030,56 +1028,90 @@ paths:
             application/json:
               example:
                 invoice:
-                  id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
-                  billRunId: fd2ab097-3097-42bd-849e-046aa250a0d0
-                  summarised: true
+                  id: db82bf38-638a-44d3-b1b3-1ae8524d9c38
+                  billRunId: 45ddee2c-c423-4382-8abe-a6a9f284f829
                   customerReference: TH230000222
                   financialYear: 2018
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 2
-                  debitLineValue: 4186
-                  zeroValueLineCount: 1
-                  newLicenceCount: 0
-                  netTotal: 4186
-                  deminimis: false
-                  netZeroValue: false
-                  transactionType: ''
-                  transactionReference: ''
+                  creditLineCount: 1
+                  creditLineValue: 2093
+                  debitLineCount: 0
+                  debitLineValue: 0
+                  zeroLineCount: 0
+                  deminimisInvoice: false
+                  zeroValueInvoice: false
+                  minimumChargeInvoice: false
+                  transactionReference:
+                  netTotal: -2093
                   licences:
-                  - id: 559943dd-8d08-4c95-9600-9c6c7d08d0d8
-                    creditLineCount: 0
-                    creditLineValue: 0
-                    debitLineCount: 2
-                    debitLineValue: 4186
-                    zeroValueLineCount: 0
-                    newLicenceCount: 0
-                    netTotal: 4186
-                    transactions:
-                    - id: fe36eccb-4d58-4cb0-8062-01f7c2b886c2
-                      region: A
-                      credit: false
-                      chargeValue: 2093
-                      minimumChargeAdjustment: false
-                    - id: '08a74e38-3652-44b9-8459-c364d3a3e524'
-                      region: A
-                      credit: false
-                      chargeValue: 2093
-                      minimumChargeAdjustment: false
-                  - id: b297f240-7a32-444c-a2c4-add07869760f
-                    creditLineCount: 0
-                    creditLineValue: 0
+                  - id: f62faabc-d65e-4242-a106-9777c1d57db7
+                    licenceNumber: TONY/TF9222/38
+                    creditLineCount: 1
+                    creditLineValue: 2093
                     debitLineCount: 0
                     debitLineValue: 0
-                    zeroValueLineCount: 1
-                    newLicenceCount: 0
-                    netTotal: 0
+                    zeroLineCount: 0
+                    subjectToMinimumChargeCount: 0
+                    netTotal: -2093
                     transactions:
-                    - id: 9b1cc7c7-4b19-42cc-8d17-90f121edebbb
-                      region: A
-                      credit: false
-                      chargeValue: 0
+                    - id: 64eebf4e-9400-469b-9fa3-a3f6506b2375
+                      clientId:
+                      chargeValue: 2093
+                      credit: true
+                      status: unbilled
+                      subjectToMinimumCharge: false
                       minimumChargeAdjustment: false
+                      lineDescription: Well at Chigley Town Hall
+                      periodStart: '2018-04-01T00:00:00.000Z'
+                      periodEnd: '2019-03-31T00:00:00.000Z'
+                      compensationCharge: 'false'
+                      calculation:
+                        __DecisionID__: ba31bd7b-a13e-4820-b15d-6f70fb2c52490
+                        WRLSChargingResponse:
+                          chargeValue: 20.93
+                          decisionPoints:
+                            sourceFactor: 18.66
+                            seasonFactor: 29.856
+                            lossFactor: 0.89568
+                            volumeFactor: 6.22
+                            abatementAdjustment: 24.640156800000003
+                            s127Agreement: 24.640156800000003
+                            s130Agreement: 24.640156800000003
+                            secondPartCharge: false
+                            waterUndertaker: false
+                            eiucFactor: 0
+                            compensationCharge: false
+                            eiucSourceFactor: 0
+                            sucFactor: 24.640156800000003
+                          messages: []
+                          sucFactor: 27.51
+                          volumeFactor: 6.22
+                          sourceFactor: 3
+                          seasonFactor: 1.6
+                          lossFactor: 0.03
+                          abatementAdjustment: S126 x 1.0
+                          s127Agreement:
+                          s130Agreement:
+                          eiucSourceFactor: 0
+                          eiucFactor: 0
+        '404':
+          description: Failed - the invoice is unknown
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
+        '409':
+          description: Failed - the invoice is not linked to that bill run
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 409
+                  error: Conflict
+                  message: Invoice db82bf38-638a-44d3-b1b3-1ae8524d9c38 is not linked
+                    to bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9.
     delete:
       operationId: DeleteBillRunInvoice
       description: Delete the specified invoice and all linked licences and transactions.
