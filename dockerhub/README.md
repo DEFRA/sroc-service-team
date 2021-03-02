@@ -17,8 +17,8 @@ This folder is where we store a copy of the instructions and example files for e
 
 ## Instruction and example files
 
-- [Version 1 of the API](/version_1)
-- [Version 2 of the API](/version_2)
+- [Version 1 of the API](/dockerhub/version_1)
+- [Version 2 of the API](/dockerhub/version_2)
 
 ### README issue for Version 2
 
