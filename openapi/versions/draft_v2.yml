@@ -1124,7 +1124,7 @@ paths:
         the invoice, each of the licences linked to it, and all transactions linked
         to each licence.
       tags:
-      - unavailable
+      - available
       parameters:
       - name: regime
         in: path
@@ -1254,7 +1254,7 @@ paths:
       description: Delete the specified invoice and all linked licences and transactions.
         As part of the deletion the linked bill run will be updated.
       tags:
-      - unavailable
+      - available
       parameters:
       - name: regime
         in: path
