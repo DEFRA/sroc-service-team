@@ -175,3 +175,15 @@ get:
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
                       netTotal: 2500
+
+delete:
+  operationId: DeleteBillRun
+  description: "Delets a specified bill run and all invoices, licences, and transactions linked to it. Bill run must be unbilled."
+  tags:
+    - unavailable
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billrunId'
+  responses:
+    '204':
+      description: "Success"
