@@ -899,6 +899,39 @@ paths:
                         - id: 77502697-e274-491a-bd6d-84ec557b0485
                           licenceNumber: FOOO/BARRR/307
                         netTotal: 2500
+    delete:
+      operationId: DeleteBillRun
+      description: Delets a specified bill run and all invoices, licences, and transactions
+        linked to it. Bill run must be unbilled.
+      tags:
+      - unavailable
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: billrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '204':
+          description: Success
   "/v2/{regime}/bill-runs/{billrunId}/approve":
     patch:
       operationId: ApproveBillRun
