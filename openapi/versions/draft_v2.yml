@@ -1630,7 +1630,7 @@ paths:
         an existing customer record for inclusion in a customer file and onward transmission
         to SSCL
       tags:
-      - unavailable
+      - available
       parameters:
       - name: regime
         in: path
@@ -1646,17 +1646,22 @@ paths:
           - wrls
           example: wrls
       responses:
-        '200':
+        '204':
           description: Success
-          content:
-            application/json:
-              schema:
-                type: object
       requestBody:
         content:
           application/json:
             schema:
+              description: The address details to be updated for a given customer
+                reference and region.
               type: object
+            example:
+              region: A
+              customerReference: BB02BEEB
+              customerName: Huge Factory Ltd
+              addressLine1: 1 Monster Lane
+              addressLine2: High Town
+              addressLine4: Chigley
   "/v2/{regime}/transactions":
     get:
       operationId: ListTransactions

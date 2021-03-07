@@ -1,19 +1,25 @@
 post:
   operationId: CreateCustomerChange
-  description: "Provides details of a single new customer record or a change to an existing customer record for inclusion in a customer file and onward transmission to SSCL"
+  description: Provides details of a single new customer record or a change to
+    an existing customer record for inclusion in a customer file and onward transmission
+    to SSCL
   tags:
-    - unavailable
+  - available
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
   responses:
-    '200':
-      description: "Success"
-      content:
-        application/json:
-          schema:
-            type: object
+    '204':
+      description: Success
   requestBody:
     content:
       application/json:
         schema:
+          description: The address details to be updated for a given customer reference and region.
           type: object
+        example:
+          region: A
+          customerReference: BB02BEEB
+          customerName: Huge Factory Ltd
+          addressLine1: 1 Monster Lane
+          addressLine2: High Town
+          addressLine4: Chigley
