@@ -9,14 +9,6 @@ patch:
   responses:
     '204':
       description: "Success"
-      content:
-        application/json:
-          schema:
-            example:
-              billRun:
-                id: fd2ab097-3097-42bd-849e-046aa250a0d0
-                transactionFileReference: nalai50001.dat
-                transactionFileDate: 02-JUN-2020
     '422':
       description: "Failed - bill run cannot be sent because there is an issue with its data"
       content:
