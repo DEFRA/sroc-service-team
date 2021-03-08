@@ -9,6 +9,15 @@ patch:
   responses:
     '204':
       description: "Success"
+    '409':
+      description: "Failed - the bill run is not in the right state"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 409
+              error: Conflict
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not have a status of 'approved'.
     '422':
       description: "Failed - bill run cannot be sent because there is an issue with its data"
       content:
