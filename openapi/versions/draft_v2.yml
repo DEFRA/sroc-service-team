@@ -747,11 +747,6 @@ paths:
                       creditNoteValue: 0
                       invoiceCount: 0
                       invoiceValue: 0
-                      creditLineCount: 0
-                      creditLineValue: 0
-                      debitLineCount: 0
-                      debitLineValue: 0
-                      zeroLineCount: 0
                       netTotal: 0
                       transactionFileReference: ''
                       invoices: []
@@ -766,11 +761,6 @@ paths:
                       creditNoteValue: 0
                       invoiceCount: 0
                       invoiceValue: 0
-                      creditLineCount: 0
-                      creditLineValue: 0
-                      debitLineCount: 2
-                      debitLineValue: 2500
-                      zeroLineCount: 0
                       netTotal: 2500
                       transactionFileReference: ''
                       invoices:
@@ -802,11 +792,6 @@ paths:
                       creditNoteValue: 0
                       invoiceCount: 0
                       invoiceValue: 0
-                      creditLineCount: 0
-                      creditLineValue: 0
-                      debitLineCount: 2
-                      debitLineValue: 2500
-                      zeroLineCount: 0
                       netTotal: 2500
                       transactionFileReference: ''
                       invoices:
@@ -838,11 +823,6 @@ paths:
                       creditNoteValue: 0
                       invoiceCount: 1
                       invoiceValue: 2500
-                      creditLineCount: 0
-                      creditLineValue: 0
-                      debitLineCount: 2
-                      debitLineValue: 2500
-                      zeroLineCount: 0
                       netTotal: 2500
                       transactionFileReference: ''
                       invoices:
@@ -874,11 +854,6 @@ paths:
                       creditNoteValue: 0
                       invoiceCount: 1
                       invoiceValue: 2500
-                      creditLineCount: 0
-                      creditLineValue: 0
-                      debitLineCount: 2
-                      debitLineValue: 2500
-                      zeroLineCount: 0
                       netTotal: 2500
                       transactionFileReference: ''
                       invoices:
@@ -899,12 +874,43 @@ paths:
                         - id: 77502697-e274-491a-bd6d-84ec557b0485
                           licenceNumber: FOOO/BARRR/307
                         netTotal: 2500
+                06 Sent:
+                  value:
+                    billRun:
+                      id: fd2ab097-3097-42bd-849e-046aa250a0d0
+                      billRunNumber: 10001
+                      region: W
+                      status: pending
+                      creditNoteCount: 0
+                      creditNoteValue: 0
+                      invoiceCount: 1
+                      invoiceValue: 2500
+                      netTotal: 2500
+                      transactionFileReference: nalwi50001
+                      invoices:
+                      - id: aa630ae0-0e51-4166-9025-66576c513f7f
+                        customerReference: TH150000020
+                        financialYear: 2019
+                        creditLineCount: 0
+                        creditLineValue: 0
+                        debitLineCount: 2
+                        debitLineValue: 2500
+                        zeroLineCount: 0
+                        deminimisInvoice: false
+                        zeroValueInvoice: false
+                        minimumChargeInvoice: false
+                        licences:
+                        - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
+                          licenceNumber: FOOO/BARRR/306
+                        - id: 77502697-e274-491a-bd6d-84ec557b0485
+                          licenceNumber: FOOO/BARRR/307
+                        netTotal: 2500
     delete:
       operationId: DeleteBillRun
-      description: Delets a specified bill run and all invoices, licences, and transactions
+      description: Deletes a specified bill run and all invoices, licences, and transactions
         linked to it. Bill run must be unbilled.
       tags:
-      - unavailable
+      - available
       parameters:
       - name: regime
         in: path
@@ -932,6 +938,16 @@ paths:
       responses:
         '204':
           description: Success
+        '409':
+          description: Failed - the bill run is not in the right state
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 409
+                  error: Conflict
+                  message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 has a status
+                    of 'billed'.
   "/v2/{regime}/bill-runs/{billrunId}/approve":
     patch:
       operationId: ApproveBillRun
