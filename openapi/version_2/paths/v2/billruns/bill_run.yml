@@ -23,11 +23,6 @@ get:
                   creditNoteValue: 0
                   invoiceCount: 0
                   invoiceValue: 0
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 0
-                  debitLineValue: 0
-                  zeroLineCount: 0
                   netTotal: 0
                   transactionFileReference: ''
                   invoices: []
@@ -42,11 +37,6 @@ get:
                   creditNoteValue: 0
                   invoiceCount: 0
                   invoiceValue: 0
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 2
-                  debitLineValue: 2500
-                  zeroLineCount: 0
                   netTotal: 2500
                   transactionFileReference: ''
                   invoices:
@@ -78,11 +68,6 @@ get:
                   creditNoteValue: 0
                   invoiceCount: 0
                   invoiceValue: 0
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 2
-                  debitLineValue: 2500
-                  zeroLineCount: 0
                   netTotal: 2500
                   transactionFileReference: ''
                   invoices:
@@ -114,11 +99,6 @@ get:
                   creditNoteValue: 0
                   invoiceCount: 1
                   invoiceValue: 2500
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 2
-                  debitLineValue: 2500
-                  zeroLineCount: 0
                   netTotal: 2500
                   transactionFileReference: ''
                   invoices:
@@ -150,11 +130,6 @@ get:
                   creditNoteValue: 0
                   invoiceCount: 1
                   invoiceValue: 2500
-                  creditLineCount: 0
-                  creditLineValue: 0
-                  debitLineCount: 2
-                  debitLineValue: 2500
-                  zeroLineCount: 0
                   netTotal: 2500
                   transactionFileReference: ''
                   invoices:
