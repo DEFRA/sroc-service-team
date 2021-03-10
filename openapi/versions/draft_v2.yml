@@ -901,10 +901,10 @@ paths:
                         netTotal: 2500
     delete:
       operationId: DeleteBillRun
-      description: Deletes a specified bill run and all invoices, licences, and transactions
+      description: Delets a specified bill run and all invoices, licences, and transactions
         linked to it. Bill run must be unbilled.
       tags:
-      - available
+      - unavailable
       parameters:
       - name: regime
         in: path
@@ -932,16 +932,6 @@ paths:
       responses:
         '204':
           description: Success
-        '409':
-          description: Failed - the bill run is not in the right state
-          content:
-            application/json:
-              schema:
-                example:
-                  statusCode: 409
-                  error: Conflict
-                  message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 has a status
-                    of 'billed'.
   "/v2/{regime}/bill-runs/{billrunId}/approve":
     patch:
       operationId: ApproveBillRun
@@ -1113,7 +1103,7 @@ paths:
       description: Triggers creation of a transaction file containing all transactions
         in the bill run. Bill run must be `approved` else the request will be rejected.
       tags:
-      - unavailable
+      - available
       parameters:
       - name: regime
         in: path
@@ -1141,14 +1131,16 @@ paths:
       responses:
         '204':
           description: Success
+        '409':
+          description: Failed - the bill run is not in the right state
           content:
             application/json:
               schema:
                 example:
-                  billRun:
-                    id: fd2ab097-3097-42bd-849e-046aa250a0d0
-                    transactionFileReference: nalai50001.dat
-                    transactionFileDate: 02-JUN-2020
+                  statusCode: 409
+                  error: Conflict
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not
+                    have a status of 'approved'.
         '422':
           description: Failed - bill run cannot be sent because there is an issue
             with its data
