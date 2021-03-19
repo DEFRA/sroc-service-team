@@ -27,3 +27,12 @@ get:
             '05 Approved':
               value:
                 status: 'aproved'
+            '06 Sent':
+              value:
+                status: 'pending'
+            '07 Billed':
+              value:
+                status: 'billed'
+            '08 Not billed':
+              value:
+                status: 'billing_not_required'
