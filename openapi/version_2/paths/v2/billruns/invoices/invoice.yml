@@ -18,11 +18,6 @@ get:
               billRunId: 45ddee2c-c423-4382-8abe-a6a9f284f829
               customerReference: TH230000222
               financialYear: 2018
-              creditLineCount: 1
-              creditLineValue: 2093
-              debitLineCount: 0
-              debitLineValue: 0
-              zeroLineCount: 0
               deminimisInvoice: false
               zeroValueInvoice: false
               minimumChargeInvoice: false
@@ -31,12 +26,6 @@ get:
               licences:
               - id: f62faabc-d65e-4242-a106-9777c1d57db7
                 licenceNumber: TONY/TF9222/38
-                creditLineCount: 1
-                creditLineValue: 2093
-                debitLineCount: 0
-                debitLineValue: 0
-                zeroLineCount: 0
-                subjectToMinimumChargeCount: 0
                 netTotal: -2093
                 transactions:
                 - id: 64eebf4e-9400-469b-9fa3-a3f6506b2375
