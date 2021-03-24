@@ -22,6 +22,8 @@ get:
               zeroValueInvoice: false
               minimumChargeInvoice: false
               transactionReference:
+              creditLineValue: 2093
+              debitLineValue: 0
               netTotal: -2093
               licences:
               - id: f62faabc-d65e-4242-a106-9777c1d57db7

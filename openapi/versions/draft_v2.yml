@@ -771,6 +771,8 @@ paths:
                         zeroValueInvoice: false
                         minimumChargeInvoice: false
                         transactionReference: ''
+                        creditLineValue: 0
+                        debitLineValue: 2500
                         netTotal: 2500
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
@@ -797,8 +799,10 @@ paths:
                         deminimisInvoice: false
                         zeroValueInvoice: false
                         minimumChargeInvoice: false
-                        netTotal: 2500
                         transactionReference: ''
+                        creditLineValue: 0
+                        debitLineValue: 2500
+                        netTotal: 2500
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -824,8 +828,10 @@ paths:
                         deminimisInvoice: false
                         zeroValueInvoice: false
                         minimumChargeInvoice: false
-                        netTotal: 2500
                         transactionReference: ''
+                        creditLineValue: 0
+                        debitLineValue: 2500
+                        netTotal: 2500
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -851,8 +857,10 @@ paths:
                         deminimisInvoice: false
                         zeroValueInvoice: false
                         minimumChargeInvoice: false
-                        netTotal: 2500
                         transactionReference: ''
+                        creditLineValue: 0
+                        debitLineValue: 2500
+                        netTotal: 2500
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -878,8 +886,10 @@ paths:
                         deminimisInvoice: false
                         zeroValueInvoice: false
                         minimumChargeInvoice: false
-                        netTotal: 2500
                         transactionReference: AAI1000008
+                        creditLineValue: 0
+                        debitLineValue: 2500
+                        netTotal: 2500
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -905,8 +915,10 @@ paths:
                         deminimisInvoice: false
                         zeroValueInvoice: false
                         minimumChargeInvoice: false
-                        netTotal: 2500
                         transactionReference: AAI1000008
+                        creditLineValue: 0
+                        debitLineValue: 2500
+                        netTotal: 2500
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -1240,6 +1252,8 @@ paths:
                   zeroValueInvoice: false
                   minimumChargeInvoice: false
                   transactionReference:
+                  creditLineValue: 2093
+                  debitLineValue: 0
                   netTotal: -2093
                   licences:
                   - id: f62faabc-d65e-4242-a106-9777c1d57db7

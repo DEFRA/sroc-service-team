@@ -47,6 +47,8 @@ get:
                       zeroValueInvoice: false
                       minimumChargeInvoice: false
                       transactionReference: ''
+                      creditLineValue: 0
+                      debitLineValue: 2500
                       netTotal: 2500
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
@@ -73,8 +75,10 @@ get:
                       deminimisInvoice: false
                       zeroValueInvoice: false
                       minimumChargeInvoice: false
-                      netTotal: 2500
                       transactionReference: ''
+                      creditLineValue: 0
+                      debitLineValue: 2500
+                      netTotal: 2500
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -100,8 +104,10 @@ get:
                       deminimisInvoice: false
                       zeroValueInvoice: false
                       minimumChargeInvoice: false
-                      netTotal: 2500
                       transactionReference: ''
+                      creditLineValue: 0
+                      debitLineValue: 2500
+                      netTotal: 2500
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -127,8 +133,10 @@ get:
                       deminimisInvoice: false
                       zeroValueInvoice: false
                       minimumChargeInvoice: false
-                      netTotal: 2500
                       transactionReference: ''
+                      creditLineValue: 0
+                      debitLineValue: 2500
+                      netTotal: 2500
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -154,8 +162,10 @@ get:
                       deminimisInvoice: false
                       zeroValueInvoice: false
                       minimumChargeInvoice: false
-                      netTotal: 2500
                       transactionReference: 'AAI1000008'
+                      creditLineValue: 0
+                      debitLineValue: 2500
+                      netTotal: 2500
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -181,8 +191,10 @@ get:
                       deminimisInvoice: false
                       zeroValueInvoice: false
                       minimumChargeInvoice: false
-                      netTotal: 2500
                       transactionReference: 'AAI1000008'
+                      creditLineValue: 0
+                      debitLineValue: 2500
+                      netTotal: 2500
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
