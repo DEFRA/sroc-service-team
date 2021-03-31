@@ -200,6 +200,35 @@ get:
                           licenceNumber: 'FOOO/BARRR/306'
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
+            '08 Billing not required':
+              value:
+                billRun:
+                  id: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+                  billRunNumber: 10001
+                  region: 'W'
+                  status: 'billing_not_required'
+                  creditNoteCount: 0
+                  creditNoteValue: 0
+                  invoiceCount: 0
+                  invoiceValue: 0
+                  netTotal: 0
+                  transactionFileReference: ''
+                  invoices:
+                    - id: 'aa630ae0-0e51-4166-9025-66576c513f7f'
+                      customerReference: 'TH150000020'
+                      financialYear: 2019
+                      deminimisInvoice: false
+                      zeroValueInvoice: false
+                      minimumChargeInvoice: false
+                      transactionReference: ''
+                      creditLineValue: 2500
+                      debitLineValue: 2500
+                      netTotal: 0
+                      licences:
+                        - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
+                          licenceNumber: 'FOOO/BARRR/306'
+                        - id: '77502697-e274-491a-bd6d-84ec557b0485'
+                          licenceNumber: 'FOOO/BARRR/307'
 
 delete:
   operationId: DeleteBillRun
