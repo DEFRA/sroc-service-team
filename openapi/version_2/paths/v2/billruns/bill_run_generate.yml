@@ -2,7 +2,7 @@ patch:
   operationId: GenerateBillRun
   description: "Generate the summary for the specified bill run. Bill run must be unbilled. Must take place before bill run is sent."
   tags:
-    - available
+    - tested
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billrunId'
