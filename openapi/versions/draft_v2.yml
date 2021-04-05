@@ -1557,6 +1557,7 @@ paths:
               example:
                 periodStart: 01-APR-2019
                 periodEnd: 31-MAR-2020
+                subjectToMinimumCharge: false
                 credit: false
                 billableDays: 310
                 authorisedDays: 365
