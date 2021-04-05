@@ -40,7 +40,7 @@ get:
                   lineDescription: Well at Chigley Town Hall
                   periodStart: '2018-04-01T00:00:00.000Z'
                   periodEnd: '2019-03-31T00:00:00.000Z'
-                  compensationCharge: 'false'
+                  compensationCharge: false
                   calculation:
                     __DecisionID__: ba31bd7b-a13e-4820-b15d-6f70fb2c52490
                     WRLSChargingResponse:
