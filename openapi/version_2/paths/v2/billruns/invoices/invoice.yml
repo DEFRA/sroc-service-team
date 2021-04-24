@@ -34,7 +34,6 @@ get:
                   clientId:
                   chargeValue: 2093
                   credit: true
-                  status: unbilled
                   subjectToMinimumCharge: false
                   minimumChargeAdjustment: false
                   lineDescription: Well at Chigley Town Hall
