@@ -95,6 +95,9 @@ paths:
   '/admin/test/{regime}/customers':
     $ref: 'paths/admin/test/customers.yml'
 
+  '/admin/test/customers/{customerFileId}':
+    $ref: 'paths/admin/test/customer.yml'
+
   '/admin/test/transaction/{transactionId}':
     $ref: 'paths/admin/test/transaction.yml'
 
