@@ -498,6 +498,26 @@ paths:
                   preSrocCutoffDate: '2020-04-01T00:00:00.000Z'
                   createdAt: '2020-12-01T09:19:22.065Z'
                   updatedAt: '2020-12-01T09:19:22.065Z'
+  "/admin/{regimeId}/customers":
+    patch:
+      operationId: SendCustomer
+      description: Manually trigger the send customer files process. This triggers
+        creation of a file of customer changes for each regime.
+      tags:
+      - admin
+      parameters:
+      - name: regimeId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a regime.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a regime.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '204':
+          description: Success
   "/admin/health/airbrake":
     get:
       operationId: CheckAirbrake
@@ -520,7 +540,7 @@ paths:
       responses:
         '200':
           description: Success
-  "/admin/test/{regime}/bill-runs/":
+  "/admin/test/{regime}/bill-runs":
     post:
       operationId: CreateTestBillRun
       description: "This endpoint creates a test bill run for a region. It is intended
@@ -602,6 +622,94 @@ paths:
                   count: 10
                 - type: minimum-charge
                   count: 10
+  "/admin/test/{regime}/customers":
+    get:
+      operationId: ListCustomerFiles
+      description: Request a list of 'customer files'. Each record contains the details
+        for a file of customer changes the API generated and sent to SSCL.
+      tags:
+      - admin
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+              - id: d04652ab-8ddb-411e-b683-53c25855f7a3
+                regimeId: 34eb63e4-c538-48ca-9053-86164d12248c
+                region: T
+                fileReference: naltc50002
+                createdAt: '2021-04-29T13:15:30.012Z'
+                updatedAt: '2021-04-29T13:15:30.374Z'
+                status: exported
+                exportedAt: '2021-04-29T13:15:30.366Z'
+              - id: aed6eb7c-6876-4c32-a8a5-5bc84cf2b0f4
+                regimeId: 34eb63e4-c538-48ca-9053-86164d12248c
+                region: Y
+                fileReference: nalyc50002
+                createdAt: '2021-04-29T13:15:30.413Z'
+                updatedAt: '2021-04-29T13:15:30.690Z'
+                status: exported
+                exportedAt: '2021-04-29T13:15:30.683Z'
+  "/admin/test/customers/{customerFileId}":
+    get:
+      operationId: ViewCustomerFile
+      description: Request details of a 'customer file'. Returns the 'customer file'
+        record which details the file of customer changes the API generated and sent
+        to SSCL. It also lists
+      tags:
+      - admin
+      parameters:
+      - name: customerFileId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a customer
+          file
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a customer
+            file
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                id: d04652ab-8ddb-411e-b683-53c25855f7a3
+                regimeId: 34eb63e4-c538-48ca-9053-86164d12248c
+                region: T
+                fileReference: naltc50002
+                createdAt: '2021-04-29T13:15:30.012Z'
+                updatedAt: '2021-04-29T13:15:30.374Z'
+                status: exported
+                exportedAt: '2021-04-29T13:15:30.366Z'
+                exportedCustomers:
+                - id: 726a005e-341c-4da6-915c-c94cea87dd59
+                  customerReference: T12398729A
+                  customerFileId: d04652ab-8ddb-411e-b683-53c25855f7a3
+                  createdAt: '2021-04-29T13:15:30.358Z'
+                  updatedAt: '2021-04-29T13:15:30.358Z'
+                - id: 755dd2da-3be2-409f-83ec-c39ef48f664f
+                  customerReference: T32178999B
+                  customerFileId: d04652ab-8ddb-411e-b683-53c25855f7a3
+                  createdAt: '2021-04-29T13:15:30.358Z'
+                  updatedAt: '2021-04-29T13:15:30.358Z'
   "/admin/test/transaction/{transactionId}":
     get:
       operationId: ViewTestTransaction
@@ -1549,6 +1657,18 @@ paths:
                   transaction:
                     id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
                     clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
+        '409':
+          description: Failed - Transaction cannot be added because Client ID already
+            exists
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 409
+                  error: Conflict
+                  message: A transaction with Client ID '2395429b-e703-43bc-8522-ce3f67507ffa'
+                    for Regime 'wrls' already exists.
+                  clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
       requestBody:
         content:
           application/json:
@@ -1712,7 +1832,7 @@ paths:
           - wrls
           example: wrls
       responses:
-        '204':
+        '201':
           description: Success
       requestBody:
         content:
