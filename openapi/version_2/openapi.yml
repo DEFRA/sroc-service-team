@@ -80,6 +80,9 @@ paths:
   '/admin/authorised-systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 
+  '/admin/{regimeId}/customers':
+    $ref: 'paths/admin/customers.yml'
+
   '/admin/health/airbrake':
     $ref: 'paths/admin/health/airbrake.yml'
 
