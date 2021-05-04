@@ -1,0 +1,29 @@
+get:
+  operationId: ListCustomerFiles
+  description: "Request a list of 'customer files'. Each record contains the details for a file of customer changes the API generated and sent to SSCL."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../../../schema/parameters.yml#/regime'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          example:
+            - id: 'd04652ab-8ddb-411e-b683-53c25855f7a3'
+              regimeId: '34eb63e4-c538-48ca-9053-86164d12248c'
+              region: 'T'
+              fileReference: naltc50002
+              createdAt: '2021-04-29T13:15:30.012Z'
+              updatedAt: '2021-04-29T13:15:30.374Z'
+              status: exported
+              exportedAt: '2021-04-29T13:15:30.366Z'
+            - id: 'aed6eb7c-6876-4c32-a8a5-5bc84cf2b0f4'
+              regimeId: '34eb63e4-c538-48ca-9053-86164d12248c'
+              region: 'Y'
+              fileReference: nalyc50002
+              createdAt: '2021-04-29T13:15:30.413Z'
+              updatedAt: '2021-04-29T13:15:30.690Z'
+              status: exported
+              exportedAt: '2021-04-29T13:15:30.683Z'

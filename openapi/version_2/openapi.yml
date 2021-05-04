@@ -80,14 +80,23 @@ paths:
   '/admin/authorised-systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 
+  '/admin/{regimeId}/customers':
+    $ref: 'paths/admin/customers.yml'
+
   '/admin/health/airbrake':
     $ref: 'paths/admin/health/airbrake.yml'
 
   '/admin/health/database':
     $ref: 'paths/admin/health/database.yml'
 
-  '/admin/test/{regime}/bill-runs/':
+  '/admin/test/{regime}/bill-runs':
     $ref: 'paths/admin/test/bill_runs.yml'
+
+  '/admin/test/{regime}/customers':
+    $ref: 'paths/admin/test/customers.yml'
+
+  '/admin/test/customers/{customerFileId}':
+    $ref: 'paths/admin/test/customer.yml'
 
   '/admin/test/transaction/{transactionId}':
     $ref: 'paths/admin/test/transaction.yml'
