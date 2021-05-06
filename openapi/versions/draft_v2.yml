@@ -1497,6 +1497,90 @@ paths:
       responses:
         '204':
           description: Success
+  "/v2/{regime}/bill-runs/{rebillBillrunId}/invoices/{rebillInvoiceId}/rebill":
+    get:
+      operationId: RebillBillRunInvoice
+      description: Request to rebill an invoice. Returns ID of the invoice that will
+        cancel out the original invoice, and the one to replace it.
+      tags:
+      - suggested
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: NOT IN MASTER DATA SPECIFICATION
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: rebillBillrunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+          When rebilling this represents the bill run you want to assign the new rebill
+          invoices to.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      - name: rebillInvoiceId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating an invoice.
+          When rebilling this represents the invoice you wish to rebill.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating an invoice.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              example:
+                invoices:
+                - id: f62faabc-d65e-4242-a106-9777c1d57db7
+                  rebilledType: C
+                - id: db82bf38-638a-44d3-b1b3-1ae8524d9c38
+                  rebilledType: R
+        '409':
+          description: Failed - the invoice has already been rebilled
+          content:
+            application/json:
+              examples:
+                Invoice already rebilled:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Invoice ba31bd7b-a13e-4820-b15d-6f70fb2c52490 has already
+                      been rebilled.
+                Invoice already on bill run:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Invoice ba31bd7b-a13e-4820-b15d-6f70fb2c52490 is already
+                      on bill run aa630ae0-0e51-4166-9025-66576c513f7f.
+                Invoice on an unbilled bill run:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Bill run aa630ae0-0e51-4166-9025-66576c513f7f does not
+                      have a status of 'billed'.
+                Invoice is for a different region:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Invoice ba31bd7b-a13e-4820-b15d-6f70fb2c52490 is for
+                      region T but bill run aa630ae0-0e51-4166-9025-66576c513f7f is
+                      for region A.
   "/v2/{regime}/bill-runs/{billrunId}/licences/{licenceId}":
     get:
       operationId: ViewBillRunLicence

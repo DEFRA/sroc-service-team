@@ -93,6 +93,20 @@ perPage:
   description: "In large result sets use to control how many to return per page"
   schema:
     $ref: 'fields.yml#/perPage'
+rebillBillrunId:
+  name: rebillBillrunId
+  in: path
+  required: true
+  description: "Internal ID (GUID) allocated by the CM when creating a bill run. When rebilling this represents the bill run you want to assign the new rebill invoices to."
+  schema:
+    $ref: 'fields.yml#/billrunId'
+rebillInvoiceId:
+  name: rebillInvoiceId
+  in: path
+  required: true
+  description: "Internal ID (GUID) allocated by the CM when creating an invoice. When rebilling this represents the invoice you wish to rebill."
+  schema:
+    $ref: 'fields.yml#/invoiceId'
 regime:
   name: regime
   in: path
