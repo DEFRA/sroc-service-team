@@ -27,8 +27,6 @@ servers:
     url: 'http://localhost:3003'
 
 tags:
-  - name: admin
-    description: "Used to administer, monitor, and test the service. Only available when authenticating as an 'admin'"
   - name: billrun
     description: "Operations related to bill runs"
   - name: calculate
@@ -37,6 +35,10 @@ tags:
     description: "Operations related to customer files"
   - name: unavailable
     description: "These will become available eventually but are yet to be fully implemented"
+  - name: admin
+    description: "Used to administer, monitor, and test the service. Only available when authenticating as an 'admin'"
+  - name: status
+    description: "Endpoints that can be used to confirm the status of the API or by automated 'health checks'"
 
 paths:
   /:
