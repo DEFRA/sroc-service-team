@@ -11,10 +11,11 @@ post:
       content:
         application/json:
           schema:
-            example:
-              billRun:
-                id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
-                billRunNumber: 10004
+            $ref: '../../../../schema/schemas.yml#/billrunPostResponse'
+          example:
+            billRun:
+              id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
+              billRunNumber: 10004
     '422':
       description: "Failed - bill run cannot be generated because there is an issue with its data"
       content:
@@ -30,10 +31,10 @@ post:
                 statusCode: 422
                 error: Unprocessable Entity
                 message: \"region\" must be one of [A, B, E, N, S, T, W, Y]
-
   requestBody:
     content:
       application/json:
         schema:
-          example:
-            region: 'A'
+          $ref: '../../../../schema/schemas.yml#/billrunPost'
+        example:
+          region: 'A'
