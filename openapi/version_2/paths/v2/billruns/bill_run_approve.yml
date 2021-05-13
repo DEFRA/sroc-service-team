@@ -2,7 +2,7 @@ patch:
   operationId: ApproveBillRun
   description: "Approves a specified bill run. Bill run must have a status of 'generated'. Must take place before bill run is sent."
   tags:
-    - tested
+    - billrun
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billrunId'

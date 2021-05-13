@@ -4,7 +4,7 @@ post:
     an existing customer record for inclusion in a customer file and onward transmission
     to SSCL
   tags:
-  - available
+  - customer
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
   responses:

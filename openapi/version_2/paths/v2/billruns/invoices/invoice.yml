@@ -2,7 +2,7 @@ get:
   operationId: ViewBillRunInvoice
   description: "Request to view details of an invoice. Returns information about the invoice, each of the licences linked to it, and all transactions linked to each licence."
   tags:
-    - tested
+    - billrun
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../../schema/parameters.yml#/billrunId'
@@ -94,7 +94,7 @@ delete:
   operationId: DeleteBillRunInvoice
   description: "Delete the specified invoice and all linked licences and transactions. As part of the deletion the linked bill run will be updated."
   tags:
-    - tested
+    - billrun
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../../schema/parameters.yml#/billrunId'

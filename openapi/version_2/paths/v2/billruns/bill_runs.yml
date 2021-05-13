@@ -2,7 +2,7 @@ post:
   operationId: CreateBillRun
   description: "This endpoint triggers creation of a bill run record for a region. Bill run contains no transactions on creation."
   tags:
-    - tested
+    - billrun
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
   responses:
