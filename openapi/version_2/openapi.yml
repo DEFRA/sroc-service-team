@@ -1,26 +1,20 @@
 openapi: 3.0.0
 info:
   description: |
-    > This `draft` version is intended to facilitate design and development of what will be the first release of Version 2 of the API.
+    > This `draft` version represents the next release of the API.
 
     Provides an interface for calculating charges, creating and queuing transactions, and generating transaction and customer files used to produce Environment Agency invoices.
 
-    This represents Version 2 of the API, which is based on the [sroc-charging-module-api project](https://github.com/DEFRA/sroc-charging-module-api). It is intended to supercede Version 1, which is based on the [charging-module-api project](https://github.com/DEFRA/charging-module-api)
-
     ## Working with the API
 
-    The [SRoC service team](https://github.com/DEFRA/sroc-service-team) use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
+    The [SROC service team](https://github.com/DEFRA/sroc-service-team) use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
 
-    ## Build status
+    ## Running the API locally
 
-    We have grouped the endpoints by build status rather than function. We hope this makes it easier to see what the position for each endpoint is; is it accessible, is it tested, is it relevant.
-
-    As the status of endpoints change the SROC team will make the updated versions of the API available on [Docker Hub](https://hub.docker.com/r/environmentagency/sroc-charging-module-api).
-
-    They will also endeavour to update this spec to match. If unsure about anything, or you see a conflict please contact the team first.
+    The **SROC service team** also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub/version_2) for info on how to get it up and running locally.
 
   version: "draft"
-  title: Charging Module API V2
+  title: SROC Charging Module API
   contact:
     name: SROC Service Team
     email: alan.cruikshanks@environment-agency.gov.uk
@@ -33,22 +27,16 @@ servers:
     url: 'http://localhost:3003'
 
 tags:
-  - name: ready
-    description: "Tested by SROC team, and reviewed by WRLS. Ready for formal sign-off phase"
-  - name: tested
-    description: "Tested by SROC team but awaiting review and feedback from WRLS team"
-  - name: available
-    description: "Available to start using but has not yet been formally tested by SROC team"
-  - name: unavailable
-    description: "These will become available eventually but are yet to be fully implemented"
-  - name: deprioritised
-    description: "These are intended to be delivered but not as MVP"
-  - name: suggested
-    description: "These could be made available to client systems"
-  - name: status
-    description: "Used to confirm the status of the service. Available to all and ready to use"
   - name: admin
     description: "Used to administer, monitor, and test the service. Only available when authenticating as an 'admin'"
+  - name: billrun
+    description: "Operations related to bill runs"
+  - name: calculate
+    description: "Operations related to calculating charges"
+  - name: customer
+    description: "Operations related to customer files"
+  - name: unavailable
+    description: "These will become available eventually but are yet to be fully implemented"
 
 paths:
   /:
@@ -139,12 +127,6 @@ paths:
 
   '/v2/{regime}/customer-changes':
     $ref: 'paths/v2/customer_changes/customer_changes.yml'
-
-  '/v2/{regime}/transactions':
-    $ref: 'paths/v2/transactions/transactions.yml'
-
-  '/v2/{regime}/transactions/{transactionId}':
-    $ref: 'paths/v2/transactions/transaction.yml'
 
 security:
   - OAuth2: []
