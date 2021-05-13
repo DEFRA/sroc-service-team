@@ -27,3 +27,21 @@ get:
                 preSrocCutoffDate: '2020-04-01T00:00:00.000Z'
                 createdAt: '2020-12-01T09:19:22.065Z'
                 updatedAt: '2020-12-01T09:19:22.065Z'
+patch:
+  operationId: UpdateAuthorisedSystem
+  description: "Update an 'authorised system'. An authorised system is essentially a user of the API, and this is used to update the details of one."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/authorisedSystemId'
+  responses:
+    '204':
+      description: "Success"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          example:
+            name: 'Test'
+            status: 'inactive'
+            regimes: [cfd, pas, wml, wrls]
