@@ -50,6 +50,8 @@ get:
                       creditLineValue: 0
                       debitLineValue: 2500
                       netTotal: 2500
+                      rebilledType: 'O'
+                      rebilledInvoiceId: null
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -79,6 +81,8 @@ get:
                       creditLineValue: 0
                       debitLineValue: 2500
                       netTotal: 2500
+                      rebilledType: 'O'
+                      rebilledInvoiceId: null
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -108,6 +112,8 @@ get:
                       creditLineValue: 0
                       debitLineValue: 2500
                       netTotal: 2500
+                      rebilledType: 'O'
+                      rebilledInvoiceId: null
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -137,6 +143,8 @@ get:
                       creditLineValue: 0
                       debitLineValue: 2500
                       netTotal: 2500
+                      rebilledType: 'O'
+                      rebilledInvoiceId: null
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -166,6 +174,8 @@ get:
                       creditLineValue: 0
                       debitLineValue: 2500
                       netTotal: 2500
+                      rebilledType: 'O'
+                      rebilledInvoiceId: null
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
@@ -195,6 +205,8 @@ get:
                       creditLineValue: 0
                       debitLineValue: 2500
                       netTotal: 2500
+                      rebilledType: 'O'
+                      rebilledInvoiceId: null
                       licences:
                         - id: '3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea'
                           licenceNumber: 'FOOO/BARRR/306'
