@@ -179,6 +179,12 @@ billrunPostResponse:
           $ref: 'fields.yml#/billrunId'
         billRunNumber:
           $ref: 'fields.yml#/billrunNumber'
+billrunStatus:
+  description: ""
+  type: object
+  properties:
+    status:
+      $ref: 'fields.yml#/billrunStatus'
 billrunSummary:
   description: "Represents a bill run record"
   type: object
