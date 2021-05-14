@@ -3,7 +3,7 @@ authorisedSystem:
   type: object
   properties:
     id:
-      $ref: 'fields.yml#/clientID'
+      $ref: 'fields.yml#/cognitoClientID'
     name:
       type: string
       example: 'wrls'
@@ -29,7 +29,7 @@ authorisedSystemV2:
     id:
       $ref: 'fields.yml#/authorisedSystemId'
     clientId:
-      $ref: 'fields.yml#/clientID'
+      $ref: 'fields.yml#/cognitoClientID'
     name:
       type: string
       example: 'wrls'
@@ -59,7 +59,7 @@ authorisedSystemPost:
   type: object
   properties:
     id:
-      $ref: 'fields.yml#/clientID'
+      $ref: 'fields.yml#/cognitoClientID'
     name:
       type: string
       example: 'wrls'
@@ -74,7 +74,7 @@ authorisedSystemPostV2:
   type: object
   properties:
     clientId:
-      $ref: 'fields.yml#/clientID'
+      $ref: 'fields.yml#/cognitoClientID'
     name:
       type: string
       example: 'wrls'
@@ -89,7 +89,7 @@ authorisedSystemSummary:
   type: object
   properties:
     id:
-      $ref: 'fields.yml#/clientID'
+      $ref: 'fields.yml#/cognitoClientID'
     name:
       type: string
       example: 'wrls'
@@ -160,6 +160,71 @@ billrun:
                       $ref: 'fields.yml#/licenceId'
                     licenceNumber:
                       $ref: 'fields.yml#/licenceNumber'
+billrunInvoice:
+  description: ""
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/invoiceId'
+    billRunId:
+      $ref: 'fields.yml#/billrunId'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    financialYear:
+      $ref: 'fields.yml#/financialYear'
+    deminimisInvoice:
+      $ref: 'fields.yml#/deminimisInvoice'
+    zeroValueInvoice:
+      $ref: 'fields.yml#/zeroValueInvoice'
+    minimumChargeInvoice:
+      $ref: 'fields.yml#/minimumChargeInvoice'
+    transactionReference:
+      $ref: 'fields.yml#/transactionReference'
+    creditLineValue:
+      $ref: 'fields.yml#/creditLineValue'
+    debitLineValue:
+      $ref: 'fields.yml#/debitLineValue'
+    netTotal:
+      $ref: 'fields.yml#/netTotal'
+    licences:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            $ref: 'fields.yml#/licenceId'
+          licenceNumber:
+            $ref: 'fields.yml#/licenceNumber'
+          netTotal:
+            $ref: 'fields.yml#/netTotal'
+          transactions:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  $ref: 'fields.yml#/transactionId'
+                clientId:
+                  $ref: 'fields.yml#/clientId'
+                chargeValue:
+                  $ref: 'fields.yml#/chargeValue'
+                credit:
+                  $ref: 'fields.yml#/credit'
+                subjectToMinimumCharge:
+                  $ref: 'fields.yml#/subjectToMinimumCharge'
+                minimumChargeAdjustment:
+                  $ref: 'fields.yml#/minimumChargeAdjustment'
+                lineDescription:
+                  $ref: 'fields.yml#/lineDescription'
+                periodStart:
+                  $ref: 'fields.yml#/periodStart'
+                periodEnd:
+                  $ref: 'fields.yml#/periodEnd'
+                compensationCharge:
+                  $ref: 'fields.yml#/compensationCharge'
+                calculation:
+                  description: "Copy of the Rules service JSON response for audit/reference purposes"
+                  type: object
 billrunPost:
   description: ""
   type: object
@@ -607,7 +672,7 @@ transaction:
     netZeroValueInvoice:
       $ref: 'fields.yml#/netZeroValueInvoice'
     clientId:
-      $ref: 'fields.yml#/clientIdTransaction'
+      $ref: 'fields.yml#/clientId'
     transactionFileReference:
       $ref: 'fields.yml#/transactionFileReference'
     calculation:
@@ -735,7 +800,7 @@ transactionPost:
     newLicence:
       $ref: 'fields.yml#/newLicence'
     clientId:
-      $ref: 'fields.yml#/clientIdTransaction'
+      $ref: 'fields.yml#/clientId'
   required:
     - region
     - periodStart
