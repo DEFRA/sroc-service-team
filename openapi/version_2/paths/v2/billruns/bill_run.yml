@@ -11,6 +11,8 @@ get:
       description: "Success"
       content:
         application/json:
+          schema:
+            $ref: '../../../../schema/schemas.yml#/billrun'
           examples:
             '01 Just created':
               value:
@@ -241,7 +243,6 @@ get:
                           licenceNumber: 'FOOO/BARRR/306'
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
-
 delete:
   operationId: DeleteBillRun
   description: "Deletes a specified bill run and all invoices, licences, and transactions linked to it. Bill run must be unbilled."

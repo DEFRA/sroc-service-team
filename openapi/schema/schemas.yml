@@ -103,101 +103,63 @@ billrun:
   description: ""
   type: object
   properties:
-    id:
-      $ref: 'fields.yml#/billrunId'
-    billRunNumber:
-      $ref: 'fields.yml#/billrunNumber'
-    region:
-      $ref: 'fields.yml#/regionCode'
-    status:
-      $ref: 'fields.yml#/billrunStatus'
-    approvedForBilling:
-      $ref: 'fields.yml#/approvalStatus'
-    preSroc:
-      $ref: 'fields.yml#/preSroc'
-    summary:
+    billrun:
       type: object
       properties:
+        id:
+          $ref: 'fields.yml#/billrunId'
+        billRunNumber:
+          $ref: 'fields.yml#/billrunNumber'
+        region:
+          $ref: 'fields.yml#/regionCode'
+        status:
+          $ref: 'fields.yml#/billrunStatus'
         creditNoteCount:
-          type: integer
-          example: 0
+          $ref: 'fields.yml#/creditNoteCount'
         creditNoteValue:
-          type: integer
-          example: 0
+          $ref: 'fields.yml#/creditNoteValue'
         invoiceCount:
-          type: integer
-          example: 2
+          $ref: 'fields.yml#/invoiceCount'
         invoiceValue:
-          type: integer
-          example: 4593
-        creditLineCount:
-          type: integer
-          example: 0
-        creditLineValue:
-          type: integer
-          example: 0
-        debitLineCount:
-          type: integer
-          example: 3
-        debitLineValue:
-          type: integer
-          example: 4593
-        zeroValueLineCount:
-          type: integer
-          example: 0
+          $ref: 'fields.yml#/invoiceValue'
         netTotal:
-          type: integer
-          example: 4593
-    customers:
-      type: array
-      items:
-        type: object
-        properties:
-          customerReference:
-            $ref: 'fields.yml#/customerReference'
-          summaryByFinancialYear:
-            type: array
-            items:
-              type: object
-              properties:
-                financialYear:
-                  $ref: 'fields.yml#/financialYear'
-                creditLineCount:
-                  type: integer
-                  example: 0
-                creditLineValue:
-                  type: integer
-                  example: 0
-                debitLineCount:
-                  type: integer
-                  example: 2
-                debitLineValue:
-                  type: integer
-                  example: 2500
-                netTotal:
-                  type: integer
-                  example: 2500
-                deminimis:
-                  $ref: 'fields.yml#/deminimisTransaction'
-                transactions:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        $ref: 'fields.yml#/transactionId'
-                      chargeValue:
-                        $ref: 'fields.yml#/chargeValue'
-                      licenceNumber:
-                        $ref: 'fields.yml#/licenceNumber'
-                      minimumChargeAdjustment:
-                        $ref: 'fields.yml#/minimumChargeTransaction'
-                      deminimis:
-                        $ref: 'fields.yml#/deminimisTransaction'
-    transactionFileReference:
-      $ref: 'fields.yml#/transactionFileReferenceDat'
-    transactionFileDate:
-      $ref: 'fields.yml#/transactionDate'
+          $ref: 'fields.yml#/billrunNetTotal'
+        transactionFileReference:
+          $ref: 'fields.yml#/transactionFileReference'
+        invoices:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                $ref: 'fields.yml#/invoiceId'
+              customerReference:
+                $ref: 'fields.yml#/customerReference'
+              financialYear:
+                $ref: 'fields.yml#/financialYear'
+              deminimisInvoice:
+                $ref: 'fields.yml#/deminimisInvoice'
+              zeroValueInvoice:
+                $ref: 'fields.yml#/zeroValueInvoice'
+              minimumChargeInvoice:
+                $ref: 'fields.yml#/minimumChargeInvoice'
+              transactionReference:
+                $ref: 'fields.yml#/transactionReference'
+              creditLineValue:
+                $ref: 'fields.yml#/creditLineValue'
+              debitLineValue:
+                $ref: 'fields.yml#/debitLineValue'
+              netTotal:
+                $ref: 'fields.yml#/netTotal'
+              licences:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      $ref: 'fields.yml#/licenceId'
+                    licenceNumber:
+                      $ref: 'fields.yml#/licenceNumber'
 billrunPost:
   description: ""
   type: object
