@@ -13,7 +13,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../../../../schema/schemas.yml#/billrunInvoice'
+            $ref: '../../../../../schema/schemas.yml#/invoice'
           example:
             invoice:
               id: db82bf38-638a-44d3-b1b3-1ae8524d9c38
