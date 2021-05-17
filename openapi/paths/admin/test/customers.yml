@@ -4,14 +4,14 @@ get:
   tags:
     - admin
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/regime'
   responses:
     '200':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../../schema/schemas.yml#/customerFile'
+            $ref: '../../../schema/schemas.yml#/customerFile'
           example:
             - id: 'd04652ab-8ddb-411e-b683-53c25855f7a3'
               regimeId: '34eb63e4-c538-48ca-9053-86164d12248c'

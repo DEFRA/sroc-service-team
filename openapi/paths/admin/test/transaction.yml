@@ -6,7 +6,7 @@ get:
   tags:
     - admin
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/transactionId'
+    - $ref: '../../../schema/parameters.yml#/transactionId'
   responses:
     '200':
       description: "Success"

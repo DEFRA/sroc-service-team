@@ -4,16 +4,16 @@ get:
   tags:
     - bill-run
   parameters:
-    - $ref: '../../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../../schema/parameters.yml#/billRunId'
-    - $ref: '../../../../../schema/parameters.yml#/invoiceId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billRunId'
+    - $ref: '../../../../schema/parameters.yml#/invoiceId'
   responses:
     '200':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../../../schema/schemas.yml#/invoice'
+            $ref: '../../../../schema/schemas.yml#/invoice'
           example:
             invoice:
               id: db82bf38-638a-44d3-b1b3-1ae8524d9c38
@@ -98,9 +98,9 @@ delete:
   tags:
     - bill-run
   parameters:
-    - $ref: '../../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../../schema/parameters.yml#/billRunId'
-    - $ref: '../../../../../schema/parameters.yml#/invoiceId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billRunId'
+    - $ref: '../../../../schema/parameters.yml#/invoiceId'
   responses:
     '204':
       description: "Success"

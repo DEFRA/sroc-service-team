@@ -53,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../schema/schemas.yml#/status'
+                $ref: 'schema/schemas.yml#/status'
 
   /status:
     $ref: 'paths/status.yml'

@@ -4,14 +4,14 @@ get:
   tags:
     - admin
   parameters:
-    - $ref: '../../../schema/parameters.yml#/authorisedSystemId'
+    - $ref: '../../schema/parameters.yml#/authorisedSystemId'
   responses:
     '200':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../schema/schemas.yml#/authorisedSystemAndRegimes'
+            $ref: '../../schema/schemas.yml#/authorisedSystemAndRegimes'
           example:
             id: 'b36d674f-b97c-4685-95f3-aacae8c97bde'
             clientId: '1b1gshltt176v80nsc4fxxxxxx'
@@ -33,7 +33,7 @@ patch:
   tags:
     - admin
   parameters:
-    - $ref: '../../../schema/parameters.yml#/authorisedSystemId'
+    - $ref: '../../schema/parameters.yml#/authorisedSystemId'
   responses:
     '204':
       description: "Success"
@@ -41,7 +41,7 @@ patch:
     content:
       application/json:
         schema:
-          $ref: '../../../schema/schemas.yml#/authorisedSystemPatch'
+          $ref: '../../schema/schemas.yml#/authorisedSystemPatch'
         example:
           name: 'Test'
           status: 'inactive'

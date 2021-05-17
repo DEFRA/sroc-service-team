@@ -4,8 +4,8 @@ patch:
   tags:
     - bill-run
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billRunId'
+    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/billRunId'
   responses:
     '204':
       description: "Success"

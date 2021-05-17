@@ -4,16 +4,16 @@ get:
   tags:
     - unavailable
   parameters:
-    - $ref: '../../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../../schema/parameters.yml#/rebillBillrunId'
-    - $ref: '../../../../../schema/parameters.yml#/rebillInvoiceId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/rebillBillrunId'
+    - $ref: '../../../../schema/parameters.yml#/rebillInvoiceId'
   responses:
     '201':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../../../schema/schemas.yml#/invoiceRebillPatchResponse'
+            $ref: '../../../../schema/schemas.yml#/invoiceRebillPatchResponse'
           example:
             invoices:
             - id: f62faabc-d65e-4242-a106-9777c1d57db7

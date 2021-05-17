@@ -37,7 +37,7 @@ post:
   tags:
     - admin
   parameters:
-    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/regime'
   responses:
     '201':
       description: "Success"

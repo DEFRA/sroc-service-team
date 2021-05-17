@@ -4,15 +4,15 @@ post:
   tags:
     - bill-run
   parameters:
-    - $ref: '../../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../../schema/parameters.yml#/billRunId'
+    - $ref: '../../../../schema/parameters.yml#/regime'
+    - $ref: '../../../../schema/parameters.yml#/billRunId'
   responses:
     '201':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../../../schema/schemas.yml#/transactionPostResponse'
+            $ref: '../../../../schema/schemas.yml#/transactionPostResponse'
           example:
             transaction:
               id: 'fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3'
@@ -31,7 +31,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../../../schema/schemas.yml#/transactionPost'
+          $ref: '../../../../schema/schemas.yml#/transactionPost'
         example:
           periodStart: '01-APR-2019'
           periodEnd: '31-MAR-2020'
