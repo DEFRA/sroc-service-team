@@ -14,8 +14,7 @@ post:
     content:
       application/json:
         schema:
-          description: The address details to be updated for a given customer reference and region.
-          type: object
+          $ref: '../../../../schema/schemas.yml#/customerChangePost'
         example:
           region: A
           customerReference: BB02BEEB

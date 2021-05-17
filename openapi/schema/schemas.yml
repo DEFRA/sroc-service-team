@@ -345,15 +345,6 @@ customerChangePost:
     - customerReference
     - customerName
     - addressLine1
-customerChangePostResponse:
-  description: ""
-  type: object
-  properties:
-    customerChange:
-      type: object
-      properties:
-        id:
-          $ref: 'fields.yml#/customerChangeId'
 customerFile:
   description: ""
   type: object
