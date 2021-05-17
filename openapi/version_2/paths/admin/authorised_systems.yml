@@ -14,7 +14,7 @@ get:
               authorisedSystems:
                 type: array
                 items:
-                  $ref: '../../../schema/schemas.yml#/authorisedSystemV2'
+                  $ref: '../../../schema/schemas.yml#/authorisedSystem'
           example:
             - id: 'ac12ac4b-9b9e-4cba-a06f-a90f611a1ef1'
               clientId: '710uhe3hqumsk2da43foxxxxxx'
@@ -42,7 +42,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../../schema/schemas.yml#/authorisedSystemV2'
+            $ref: '../../../schema/schemas.yml#/authorisedSystem'
           example:
             id: '9e76203a-e900-41a1-a045-2551d98e010c'
             clientId: 'i7rnixijjrawj7azzhwwxxxxxx'
@@ -80,7 +80,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../schema/schemas.yml#/authorisedSystemPostV2'
+          $ref: '../../../schema/schemas.yml#/authorisedSystemPost'
         example:
           clientId: 'i7rnixijjrawj7azzhwwxxxxxx'
           name: 'dashboard'

@@ -56,7 +56,12 @@ authorisedSystemId:
   type: string
   format: uuid
   example: 'fd2ab097-3097-42bd-849e-046aa250a0d0'
+authorisedSystemName:
+  description: "The name assigned by the service team to the client system"
+  type: string
+  example: 'Water Resources'
 authorisedSystemStatus:
+  description: "Only 'active' authorised system accounts can interact with the API. Because records will be linked to an authorised system, when they become redundant we mark them as 'inactive' rather than delete them"
   type: string
   enum: [active, inactive]
   example: 'active'
@@ -330,6 +335,11 @@ postcode:
   type: 'string'
   nullable: true
   example: 'SO74 3KD'
+preSrocCutoffDate:
+  description: "Date when rules changed from pre-SROC to SROC based"
+  type: string
+  format: date
+  example: '2020-04-01'
 prorataDays:
   description: "Pro-rata days, shown as a fraction comprising Billable Days / Authorised Days"
   type: string
@@ -389,6 +399,11 @@ section130:
   description: "Factor applied to a charge as the result of a Section 130 agreement"
   type: number
   example: 0.5
+slug:
+  description: "Short reference for a regime, referred to as a 'slug'. This is also what we expect to see in the path as the regime identifier when making a request"
+  type: string
+  enum: [cfd, pas, wml, wrls]
+  example: 'wrls'
 source:
   description: "Source on which standard charge calculation based"
   type: string

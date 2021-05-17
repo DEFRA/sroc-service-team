@@ -1,29 +1,5 @@
 authorisedSystem:
-  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
-  type: object
-  properties:
-    id:
-      $ref: 'fields.yml#/cognitoClientID'
-    name:
-      type: string
-      example: 'wrls'
-    status:
-      $ref: 'fields.yml#/authorisedSystemStatus'
-    created_at:
-      $ref: 'fields.yml#/createdAt'
-    updated_at:
-      $ref: 'fields.yml#/updatedAt'
-    authorisations:
-      type: array
-      items:
-        type: object
-        properties:
-          regime:
-            $ref: 'fields.yml#/regime'
-          last_accessed_at:
-            $ref: 'fields.yml#/timeStamp'
-authorisedSystemV2:
-  description: "Essentially the user account of a system authorised to use the API. Includes what regimes each account is authorised to make requests for."
+  description: ""
   type: object
   properties:
     id:
@@ -31,8 +7,7 @@ authorisedSystemV2:
     clientId:
       $ref: 'fields.yml#/cognitoClientID'
     name:
-      type: string
-      example: 'wrls'
+      $ref: 'fields.yml#/authorisedSystemName'
     status:
       $ref: 'fields.yml#/authorisedSystemStatus'
     admin:
@@ -41,64 +16,54 @@ authorisedSystemV2:
       $ref: 'fields.yml#/createdAt'
     updatedAt:
       $ref: 'fields.yml#/updatedAt'
-authorisedSystemPatch:
-  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
-  type: object
-  properties:
-    name:
-      type: string
-      example: 'wrls'
-    status:
-      $ref: 'fields.yml#/authorisedSystemStatus'
-    authorisations:
-      type: array
-      items:
-        $ref: 'fields.yml#/regime'
-authorisedSystemPost:
-  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
+authorisedSystemAndRegimes:
+  description: ""
   type: object
   properties:
     id:
+      $ref: 'fields.yml#/authorisedSystemId'
+    clientId:
       $ref: 'fields.yml#/cognitoClientID'
     name:
-      type: string
-      example: 'wrls'
+      $ref: 'fields.yml#/authorisedSystemName'
+    status:
+      $ref: 'fields.yml#/authorisedSystemStatus'
+    admin:
+      $ref: 'fields.yml#/admin'
+    createdAt:
+      $ref: 'fields.yml#/createdAt'
+    updatedAt:
+      $ref: 'fields.yml#/updatedAt'
+    regimes:
+      type: array
+      items:
+        $ref: 'schemas.yml#/regime'
+authorisedSystemPatch:
+  description: ""
+  type: object
+  properties:
+    name:
+      $ref: 'fields.yml#/authorisedSystemName'
     status:
       $ref: 'fields.yml#/authorisedSystemStatus'
     authorisations:
       type: array
       items:
-        $ref: 'fields.yml#/regime'
-authorisedSystemPostV2:
-  description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
+        $ref: 'fields.yml#/slug'
+authorisedSystemPost:
+  description: ""
   type: object
   properties:
     clientId:
       $ref: 'fields.yml#/cognitoClientID'
     name:
-      type: string
-      example: 'wrls'
+      $ref: 'fields.yml#/authorisedSystemName'
     status:
       $ref: 'fields.yml#/authorisedSystemStatus'
     authorisations:
       type: array
       items:
-        $ref: 'fields.yml#/regime'
-authorisedSystemSummary:
-  description: "Essentially the user account of a system authorised to use the API. The summarised version does not include what authorisations each account has."
-  type: object
-  properties:
-    id:
-      $ref: 'fields.yml#/cognitoClientID'
-    name:
-      type: string
-      example: 'wrls'
-    status:
-      $ref: 'fields.yml#/authorisedSystemStatus'
-    created_at:
-      $ref: 'fields.yml#/createdAt'
-    updated_at:
-      $ref: 'fields.yml#/updatedAt'
+        $ref: 'fields.yml#/slug'
 billrun:
   description: ""
   type: object
@@ -485,14 +450,11 @@ regime:
     id:
       $ref: 'fields.yml#/regimeId'
     slug:
-      type: string
-      enum: [cfd, pas, wml, wrls]
-      example: 'wrls'
+      $ref: 'fields.yml#/slug'
     name:
-      type: string
-      example: 'Water Resources'
+      $ref: 'fields.yml#/authorisedSystemName'
     preSrocCutoffDate:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/preSrocCutoffDate'
     createdAt:
       $ref: 'fields.yml#/updatedAt'
     updatedAt:
@@ -504,14 +466,11 @@ regimeAndAuthorisedSystems:
     id:
       $ref: 'fields.yml#/regimeId'
     slug:
-      type: string
-      enum: [cfd, pas, wml, wrls]
-      example: 'wrls'
+      $ref: 'fields.yml#/slug'
     name:
-      type: string
-      example: 'Water Resources'
+      $ref: 'fields.yml#/authorisedSystemName'
     preSrocCutoffDate:
-      $ref: 'fields.yml#/createdAt'
+      $ref: 'fields.yml#/preSrocCutoffDate'
     createdAt:
       $ref: 'fields.yml#/createdAt'
     updatedAt:
@@ -519,30 +478,7 @@ regimeAndAuthorisedSystems:
     authorisedSystems:
       type: array
       items:
-        type: object
-        properties:
-          id:
-            $ref: 'fields.yml#/cognitoClientID'
-          name:
-            type: string
-            example: 'wrls'
-          status:
-            $ref: 'fields.yml#/authorisedSystemStatus'
-          created_at:
-            $ref: 'fields.yml#/createdAt'
-          updated_at:
-            $ref: 'fields.yml#/updatedAt'
-regimeSummary:
-  description: "Summary of a charging regime"
-  type: object
-  properties:
-    id:
-      $ref: 'fields.yml#/regimeId'
-    name:
-      type: string
-      example: 'Water Resources'
-    slug:
-      $ref: 'fields.yml#/regime'
+        $ref: 'schemas.yml#/authorisedSystem'
 status:
   description: "Returned by a call to status, it is an object that contains a copy of the headers found in the original request"
   type: object
