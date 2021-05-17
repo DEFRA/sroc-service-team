@@ -316,41 +316,58 @@ customerFile:
   properties:
     id:
       $ref: 'fields.yml#/customerFileId'
+    regimeId:
+      $ref: 'fields.yml#/regimeId'
     region:
       $ref: 'fields.yml#/regionCode'
-    fileName:
-      $ref: 'fields.yml#/customerFileName'
+    fileReference:
+      $ref: 'fields.yml#/customerFileReference'
+    createdAt:
+      $ref: 'fields.yml#/createdAt'
+    updatedAt:
+      $ref: 'fields.yml#/updatedAt'
     status:
       $ref: 'fields.yml#/customerFileStatus'
-    createdDate:
-      $ref: 'fields.yml#/customerFileDate'
-    customerChanges:
-      type: array
-      items:
-        type: object
-        properties:
-          customerReference:
-            $ref: 'fields.yml#/customerReference'
-customerFilePost:
-  description: ""
-  type: object
-  properties:
-    region:
-      $ref: 'fields.yml#/regionCode'
-customerFileSummary:
+    exportedAt:
+      $ref: 'fields.yml#/customerFileExportedAt'
+customerFileAndExportedCustomers:
   description: ""
   type: object
   properties:
     id:
       $ref: 'fields.yml#/customerFileId'
+    regimeId:
+      $ref: 'fields.yml#/regimeId'
     region:
       $ref: 'fields.yml#/regionCode'
-    file_reference:
-      $ref: 'fields.yml#/customerFileNumberString'
+    fileReference:
+      $ref: 'fields.yml#/customerFileReference'
+    createdAt:
+      $ref: 'fields.yml#/createdAt'
+    updatedAt:
+      $ref: 'fields.yml#/updatedAt'
     status:
       $ref: 'fields.yml#/customerFileStatus'
-    created_at:
+    exportedAt:
+      $ref: 'fields.yml#/customerFileExportedAt'
+    exportedCustomers:
+      type: array
+      items:
+        $ref: 'schemas.yml#/exportedCustomer'
+exportedCustomer:
+  description: ""
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/exportedCustomerId'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    customerFileId:
+      $ref: 'fields.yml#/customerFileId'
+    createdAt:
       $ref: 'fields.yml#/createdAt'
+    updatedAt:
+      $ref: 'fields.yml#/updatedAt'
 invoice:
   description: ""
   type: object
@@ -456,7 +473,7 @@ regime:
     preSrocCutoffDate:
       $ref: 'fields.yml#/preSrocCutoffDate'
     createdAt:
-      $ref: 'fields.yml#/updatedAt'
+      $ref: 'fields.yml#/createdAt'
     updatedAt:
       $ref: 'fields.yml#/updatedAt'
 regimeAndAuthorisedSystems:
