@@ -2,7 +2,7 @@ post:
   operationId: AddBillRunTransaction
   description: "Triggers creation of a transaction and immediately adds it to the specified bill run."
   tags:
-    - billrun
+    - bill-run
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../../schema/parameters.yml#/billRunId'

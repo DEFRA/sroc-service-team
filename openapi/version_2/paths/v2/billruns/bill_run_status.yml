@@ -2,7 +2,7 @@ get:
   operationId: ViewBillRunStatus
   description: "Request to view the status of a single bill run based on the bill run ID. It is intended to help client systems quickly determine if a bill run is ready to be viewed after a `/generate` request and reduce the load on the API."
   tags:
-    - billrun
+    - bill-run
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billRunId'

@@ -2,7 +2,7 @@ get:
   operationId: ViewBillRun
   description: "Request to view a single bill run based on the bill run ID."
   tags:
-    - billrun
+    - bill-run
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billRunId'
@@ -247,7 +247,7 @@ delete:
   operationId: DeleteBillRun
   description: "Deletes a specified bill run and all invoices, licences, and transactions linked to it. Bill run must be unbilled."
   tags:
-    - billrun
+    - bill-run
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billRunId'

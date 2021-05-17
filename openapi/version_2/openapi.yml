@@ -27,7 +27,7 @@ servers:
     url: 'http://localhost:3003'
 
 tags:
-  - name: billrun
+  - name: bill-run
     description: "Operations related to bill runs"
   - name: calculate
     description: "Operations related to calculating charges"
