@@ -5,7 +5,7 @@ get:
     - unavailable
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/rebillBillrunId'
+    - $ref: '../../../../schema/parameters.yml#/rebillBillRunId'
     - $ref: '../../../../schema/parameters.yml#/rebillInvoiceId'
   responses:
     '201':
