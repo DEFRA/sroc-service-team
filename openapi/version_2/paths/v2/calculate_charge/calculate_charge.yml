@@ -11,7 +11,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../../../schema/schemas.yml#/calculateChargeResponse'
+            $ref: '../../../../schema/schemas.yml#/calculateChargePostResponse'
           example:
             calculation:
               chargeValue: 772
@@ -27,7 +27,7 @@ post:
     content:
       application/json:
         schema:
-            $ref: '../../../../schema/schemas.yml#/calculateCharge'
+            $ref: '../../../../schema/schemas.yml#/calculateChargePost'
         example:
           periodStart: 01-APR-2020
           periodEnd: 31-MAR-2021
