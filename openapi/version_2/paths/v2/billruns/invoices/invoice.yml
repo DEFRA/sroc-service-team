@@ -5,7 +5,7 @@ get:
     - billrun
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/billRunId'
     - $ref: '../../../../../schema/parameters.yml#/invoiceId'
   responses:
     '200':
@@ -99,7 +99,7 @@ delete:
     - billrun
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/billRunId'
     - $ref: '../../../../../schema/parameters.yml#/invoiceId'
   responses:
     '204':

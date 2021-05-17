@@ -5,14 +5,14 @@ get:
     - billrun
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/billRunId'
   responses:
     '200':
       description: "Success"
       content:
         application/json:
           schema:
-            $ref: '../../../../schema/schemas.yml#/billrunStatus'
+            $ref: '../../../../schema/schemas.yml#/billRunStatus'
           examples:
             '01 Just created':
               value:

@@ -5,7 +5,7 @@ delete:
     - unavailable
   parameters:
     - $ref: '../../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../../schema/parameters.yml#/billRunId'
     - $ref: '../../../../../schema/parameters.yml#/licenceId'
   responses:
     '204':

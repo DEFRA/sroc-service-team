@@ -5,13 +5,13 @@ authorisedSystemId:
   description: "Internal ID (GUID) allocated by the CM when creating an authorised system."
   schema:
     $ref: 'fields.yml#/authorisedSystemId'
-billrunId:
-  name: billrunId
+billRunId:
+  name: billRunId
   in: path
   required: true
   description: "Internal ID (GUID) allocated by the CM when creating a bill run."
   schema:
-    $ref: 'fields.yml#/billrunId'
+    $ref: 'fields.yml#/billRunId'
 customerFileId:
   name: customerFileId
   in: path
@@ -39,7 +39,7 @@ rebillBillrunId:
   required: true
   description: "Internal ID (GUID) allocated by the CM when creating a bill run. When rebilling this represents the bill run you want to assign the new rebill invoices to."
   schema:
-    $ref: 'fields.yml#/billrunId'
+    $ref: 'fields.yml#/billRunId'
 rebillInvoiceId:
   name: rebillInvoiceId
   in: path

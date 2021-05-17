@@ -60,20 +60,20 @@ authorisedSystemPost:
       type: array
       items:
         $ref: 'fields.yml#/slug'
-billrun:
+billRun:
   type: object
   properties:
     billrun:
       type: object
       properties:
         id:
-          $ref: 'fields.yml#/billrunId'
+          $ref: 'fields.yml#/billRunId'
         billRunNumber:
-          $ref: 'fields.yml#/billrunNumber'
+          $ref: 'fields.yml#/billRunNumber'
         region:
           $ref: 'fields.yml#/regionCode'
         status:
-          $ref: 'fields.yml#/billrunStatus'
+          $ref: 'fields.yml#/billRunStatus'
         creditNoteCount:
           $ref: 'fields.yml#/creditNoteCount'
         creditNoteValue:
@@ -83,7 +83,7 @@ billrun:
         invoiceValue:
           $ref: 'fields.yml#/invoiceValue'
         netTotal:
-          $ref: 'fields.yml#/billrunNetTotal'
+          $ref: 'fields.yml#/billRunNetTotal'
         transactionFileReference:
           $ref: 'fields.yml#/transactionFileReference'
         invoices:
@@ -120,28 +120,28 @@ billrun:
                       $ref: 'fields.yml#/licenceId'
                     licenceNumber:
                       $ref: 'fields.yml#/licenceNumber'
-billrunPost:
+billRunPost:
   type: object
   properties:
     region:
       $ref: 'fields.yml#/regionCode'
   required:
     - region
-billrunPostResponse:
+billRunPostResponse:
   type: object
   properties:
     billrun:
       type: object
       properties:
         id:
-          $ref: 'fields.yml#/billrunId'
+          $ref: 'fields.yml#/billRunId'
         billRunNumber:
-          $ref: 'fields.yml#/billrunNumber'
-billrunStatus:
+          $ref: 'fields.yml#/billRunNumber'
+billRunStatus:
   type: object
   properties:
     status:
-      $ref: 'fields.yml#/billrunStatus'
+      $ref: 'fields.yml#/billRunStatus'
 calculateChargePost:
   type: object
   properties:
@@ -308,7 +308,7 @@ invoice:
     id:
       $ref: 'fields.yml#/invoiceId'
     billRunId:
-      $ref: 'fields.yml#/billrunId'
+      $ref: 'fields.yml#/billRunId'
     customerReference:
       $ref: 'fields.yml#/customerReference'
     financialYear:

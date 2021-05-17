@@ -5,7 +5,7 @@ patch:
     - billrun
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
-    - $ref: '../../../../schema/parameters.yml#/billrunId'
+    - $ref: '../../../../schema/parameters.yml#/billRunId'
   responses:
     '204':
       description: "Success"
