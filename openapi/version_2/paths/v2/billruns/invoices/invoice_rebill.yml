@@ -12,6 +12,8 @@ get:
       description: "Success"
       content:
         application/json:
+          schema:
+            $ref: '../../../../../schema/schemas.yml#/invoiceRebillResponse'
           example:
             invoices:
             - id: f62faabc-d65e-4242-a106-9777c1d57db7

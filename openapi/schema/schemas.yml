@@ -457,6 +457,19 @@ customerFileSummary:
       $ref: 'fields.yml#/customerFileStatus'
     created_at:
       $ref: 'fields.yml#/timeStamp'
+invoiceRebillResponse:
+  description: ""
+  type: object
+  properties:
+    invoices:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            $ref: 'fields.yml#/invoiceId'
+          rebilledType:
+            $ref: 'fields.yml#/rebilledType'
 pagination:
   description: "Returned when a response contains multiple results"
   type: object

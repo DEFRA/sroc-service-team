@@ -328,6 +328,11 @@ prorataDays:
   description: "Pro-rata days, shown as a fraction comprising Billable Days / Authorised Days"
   type: string
   example: '149/214'
+rebilledType:
+  description: "The type of invoice in relation to rebilling. `O` (Original) means the invoice is not a result of rebilling. `C` (Cancel) is an invoice generated as a result of rebilling to 'cancel' the original invoice. `R` (Rebill) is the invoice generated to 'rebill' the original invoice."
+  type: string
+  enum: [C, O, R]
+  example: 'R'
 regime:
   description: "NOT IN MASTER DATA SPECIFICATION"
   type: string
