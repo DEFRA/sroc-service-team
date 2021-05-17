@@ -295,24 +295,27 @@ calculateChargeResponse:
   description: ""
   type: object
   properties:
-    chargeValue:
-      $ref: 'fields.yml#/chargeValue'
-    sourceFactor:
-      $ref: 'fields.yml#/sourceFactor'
-    seasonFactor:
-      $ref: 'fields.yml#/seasonFactor'
-    lossFactor:
-      $ref: 'fields.yml#/lossFactor'
-    licenceHolderChargeAgreement:
-      $ref: 'fields.yml#/licenceHolderChargeAgreement'
-    chargeElementAgreement:
-      $ref: 'fields.yml#/chargeElementAgreement'
-    eiucSourceFactor:
-      $ref: 'fields.yml#/eiucAdjustedSourceFactor'
-    eiuc:
-      $ref: 'fields.yml#/eiuc'
-    suc:
-      $ref: 'fields.yml#/suc'
+    calculation:
+      type: object
+      properties:
+        chargeValue:
+          $ref: 'fields.yml#/chargeValue'
+        sourceFactor:
+          $ref: 'fields.yml#/sourceFactor'
+        seasonFactor:
+          $ref: 'fields.yml#/seasonFactor'
+        lossFactor:
+          $ref: 'fields.yml#/lossFactor'
+        licenceHolderChargeAgreement:
+          $ref: 'fields.yml#/licenceHolderChargeAgreement'
+        chargeElementAgreement:
+          $ref: 'fields.yml#/chargeElementAgreement'
+        eiucSourceFactor:
+          $ref: 'fields.yml#/eiucAdjustedSourceFactor'
+        eiuc:
+          $ref: 'fields.yml#/eiuc'
+        suc:
+          $ref: 'fields.yml#/suc'
 customerChangePost:
   description: ""
   type: object
