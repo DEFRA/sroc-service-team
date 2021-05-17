@@ -94,17 +94,20 @@ paths:
   '/v2/{regime}/bill-runs':
     $ref: 'paths/v2/bill_runs/bill_runs.yml'
 
+  '/v2/{regime}/bill-runs/{billrunId}/transactions':
+    $ref: 'paths/v2/bill_runs/transactions/bill_run_transactions.yml'
+
   '/v2/{regime}/bill-runs/{billrunId}':
     $ref: 'paths/v2/bill_runs/bill_run.yml'
 
-  '/v2/{regime}/bill-runs/{billrunId}/approve':
-    $ref: 'paths/v2/bill_runs/bill_run_approve.yml'
+  '/v2/{regime}/bill-runs/{billrunId}/generate':
+    $ref: 'paths/v2/bill_runs/bill_run_generate.yml'
 
   '/v2/{regime}/bill-runs/{billrunId}/status':
     $ref: 'paths/v2/bill_runs/bill_run_status.yml'
 
-  '/v2/{regime}/bill-runs/{billrunId}/generate':
-    $ref: 'paths/v2/bill_runs/bill_run_generate.yml'
+  '/v2/{regime}/bill-runs/{billrunId}/approve':
+    $ref: 'paths/v2/bill_runs/bill_run_approve.yml'
 
   '/v2/{regime}/bill-runs/{billrunId}/send':
     $ref: 'paths/v2/bill_runs/bill_run_send.yml'
@@ -112,20 +115,17 @@ paths:
   '/v2/{regime}/bill-runs/{billrunId}/invoices/{invoiceId}':
     $ref: 'paths/v2/bill_runs/invoices/invoice.yml'
 
-  '/v2/{regime}/bill-runs/{rebillBillrunId}/invoices/{rebillInvoiceId}/rebill':
-    $ref: 'paths/v2/bill_runs/invoices/invoice_rebill.yml'
-
-  '/v2/{regime}/bill-runs/{billrunId}/licences/{licenceId}':
-    $ref: 'paths/v2/bill_runs/licences/licence.yml'
-
-  '/v2/{regime}/bill-runs/{billrunId}/transactions':
-    $ref: 'paths/v2/bill_runs/transactions/bill_run_transactions.yml'
-
   '/v2/{regime}/calculate-charge':
     $ref: 'paths/v2/calculate_charge/calculate_charge.yml'
 
   '/v2/{regime}/customer-changes':
     $ref: 'paths/v2/customer_changes/customer_changes.yml'
+
+  '/v2/{regime}/bill-runs/{rebillBillrunId}/invoices/{rebillInvoiceId}/rebill':
+    $ref: 'paths/v2/bill_runs/invoices/invoice_rebill.yml'
+
+  '/v2/{regime}/bill-runs/{billrunId}/licences/{licenceId}':
+    $ref: 'paths/v2/bill_runs/licences/licence.yml'
 
 security:
   - OAuth2: []
