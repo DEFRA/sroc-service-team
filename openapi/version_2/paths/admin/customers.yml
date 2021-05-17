@@ -4,7 +4,7 @@ patch:
   tags:
     - admin
   parameters:
-    - $ref: '../../../schema/parameters.yml#/regimeId'
+    - $ref: '../../../schema/parameters.yml#/regime'
   responses:
     '204':
       description: "Success"

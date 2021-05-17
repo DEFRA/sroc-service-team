@@ -70,7 +70,7 @@ paths:
   '/admin/authorised-systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 
-  '/admin/{regimeId}/customers':
+  '/admin/{regime}/customers':
     $ref: 'paths/admin/customers.yml'
 
   '/admin/health/airbrake':

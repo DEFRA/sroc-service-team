@@ -53,7 +53,7 @@ regime:
   required: true
   description: "Charging regime to use"
   schema:
-    $ref: 'fields.yml#/regime'
+    $ref: 'fields.yml#/slug'
 regimeId:
   name: regimeId
   in: path
