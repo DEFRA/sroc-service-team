@@ -11,7 +11,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../../schema/schemas.yml#/regimeV2'
+            $ref: '../../../schema/schemas.yml#/regimeAndAuthorisedSystems'
           example:
             id: '2f62bc92-7372-4d2a-979b-792e530c311c'
             slug: 'wrls'

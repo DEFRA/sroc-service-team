@@ -10,9 +10,9 @@ authorisedSystem:
     status:
       $ref: 'fields.yml#/authorisedSystemStatus'
     created_at:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/createdAt'
     updated_at:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/updatedAt'
     authorisations:
       type: array
       items:
@@ -38,9 +38,9 @@ authorisedSystemV2:
     admin:
       $ref: 'fields.yml#/admin'
     createdAt:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/createdAt'
     updatedAt:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/updatedAt'
 authorisedSystemPatch:
   description: "Essentially the user account of a system authorised to use the API. Includes what authorisations each account has."
   type: object
@@ -96,9 +96,9 @@ authorisedSystemSummary:
     status:
       $ref: 'fields.yml#/authorisedSystemStatus'
     created_at:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/createdAt'
     updated_at:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/updatedAt'
 billrun:
   description: ""
   type: object
@@ -385,7 +385,7 @@ customerFileSummary:
     status:
       $ref: 'fields.yml#/customerFileStatus'
     created_at:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/createdAt'
 invoice:
   description: ""
   type: object
@@ -479,33 +479,7 @@ pagination:
       type: integer
       example: 1
 regime:
-  description: "Charging regime that will have its own charge rules"
-  type: object
-  properties:
-    id:
-      $ref: 'fields.yml#/regimeId'
-    slug:
-      type: string
-      enum: [cfd, pas, wml, wrls]
-      example: 'wrls'
-    name:
-      type: string
-      example: 'Water Resources'
-    pre_sroc_cutoff_date:
-      $ref: 'fields.yml#/timeStamp'
-regimeSummary:
-  description: "Summary of a charging regime"
-  type: object
-  properties:
-    id:
-      $ref: 'fields.yml#/regimeId'
-    name:
-      type: string
-      example: 'Water Resources'
-    slug:
-      $ref: 'fields.yml#/regime'
-regimeV2:
-  description: "Charging regime that will have its own charge rules"
+  description: ""
   type: object
   properties:
     id:
@@ -520,9 +494,55 @@ regimeV2:
     preSrocCutoffDate:
       $ref: 'fields.yml#/timeStamp'
     createdAt:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/updatedAt'
     updatedAt:
-      $ref: 'fields.yml#/timeStamp'
+      $ref: 'fields.yml#/updatedAt'
+regimeAndAuthorisedSystems:
+  description: ""
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/regimeId'
+    slug:
+      type: string
+      enum: [cfd, pas, wml, wrls]
+      example: 'wrls'
+    name:
+      type: string
+      example: 'Water Resources'
+    preSrocCutoffDate:
+      $ref: 'fields.yml#/createdAt'
+    createdAt:
+      $ref: 'fields.yml#/createdAt'
+    updatedAt:
+      $ref: 'fields.yml#/updatedAt'
+    authorisedSystems:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            $ref: 'fields.yml#/cognitoClientID'
+          name:
+            type: string
+            example: 'wrls'
+          status:
+            $ref: 'fields.yml#/authorisedSystemStatus'
+          created_at:
+            $ref: 'fields.yml#/createdAt'
+          updated_at:
+            $ref: 'fields.yml#/updatedAt'
+regimeSummary:
+  description: "Summary of a charging regime"
+  type: object
+  properties:
+    id:
+      $ref: 'fields.yml#/regimeId'
+    name:
+      type: string
+      example: 'Water Resources'
+    slug:
+      $ref: 'fields.yml#/regime'
 status:
   description: "Returned by a call to status, it is an object that contains a copy of the headers found in the original request"
   type: object
