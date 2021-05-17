@@ -752,6 +752,8 @@ transactionPost:
       $ref: 'fields.yml#/periodStart'
     periodEnd:
       $ref: 'fields.yml#/periodEnd'
+    subjectToMinimumCharge:
+      $ref: 'fields.yml#/subjectToMinimumCharge'
     credit:
       $ref: 'fields.yml#/creditTransaction'
     billableDays:
@@ -797,8 +799,6 @@ transactionPost:
       $ref: 'fields.yml#/regionCode'
     areaCode:
       $ref: 'fields.yml#/areaCode'
-    newLicence:
-      $ref: 'fields.yml#/newLicence'
     clientId:
       $ref: 'fields.yml#/clientId'
   required:
@@ -832,3 +832,5 @@ transactionPostResponse:
       properties:
         id:
           $ref: 'fields.yml#/transactionId'
+        clientId:
+          $ref: 'fields.yml#/clientId'
