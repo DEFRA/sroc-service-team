@@ -1,0 +1,34 @@
+get:
+  operationId: ViewCustomerFile
+  description: "Request details of a 'customer file'. Returns the 'customer file' record which details the file of customer changes the API generated and sent to SSCL. It also lists"
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/customerFileId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../../schema/schemas.yml#/customerFileAndExportedCustomers'
+          example:
+            id: 'd04652ab-8ddb-411e-b683-53c25855f7a3'
+            regimeId: '34eb63e4-c538-48ca-9053-86164d12248c'
+            region: 'T'
+            fileReference: naltc50002
+            createdAt: '2021-04-29T13:15:30.012Z'
+            updatedAt: '2021-04-29T13:15:30.374Z'
+            status: exported
+            exportedAt: '2021-04-29T13:15:30.366Z'
+            exportedCustomers:
+              - id: '726a005e-341c-4da6-915c-c94cea87dd59'
+                customerReference: 'T12398729A'
+                customerFileId: 'd04652ab-8ddb-411e-b683-53c25855f7a3'
+                createdAt: '2021-04-29T13:15:30.358Z'
+                updatedAt: '2021-04-29T13:15:30.358Z'
+              - id: '755dd2da-3be2-409f-83ec-c39ef48f664f'
+                customerReference: 'T32178999B'
+                customerFileId: 'd04652ab-8ddb-411e-b683-53c25855f7a3'
+                createdAt: '2021-04-29T13:15:30.358Z'
+                updatedAt: '2021-04-29T13:15:30.358Z'

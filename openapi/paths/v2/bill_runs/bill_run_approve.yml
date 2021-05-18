@@ -1,0 +1,20 @@
+patch:
+  operationId: ApproveBillRun
+  description: "Approves a specified bill run. Bill run must have a status of 'generated'. Must take place before bill run is sent."
+  tags:
+    - bill-run
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/billRunId'
+  responses:
+    '204':
+      description: "Success"
+    '409':
+      description: "Failed - the bill run is not in the right state"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 409
+              error: Conflict
+              message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 does not have a status of 'generated'.

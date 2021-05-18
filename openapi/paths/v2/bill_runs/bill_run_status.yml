@@ -1,0 +1,40 @@
+get:
+  operationId: ViewBillRunStatus
+  description: "Request to view the status of a single bill run based on the bill run ID. It is intended to help client systems quickly determine if a bill run is ready to be viewed after a `/generate` request and reduce the load on the API."
+  tags:
+    - bill-run
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/billRunId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../../schema/schemas.yml#/billRunStatus'
+          examples:
+            '01 Just created':
+              value:
+                status: 'initialised'
+            '02 Transactions added':
+              value:
+                status: 'initialised'
+            '03 Generating bill run':
+              value:
+                status: 'generating'
+            '04 Bill run generated':
+              value:
+                status: 'generated'
+            '05 Approved':
+              value:
+                status: 'aproved'
+            '06 Sent':
+              value:
+                status: 'pending'
+            '07 Billed':
+              value:
+                status: 'billed'
+            '08 Not billed':
+              value:
+                status: 'billing_not_required'

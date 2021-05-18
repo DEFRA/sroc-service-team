@@ -1,0 +1,29 @@
+get:
+  operationId: ViewRegime
+  description: "Request details of a 'regime'."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../schema/parameters.yml#/regimeId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../schema/schemas.yml#/regimeAndAuthorisedSystems'
+          example:
+            id: '2f62bc92-7372-4d2a-979b-792e530c311c'
+            slug: 'wrls'
+            name: 'Water Resources'
+            preSrocCutoffDate: '2020-04-01T00:00:00.000Z'
+            createdAt: '2020-12-01T09:19:22.065Z'
+            updatedAt: '2020-12-01T09:19:22.065Z'
+            authorisedSystems:
+              - id: 'b36d674f-b97c-4685-95f3-aacae8c97bde'
+                clientId: '1b1gshltt176v80nsc4fxxxxxx'
+                name: 'wrls'
+                status: 'active'
+                admin: 'false'
+                createdAt: '2020-12-02T09:19:22.065Z'
+                updatedAt: '2020-12-02T09:19:22.065Z'

@@ -1,0 +1,48 @@
+get:
+  operationId: ViewAuthorisedSystem
+  description: "Request details of an 'authorised system'. An authorised system is essentially a user of the API, and this returns details about it including which regimes it is authorised to access."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../schema/parameters.yml#/authorisedSystemId'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../schema/schemas.yml#/authorisedSystemAndRegimes'
+          example:
+            id: 'b36d674f-b97c-4685-95f3-aacae8c97bde'
+            clientId: '1b1gshltt176v80nsc4fxxxxxx'
+            name: 'wrls'
+            status: 'active'
+            admin: 'false'
+            createdAt: '2020-12-02T09:19:22.065Z'
+            updatedAt: '2020-12-02T09:19:22.065Z'
+            regimes:
+              - id: '2f62bc92-7372-4d2a-979b-792e530c311c'
+                slug: 'wrls'
+                name: 'Water Resources'
+                preSrocCutoffDate: '2020-04-01T00:00:00.000Z'
+                createdAt: '2020-12-01T09:19:22.065Z'
+                updatedAt: '2020-12-01T09:19:22.065Z'
+patch:
+  operationId: UpdateAuthorisedSystem
+  description: "Update an 'authorised system'. An authorised system is essentially a user of the API, and this is used to update the details of one. You don't have to specify all properties when updating. If you specify `authorisations` though, you must include all regimes you want the system to have access to, not just the ones you wish to add."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../schema/parameters.yml#/authorisedSystemId'
+  responses:
+    '204':
+      description: "Success"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../schema/schemas.yml#/authorisedSystemPatch'
+        example:
+          name: 'Test'
+          status: 'inactive'
+          authorisations: [cfd, pas, wml, wrls]

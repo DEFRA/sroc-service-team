@@ -1,0 +1,10 @@
+patch:
+  operationId: SendCustomer
+  description: "Manually trigger the send customer files process. This triggers creation of a file of customer changes for each regime."
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../schema/parameters.yml#/regime'
+  responses:
+    '204':
+      description: "Success"

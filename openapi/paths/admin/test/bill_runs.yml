@@ -1,0 +1,83 @@
+post:
+  operationId: CreateTestBillRun
+  description: "This endpoint creates a test bill run for a region. It is intended for quickly creating large bill runs so we can access the performance and operation of endpoints when working with them. You can control the type of invoices generated within the bill run using the request payload. The types are
+
+  - `mixed-invoice` - 2 debit lines and 1 credit line resulting in an invoice
+
+  - `mixed-credit` - 2 credit lines and 1 debit line resulting in a credit note
+
+  - `zero-value` - 3 debit transactions all with a charge value of 0
+
+  - `deminimis` - 3 debit transactions that total less than £5
+
+  - `minimum-charge` - 3 debit transactions that total less than £25 and are all subject to minimum charge
+
+
+  Every invoice created results in 3 transactions. So, the following request would result in a bill run with 100 invoices and 300 transactions.
+
+
+  ```
+  {
+    \"region\": \"A\",
+    \"mix\": [
+        { \"type\": \"mixed-invoice\", \"count\": 40 },
+        { \"type\": \"mixed-credit\", \"count\": 40 },
+        { \"type\": \"zero-value\", \"count\": 10 },
+        { \"type\": \"deminimis\", \"count\": 10 }
+    ]
+  }
+  ```
+
+
+  The endpoint has been designed to generate the bill run as quickly as possible. To do this we **do not** call the rules service. The values used are based on real calculations, but should the rules service calculation change it won't be reflected here.
+
+
+  The endpoint returns the new bill run ID immediately, but may take sometime to create all the invoices. If you have access to it, check the log for a message that will confirm when the process is complete.
+  "
+  tags:
+    - admin
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+  responses:
+    '201':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            example:
+              billRun:
+                id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
+                billRunNumber: 10004
+    '422':
+      description: "Failed - bill run cannot be generated because there is an issue with its data"
+      content:
+        application/json:
+          examples:
+            'Missing region':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: \"region\" is required
+            'Region is unknown':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: \"region\" must be one of [A, B, E, N, S, T, W, Y]
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          example:
+            region: A
+            mix:
+            - type: mixed-invoice
+              count: 35
+            - type: mixed-credit
+              count: 35
+            - type: zero-value
+              count: 10
+            - type: deminimis
+              count: 10
+            - type: minimum-charge
+              count: 10

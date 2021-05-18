@@ -1,0 +1,88 @@
+get:
+  operationId: ListAuthorisedSystems
+  description: "Request a list of 'authorised systems'. An authorised system is essentially a user of the API, and this returns those users permitted to access it."
+  tags:
+    - admin
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              authorisedSystems:
+                type: array
+                items:
+                  $ref: '../../schema/schemas.yml#/authorisedSystem'
+          example:
+            - id: 'ac12ac4b-9b9e-4cba-a06f-a90f611a1ef1'
+              clientId: '710uhe3hqumsk2da43foxxxxxx'
+              name: 'admin'
+              status: 'active'
+              admin: 'true'
+              createdAt: '2020-11-01T09:19:22.065Z'
+              updatedAt: '2020-11-01T09:19:22.065Z'
+            - id: 'b36d674f-b97c-4685-95f3-aacae8c97bde'
+              clientId: '1b1gshltt176v80nsc4fxxxxxx'
+              name: 'wrls'
+              status: 'active'
+              admin: 'false'
+              createdAt: '2020-12-02T09:19:22.065Z'
+              updatedAt: '2020-12-02T09:19:22.065Z'
+
+post:
+  operationId: AddAuthorisedSystem
+  description: "Add a new 'authorised system'. An authorised system is essentially a user of the API, and this adds a new one to it."
+  tags:
+    - admin
+  responses:
+    '201':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            $ref: '../../schema/schemas.yml#/authorisedSystem'
+          example:
+            id: '9e76203a-e900-41a1-a045-2551d98e010c'
+            clientId: 'i7rnixijjrawj7azzhwwxxxxxx'
+            name: 'dashboard'
+            status: 'active'
+            admin: 'false'
+            createdAt: '2020-12-04T09:19:22.065Z'
+            updatedAt: '2020-12-04T09:19:22.065Z'
+            regimes:
+              - id: 'ef5ee223-2ee5-4f02-ace5-35330d9f3781'
+                slug: 'cfd'
+                name: 'Water Quality'
+                preSrocCutoffDate: '2018-04-01T00:00:00.000Z'
+                createdAt: '2020-12-01T09:19:22.065Z'
+                updatedAt: '2020-12-01T09:19:22.065Z'
+              - id: '6bd74eeb-6beb-41d9-be52-5934a49ecd97'
+                slug: 'pas'
+                name: 'Installations'
+                preSrocCutoffDate: '2018-04-01T00:00:00.000Z'
+                createdAt: '2020-12-01T09:19:22.065Z'
+                updatedAt: '2020-12-01T09:19:22.065Z'
+              - id: '458834a2-0541-4981-87f6-2c0ec9261661'
+                slug: 'wml'
+                name: 'Waste'
+                preSrocCutoffDate: '2018-04-01T00:00:00.000Z'
+                createdAt: '2020-12-01T09:19:22.065Z'
+                updatedAt: '2020-12-01T09:19:22.065Z'
+              - id: '2f62bc92-7372-4d2a-979b-792e530c311c'
+                slug: 'wrls'
+                name: 'Water Resources'
+                preSrocCutoffDate: '2020-04-01T00:00:00.000Z'
+                createdAt: '2020-12-01T09:19:22.065Z'
+                updatedAt: '2020-12-01T09:19:22.065Z'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../schema/schemas.yml#/authorisedSystemPost'
+        example:
+          clientId: 'i7rnixijjrawj7azzhwwxxxxxx'
+          name: 'dashboard'
+          status: 'active'
+          authorisations: [cfd, pas, wml, wrls]

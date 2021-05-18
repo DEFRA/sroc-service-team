@@ -1,0 +1,39 @@
+get:
+  operationId: ListRegimes
+  description: "Request a list of the charging regimes recognised and managed by the service"
+  tags:
+    - admin
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../schema/schemas.yml#/regime'
+          example:
+            - id: 'ef5ee223-2ee5-4f02-ace5-35330d9f3781'
+              slug: 'cfd'
+              name: 'Water Quality'
+              preSrocCutoffDate: '2018-04-01T00:00:00.000Z'
+              createdAt: '2020-12-01T09:19:22.065Z'
+              updatedAt: '2020-12-01T09:19:22.065Z'
+            - id: '6bd74eeb-6beb-41d9-be52-5934a49ecd97'
+              slug: 'pas'
+              name: 'Installations'
+              preSrocCutoffDate: '2018-04-01T00:00:00.000Z'
+              createdAt: '2020-12-01T09:19:22.065Z'
+              updatedAt: '2020-12-01T09:19:22.065Z'
+            - id: '458834a2-0541-4981-87f6-2c0ec9261661'
+              slug: 'wml'
+              name: 'Waste'
+              preSrocCutoffDate: '2018-04-01T00:00:00.000Z'
+              createdAt: '2020-12-01T09:19:22.065Z'
+              updatedAt: '2020-12-01T09:19:22.065Z'
+            - id: '2f62bc92-7372-4d2a-979b-792e530c311c'
+              slug: 'wrls'
+              name: 'Water Resources'
+              preSrocCutoffDate: '2020-04-01T00:00:00.000Z'
+              createdAt: '2020-12-01T09:19:22.065Z'
+              updatedAt: '2020-12-01T09:19:22.065Z'
