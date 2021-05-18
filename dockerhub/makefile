@@ -23,10 +23,10 @@ open:
 	docker-compose exec app /bin/sh
 
 migrate:
-	docker-compose exec app npm run migratedb
+	docker-compose exec app npm run migrate-db
 
 seed:
-	docker-compose exec app npm run seeddb
+	docker-compose exec app npm run seed-db
 
 run:
 	docker run -it --env-file .env environmentagency/sroc-charging-module-api:latest /bin/sh
