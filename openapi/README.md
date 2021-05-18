@@ -30,7 +30,7 @@ You can also access the [full spec](https://github.com/OAI/OpenAPI-Specification
 
 We maintain a 'draft' spec of the API, which we publish to SwaggerHub alongside our release versions at <https://app.swaggerhub.com/apis-docs/sro/sroc-charging-module-api/draft>.
 
-Anyone making a change to the spec is expected to also regenerate the [draft version](/openapi/versions/draft_v2.yml).
+Anyone making a change to the spec is expected to also regenerate the [draft version](/openapi/versions/draft.yml).
 
 ### Generate draft.yml
 
