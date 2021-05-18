@@ -11,7 +11,7 @@ info:
 
     ## Running the API locally
 
-    The **SROC service team** also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub/version_2) for info on how to get it up and running locally.
+    The **SROC service team** also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
   version: draft
   title: SROC Charging Module API
   contact:
@@ -683,6 +683,44 @@ paths:
               - pas
               - wml
               - wrls
+  "/admin/{regime}/bill-runs/{billRunId}/send":
+    patch:
+      operationId: AdminSendBillRun
+      description: Triggers creation of a transaction file containing all transactions
+        in the bill run. Bill run must be `pending` else the request will be rejected.
+        Due to the syncronous nature of file creation, the endpoint will immediately
+        return a `204` response; any errors will be shown in the logs.
+      tags:
+      - admin
+      parameters:
+      - name: regime
+        in: path
+        required: true
+        description: Charging regime to use
+        schema:
+          description: Short reference for a regime, referred to as a 'slug'. This
+            is also what we expect to see in the path as the regime identifier when
+            making a request
+          type: string
+          enum:
+          - cfd
+          - pas
+          - wml
+          - wrls
+          example: wrls
+      - name: billRunId
+        in: path
+        required: true
+        description: Internal ID (GUID) allocated by the CM when creating a bill run.
+        schema:
+          description: Internal ID (GUID) allocated by the CM when creating a bill
+            run.
+          type: string
+          format: uuid
+          example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        '204':
+          description: Success
   "/admin/{regime}/customers":
     patch:
       operationId: SendCustomer

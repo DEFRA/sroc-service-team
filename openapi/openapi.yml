@@ -70,6 +70,9 @@ paths:
   '/admin/authorised-systems/{authorisedSystemId}':
     $ref: 'paths/admin/authorised_system.yml'
 
+  '/admin/{regime}/bill-runs/{billRunId}/send':
+    $ref: 'paths/admin/bill_runs.yml'
+
   '/admin/{regime}/customers':
     $ref: 'paths/admin/customers.yml'
 
