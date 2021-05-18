@@ -11,7 +11,7 @@ info:
 
     ## Running the API locally
 
-    The **SROC service team** also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub/version_2) for info on how to get it up and running locally.
+    The **SROC service team** also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
 
   version: "draft"
   title: SROC Charging Module API
