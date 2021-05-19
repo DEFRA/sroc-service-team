@@ -13,7 +13,6 @@ It covers
   - [Update pre-production Jenkins job](#update-pre-production-jenkins-job)
 - Assure
   - [Test sign-off](#test-sign-off)
-  - [User sign-off](#user-sign-off)
   - [Approval to release](#approval-to-release)
   - [If issues are found](#if-issues-are-found)
 - Approve
@@ -93,7 +92,7 @@ git push
 
 ### Update pre-production Jenkins job
 
-In the [Jenkins](https://tcm-jenkins.aws-int.defra.cloud) find the pre-production deployment job, update the env var used to control the version deployed, then click the *Build Now* button.
+In [Jenkins](https://tcm-jenkins.aws-int.defra.cloud) find the pre-production deployment job, update the env var used to control the version deployed, then click the *Build Now* button.
 
 For the TCM the job is `PRE_03_TCM_DEPLOY`. Click *Configure* and then update the `DEPLOY_BRANCH` param in the *General->Properties Content* field.
 
@@ -182,7 +181,7 @@ There are plenty of existing ones to base it on covering a number of different t
 
 ### Create calendar appointment
 
-Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and tester carrying out the release. In `optional` add from the SROC team
+Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and test analyst carrying out the release. In `optional` add from the SROC team
 
 - project manager
 - test manager
