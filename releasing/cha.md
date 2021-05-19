@@ -1,10 +1,8 @@
 # Release process
 
-This covers the release process for the [tactical-charging-module (TCM)](https://github.com/DEFRA/sroc-tcm-admin) and the [charging-module-api (CMA)](https://github.com/DEFRA/charging-module-api).
+This covers the release process for the [SROC Charging Module API](https://github.com/DEFRA/sroc-charging-module-api).
 
-> Currently it is only possible to deploy `master` for the charging-service. This is an issue the current team is aiming to resolve.
-
-For each release of an app to **production** there are 4 stages to the process
+It covers
 
 - Prepare
   - [Check for outstanding dependency PRs](#check-for-outstanding-dependency-prs)
@@ -18,6 +16,11 @@ For each release of an app to **production** there are 4 stages to the process
 - Assure
   - [Test sign-off](#test-sign-off)
   - [User sign-off](#user-sign-off)
+    - [Update integration Jenkins job](#update-integration-jenkins-job)
+    - [Send INT release ready email to clients](#send-int-release-ready-email-to-clients)
+    - [Create INT calendar appointment](#create-int-calendar-appointment)
+    - [Deploy new version to integration](#deploy-new-version-to-integration)
+    - [Send INT release done email to clients](#send-int-release-done-email-to-clients)
   - [Approval to release](#approval-to-release)
   - [If issues are found](#if-issues-are-found)
 - Approve
@@ -28,11 +31,11 @@ For each release of an app to **production** there are 4 stages to the process
 - Ship
   - [Deploy release](#deploy-release)
   - [Smoke test release](#smoke-test-release)
+  - [Confirm release successful](#confirm-release-successful)
   - [Record release in GitHub](#record-release-in-github)
-  - [If issues are found](#if-issues-are-found)
-  - [Rollback](#rollback)
-
-Key to this is Defra's current assurance and approval processes prevent us adopting a [continuous deployment](https://www.atlassian.com/continuous-delivery/continuous-deployment) approach. This is why we talk about things like 'release candidates', 'test signoff', and 'request for change' approvals.
+  - [In the event of errors](#if-issues-are-found)
+    - [Deployment fails](#deployment-fails)
+    - [Service fails](#service-fails)
 
 ## Prepare
 
@@ -58,17 +61,9 @@ The development team will then review the changes made to decide whether a major
 
 ### Update app version
 
-> IMPORTANT! Ensure you have checked out the main branch for the repo and performed a `git pull` to get the latest code first.
+> IMPORTANT! Ensure you have checked out the `main` branch for the repo and performed a `git pull` to get the latest code first.
 
-We need to update the version held in the app to match our new version. This does mean changing a code file but you'll notice we don't create a PR. This and [updating the CHANGELOG](#update-the-changelog) are the exceptions.
-
-We do this to avoid polluting our CHANGELOGS with lots of `Update VERSION` and `Update CHANGELOG` entries.
-
-#### charging-module-api
-
-For the [CMA](https://github.com/DEFRA/charging-module-api/) update the version in the `package.json`.
-
-Make the change and then commit and push it.
+We need to update the version held in the app to match our new version. Update the version in the `package.json` then commit and push it.
 
 ```bash
 git add package.json
@@ -76,9 +71,7 @@ git commit -m "Update VERSION"
 git push
 ```
 
-#### tactical-charging-module
-
-There is no specific place where version is specified in a Rails app. Though there are ways to do it, we choose not to record a version in the app itself when Rails is used.
+> You'll notice we don't create a PR. This and [updating the CHANGELOG](#update-the-changelog) are the only times we make an exception to the rule 'all changes on a branch'. We do this to avoid polluting our CHANGELOG with lots of `Update VERSION` and `Update CHANGELOG` entries.
 
 ### Generate git tag
 
@@ -87,25 +80,25 @@ We use [git annotated tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) t
 Create a new version tag, for example
 
 ```bash
-git tag -a v0.2.0 -m "Version 0.2.0"
+git tag -a v0.8.1 -m "Version 0.8.1"
 ```
 
 Then push the tag to GitHub.
 
 ```bash
-git push origin v0.2.0
+git push origin v0.8.1
 ```
 
 **Do not** create the release in GitHub at this time. We record the release in GitHub *after* the app is shipped to production.
 
 ### Update the CHANGELOG
 
-We use [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate our CHANGELOGs. The following assumes you have the gem installed (it can be run [using Docker](https://github.com/github-changelog-generator/github-changelog-generator#running-with-docker)) and uses the charging-module-api as an example.
+We use [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate our CHANGELOGs. The following assumes you have the gem installed (it can be run [using Docker](https://github.com/github-changelog-generator/github-changelog-generator#running-with-docker)).
 
 From the root of the project run this
 
 ```bash
-github_changelog_generator -u DEFRA -p charging-module-api
+github_changelog_generator -u DEFRA -p sroc-charging-module-api
 ```
 
 The generator will update the `CHANGELOG.md`. Open the file to confirm it has picked up the new tag and generated the changelog as expected. Then commit the update.
@@ -116,35 +109,23 @@ git commit -m "Update CHANGELOG"
 git push
 ```
 
+> You'll notice we don't create a PR. This and [updating the app version](#update-the-app-version) are the only times we make an exception to the rule 'all changes on a branch'. We do this to avoid polluting our CHANGELOG with lots of `Update VERSION` and `Update CHANGELOG` entries.
+
 ### Build Docker image
 
-> Currently this step only applies to the CMA. Ignore for the TCM.
+Building of the Docker image *should* be automatically handled by the [Jenkins](https://cha-jenkins.aws-int.defra.cloud/) `BLD_02_CMA_BUILD_AND_PUSH` job. But because it relies on polling GitHub there can be times that it skips a version, especially if changes are happening quickly.
 
-In the Jenkins instance for the service find the `BLD_03_API_BUILD_AND_PUSH_RELEASES` job. Click the *Build Now* button and wait for it to succeed. Then confirm a new image with the version tag has been pushed to Artifactory.
+If this happens find the `BLD_03_API_BUILD_AND_PUSH_RELEASES` job. Click the *Build Now* button and wait for it to succeed. Then confirm a new image with the version tag has been pushed to [Artifactory](https://artifactory-ops.aws-int.defra.cloud/artifactory/webapp/#/artifacts/browse/tree/General/sroc/sroc-charging-module-api).
 
 ### Update pre-production Jenkins job
 
-In the Jenkins instance for the service find the pre-production deployment job, update the env var used to control the version deployed, then click the *Build Now* button.
+In Jenkins find the pre-production deployment job, update the env var used to control the version deployed, then click the *Build Now* button.
 
-#### charging-module-api
-
-For the CMA the job is `PRE_01_API_DEPLOY`. Click *Configure* and then update the `DEPLOY_TAG` env var in the *Properties Content* field.
+For the CHA the job is `PRE_01_CHA_DEPLOY`. Click *Configure* and then update the `DEPLOY_TAG` env var in the *Properties Content* field.
 
 ```bash
 DEPLOY_ENV=pre
-DEPLOY_TAG=v0.2.0
-```
-
-#### tactical-charging-module
-
-For the TCM the job is `TCM_PRE_10_TCM_ADMIN_DEPLOY`. Click *Configure* and then update `CAPISTRANO_BRANCH` param in the *Build->Execute shell->Command* field.
-
-```bash
-# Set values for capistrano
-
-export CAPISTRANO_BRANCH=v2.8
-
-export CAPISTRANO_SERVERS="PRETCMBESSRV001 PRETCMBESSRV002"
+DEPLOY_TAG=v0.8.1
 ```
 
 ## Assure
@@ -155,24 +136,28 @@ The next stage is managed by QA & Test with support from development if needed. 
 
 Normally this would involve running the full suite of regression tests plus any additional manual testing felt necessary to confirm the expected functionality is included and still working. The release can then be given its 'test signoff'.
 
+For reference our automated acceptance tests for the CHA can be found in [SROC Charging Module API Acceptance tests](https://github.com/DEFRA/sroc-cha-acceptance-tests).
+
 ### User sign-off
 
-> Currently this step only applies to the CMA. Ignore for the TCM.
-
-After being confirmed as **ready** by test, we need to deploy the CMA to our integration environment. This is to allow users of the API time to confirm existing functionality isn't broken, and make changes to their apps to take advantage of any feature changes made.
+After being confirmed as **ready** by test, we need to deploy the CHA to our **integration** environment. This is to allow users of the API time to confirm existing functionality isn't broken, and make changes to their apps to take advantage of any feature changes made.
 
 #### Update integration Jenkins job
 
-In the Jenkins instance for the service find the `INT_01_API_DEPLOY` job. Click *Configure* and then update the `DEPLOY_TAG` env var in the *Properties Content* field.
+For the CHA the job is `INT_01_CHA_DEPLOY`. Click *Configure* and then update the `DEPLOY_TAG` env var in the *Properties Content* field.
 
 ```bash
 DEPLOY_ENV=tra
-DEPLOY_TAG=v0.2.0
+DEPLOY_TAG=v0.8.1
 ```
 
-#### Send release ready email to WRLS team
+Do **not** click the *Build Now* button! That comes later 😁
 
-Create an email with approximately the following format and send to the WRLS development and test team leads. In `CC` add from the SROC team
+#### Send INT release ready email to clients
+
+> At this time the WRLS team is our only client system!
+
+Create an email with approximately the following format and send to the client service's development and test team leads. In `CC` add from the SROC team
 
 - project manager
 - test manager
@@ -180,13 +165,13 @@ Create an email with approximately the following format and send to the WRLS dev
 - dev team
 
 ```text
-Subject: Charging Module API - v0.2.0 ready for release to INTEGRATION
+Subject: SROC Charging Module API - v0.8.1 ready for release to INTEGRATION
 
 Hello
 
-This is to let you know we are ready to release v0.2.0 of the Charging Module API to the INTEGRATION environment.
+This is to let you know we are ready to release v0.8.1 of the SROC Charging Module API to the INTEGRATION environment.
 
-The CHANGELOG for v0.2.0 is below. You can find the full CHANGELOG at https://github.com/DEFRA/charging-module-api/blob/master/CHANGELOG.md
+The CHANGELOG for v0.8.1 is below. You can find the full CHANGELOG at https://github.com/DEFRA/sroc-charging-module-api/blob/master/CHANGELOG.md
 
 [Copy and paste contents of CHANGELOG for version about to be released]
 
@@ -195,9 +180,9 @@ We just need to confirm with you a suitable date and time to update the environm
 [Sign off]
 ```
 
-#### Create calendar appointment
+#### Create INT calendar appointment
 
-Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the WRLS development and test team leads. In `optional` add from the SROC team
+Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the client service's development and test team leads. In `optional` add from the SROC team
 
 - project manager
 - test manager
@@ -205,22 +190,22 @@ Once a date and time has been agreed create a calendar appointment with approxim
 - dev team
 
 ```text
-Title: Charging Module API - Release v0.2.0 to INTEGRATION
+Title: SROC Charging Module API - Release v0.8.1 to INTEGRATION
 
 No actual meeting will take place!
 
-This is just a reminder to all that the Charging Module API INTEGRATION environment will be updated at this time.
+This is just a reminder to all that the SROC Charging Module API INTEGRATION environment will be updated at this time.
 ```
 
 This will serve as both a confirmation and reminder to all of the agreed date and time.
 
 #### Deploy new version to integration
 
-At the agreed time and date, find the `INT_01_API_DEPLOY` job in the Jenkins instance for the service. Then click the *Build Now* button and wait for it to succeed.
+At the agreed time and date, find the `INT_01_CHA_DEPLOY` job in the Jenkins instance for the service. Then click the *Build Now* button and wait for it to succeed.
 
-#### Send release done email to WRLS team
+#### Send INT release done email to clients
 
-Create an email with approximately the following format and send to the WRLS development and test team leads. In `CC` add from the SROC team
+Create an email with approximately the following format and send to the client service's development and test team leads. In `CC` add from the SROC team
 
 - project manager
 - test manager
@@ -228,11 +213,11 @@ Create an email with approximately the following format and send to the WRLS dev
 - dev team
 
 ```text
-Subject: Charging Module API - v0.2.0 released to INTEGRATION
+Subject: SROC Charging Module API - v0.8.1 released to INTEGRATION
 
 Hello
 
-This is to let you know that v0.2.0 of the Charging Module API has been released to the INTEGRATION environment.
+This is to let you know that v0.8.1 of the SROC Charging Module API has been released to the INTEGRATION environment.
 
 Any issues or questions please let us know.
 
@@ -278,18 +263,18 @@ This should also take into account the type of change being requested.
 
 ### Submit RfC
 
-> Currently handled by the project manager
-
 Submit the RfC in [myIT](https://defra.service-now.com) (also known as **Service Now**). You'll need to be on the corporate network to access **myIT**. For those without a corporate laptop access from your phone is the only option 😞.
+
+> Because the CHA currently has no rollback mechanism ensure the 'change window' (the start and endtime for the change) is as large as possible. Within the window updates can be deployed. Once closed all further changes need to be raised on a new RfC.
 
 ### Prepare a release note
 
 To ensure everyone involved in shipping the release is clear on what actions are needed, prepare a [release note](https://gitlab-dev.aws-int.defra.cloud/open/release-notes).
 
-There are plenty of existing ones to base it on covering a number of different types of 'release'. As an example, a simple update to an the CMA would be
+There are plenty of existing ones to base it on covering a number of different types of 'release'. As an example, a simple update to the CHA would be
 
 ```markdown
-# 25 December 2020
+# 19 May 2021
 
 - CHG0012345
 - No downtime required
@@ -299,24 +284,24 @@ There are plenty of existing ones to base it on covering a number of different t
 
 ### Prior to release
 
-- **web-ops** - Update property `DEPLOY_TAG=v0.2.0` in `PRD_01_API_DEPLOY` job in Jenkins
+- **web-ops** - Update property `DEPLOY_TAG=v0.8.1` in `PRD_01_CHA_DEPLOY` job in Jenkins
 
 ### Release day
 
-- **web-ops** - `PRD_01_API_DEPLOY` job ran in Jenkins
+- **web-ops** - `PRD_01_CHA_DEPLOY` job ran in Jenkins
 - **delivery team** - Smoke test that service is up and operating as expected
 ```
 
 ### Create calendar appointment
 
-Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and tester carrying out the release. In `optional` add from the SROC team
+Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and test analyst carrying out the release. In `optional` add from the SROC team
 
 - project manager
 - test manager
 - dev team
 
 ```text
-title: [service name] - Release [version] to PRODUCTION
+title: SROC Charging Module API - Release [version] to PRODUCTION
 
 [Copy of release note content]
 
@@ -351,7 +336,7 @@ Subject: [RfC reference] completed successfully
 
 Hello
 
-This is to let you know [RfC reference] for the [service name] was completed successfully.
+This is to let you know [RfC reference] for the SROC Charging Module API was completed successfully.
 
 [Sign off]
 ```
@@ -362,21 +347,36 @@ We use [GitHub's release](https://docs.github.com/en/github/administering-a-repo
 
 Go to the relevant GitHib project and select the 'Releases' tab then click the *Draft a new release* button. Complete fields as per the example below
 
-<img src="release.png" alt="Screenshot of draft a new release" style="width: 600px;"/>
+<img src="cha_github_release.png" alt="Screenshot of drafting a new release in GitHub" style="width: 600px;"/>
 
 The link for the changelog can be found in `CHANGELOG.md`. Look for the heading which matches the version just released.
 
-> Both the TCM and the CMA do not currently have a history of doing this. So checkout projects like [waste-carriers-back-office](https://github.com/DEFRA/waste-carriers-back-office/releases) and [waste-exemptions-back-office](https://github.com/DEFRA/waste-exemptions-back-office/releases) for examples.
-
-### If issues are found
+### In the event of errors
 
 If issues are found next steps will depend on where and when they happen, and their severity. In principle we aim for a 'fix-forward' approach; stick with the release but aim to roll out another expedited/emergency release as soon as possible.
 
 #### Deployment fails
 
-If deployment has failed first confirm the currently running version of the service has not changed. As long as it hasn't then nothing has changed. Investigate the issue and determine the fault. If it can be fixed quickly without changes to the app code and web-ops are happy, try the deployment again.
+The TCM uses a deployment tool called [Capistrano](https://capistranorb.com/). It coupled with the Ruby framework supports automatic rollback of failed deployments. If something fails during deployment, you can be confident no changes have been made.
 
-Else report back to **SM-Defra-Change Management** the RfC was unsuccessful. Log the issue in the backlog and prioritise and implement as normal.
+With the CHA there is no such tool. The deployment is based on telling [AWS ECS](https://aws.amazon.com/ecs/) to
+
+- update it's [task definition](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html) (basically a config file which details which image to run and with what config values)
+- stop any existing containers (running instances of the app) and replace them with ones based on what's in the updated task definition
+
+So, we won't truly know a deployment has failed until AWS ECS starts trying to use the new Docker image. This means its highly unlikely a deployment will fail but if it does, which stage it failed at will determine what you need to do.
+
+<img src="cha_stage_view.png" alt="Screenshot of deployment stages in Jenkins" style="width: 800px;"/>
+
+- If it fails on or before *Update ADM cluster* then nothing has changed
+- If it fails on *Run migrations* then the ADM cluster has been updated to use the new Docker image and possibly some changes have been made to the database
+- If it fails on *Update BES cluster* then not only does the above apply, but the main BES cluster has been updated to use the new Docker image and possibly been told to immediately start using it
+
+Try to determine what the fault was with the deployment process and rectify, and then re-run. All stages need to be green to ensure the environment is updated correctly.
+
+If the failure was before *Update BES cluster* and you can't get deployment green, test the service to see if its still working using the old version. The answer to this will determine the priority of resolving the issue and whether an **emergency**, **expedited**, or **normal** RfC is needed.
+
+If it fails on *Update BES cluster* treat it as a [Service fails](#service-fails).
 
 #### Service fails
 
@@ -389,32 +389,8 @@ If the deployment was successful but smoke testing raises an issue with the serv
 
 The issue and its impact to users needs to be discussed; are there workarounds, how many users affected, how often will the issue occur etc?
 
-Accepting you're in the middle of the crisis, the team should use its best judgement whether to prioritise an urgent fix or roll-back to a previous version.
+A key factor for the CHA is that there is currently no rollback mechanism. Therefore fixing forward is the only option.
 
-A rule of thumb is if an emergency RfC would be needed to *fix-forward*, then you don't! The service version should be rolled back instead.
+Accepting you're in the middle of the crisis, the team should use its best judgement whether the issue can be diagnosed and fixed in the change window or if a new RfC will be needed.
 
-If [rolling back](#rollback)
-
-- web-ops will need to run the roll-back deployment for the service
-- send email to **SM-Defra-Change Management** reporting the RfC as unsuccessful
-- log the issue in the backlog and prioritise and implement as normal
-
-If *fixing-forward* confirm the release as completed to **SM-Defra-Change Management** but alter the email to let them know an issue was found and another RfC will need to be raised to deal with it.
-
-### Rollback
-
-Only use rollback if the only option to return a service to stable operation is to return to the previous deployed version.
-
-The rollback process for the CMA and the TCM differ.
-
-#### charging-module-api
-
-- web-ops will need to update property `DEPLOY_TAG` in the `PRD_01_API_DEPLOY` job in Jenkins to the previous version
-- web-ops run `PRD_01_API_DEPLOY` job in Jenkins
-- test engineer carries out smoke testing to confirm return of service
-
-#### tactical-charging-module
-
-- web-ops run `TCM_PRD_90_CHARGE_SERVICE_ROLLBACK` job in Jenkins (if `TCM_PRD_10_CHARGE_SERVICE_DEPLOY` had been run as part of release)
-- web-ops run `TCM_PRD_90_TCM_ADMIN_ROLLBACK` job in Jenkins (if `TCM_PRD_10_TCM_ADMIN_DEPLOY` had been run as part of release)
-- test engineer carries out smoke testing to confirm return of service
+If *fixing-forward* on a new RfC confirm the release as completed to [SM-Defra-Change Management](changeadministration@defra.gov.uk) but alter the email to let them know an issue was found and another RfC will need to be raised to deal with it.
