@@ -1,8 +1,6 @@
 post:
   operationId: CreateCustomerChange
-  description: Provides details of a single new customer record or a change to
-    an existing customer record for inclusion in a customer file and onward transmission
-    to SSCL
+  description: Provides details of a single new customer record or a change to an existing customer record for inclusion in a customer file and onward transmission to SSCL
   tags:
   - customer
   parameters:
