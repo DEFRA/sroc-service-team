@@ -5,19 +5,75 @@ info:
 
     Provides an interface for calculating charges, creating and queuing transactions, and generating transaction and customer files used to produce Environment Agency invoices.
 
-    ## Working with the API
+    ## Overview
 
-    The [SROC service team](https://github.com/DEFRA/sroc-service-team) use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
+    The Environment Agency's customers are invoiced from the SSCL SOP system. The invoices are based on transaction files imported by SOP that contain which customers need invoicing or crediting and for how much. The Charging Module (CM) was built to generate those transaction files.
 
-    ## Running the API locally
+    It does this based on individual **transaction** information which client systems send to it. These are grouped under a **bill run** and when 'generated' each one will result in a transaction file.
 
-    The **SROC service team** also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
+    > There are exceptions to this but we'll cover them later!
+
+    When a **transaction** is sent to the CM it calls a 'rules service' using a mix of information from the request and values it works out. That service will work out the 'charge' for the transaction and return it to the CM.
+
+    Once all the **transactions** are in the **bill run** can be 'generated'. The **transactions** are grouped by customer and financial year and then the CM applies various rules to the grouping, determined by the **regime** the **bill run** is for. The result is an invoice or credit note that is ready to be 'sent' to SSCL via the transaction file.
+
+    The exceptions are invoice or credit notes that have 0 value or that don't meet a certain threshold again determined by the rules for the **regime**.
+
+    ### Customer changes
+
+    To ensure invoices get to customers SSCL needs to have up-to-date customer details. The CM also provides a mechanism for client systems to tell SSCL about any changes using another import file. The changes are logged by the CM and the next time a **bill run** for the same area as the customer is 'sent' their changes will be added to that file for import by SSCL SOP.
+
+    In case no matching **bill runs** are 'sent' that week, the CM also creates the customer import file once a week for any changes that didn't get picked up.
+
+    ## Workflows
+
+    The endpoints the API provide are intended to support a workflow that sees a **bill run** move from being created to being sent as a transaction file to SSCL for invoicing.
+
+    The following assumes everything went as planned with no need for changes before sending the transaction file to SSCL.
+
+    > **Create** `->` **Add (transactions)** `->` **Generate** `->` **Approve** `->` **Send**
+
+    It starts with creating a new **bill run**. From then on all actions will relate to that **bill run**, whether its adding **transactions**, 'generating' the **bill run** or 'sending' it to SSCL.
+
+    - `POST /v2/{regime}/bill-runs` Create a new **bill run**. It will return the **bill run's** ID which will be needed in all subsequent requests
+    - `POST /v2/{regime}/bill-runs/{billRunId}/transactions'` Create a **transaction** against the **bill run**. The CM will use the 'rules service' to calculate the **transaction's** charge value
+    - `PATCH /v2/{regime}/bill-runs/{billRunId}/generate` Tell the CM to 'generate' the **bill run**. This involves applying a serious of **regime** specific rules against. From it the final invoice or credit note values will be determined
+    - `PATCH /v2/{regime}/bill-runs/{billRunId}/approve` Confirm to the CM that the **bill run** has been checked and approved for sending to SSCL
+    - `PATCH /v2/{regime}/bill-runs/{billRunId}/send` Tell the CM to generate the transaction file ready for importing by SSCL SOP
+
+    There are various `GET` endpoints that can be used to query the status or contents of a **bill run** at all stages. But these requests are the mininum needed to get a transaction file to SSCL SOP.
+
+    ### Amending a bill run
+
+    Up till a **bill run** is 'sent' it can be amended. This means deleting **invoices**, adding new **transactions**, or deleting the **bill run** altogether.
+
+    - `DELETE /v2/{regime}/bill-runs/{billRunId}/invoices/{invoiceId}`
+    - `POST /v2/{regime}/bill-runs/{billRunId}/transactions'`
+    - `DELETE /v2/{regime}/bill-runs/{billRunId}`
+
+    The CM will automatically handle any recalculations to a **bill run's** **invoices** when you do this.
+
+    ## Developing against the API
+
+    In order to develop a client system that uses the API you'll want to understand how to make requests and try them out. We hope the following will help with that.
+
+    ### Talking to INTEGRATION
+
+    We have an AWS `INTEGRATION` environment setup and available specifically for client systems to use. For access contact the [SROC Service Team](alan.cruikshanks@defra.gov.uk).
+
+    ### Running the API locally
+
+    The [SROC service team](https://github.com/DEFRA/sroc-service-team) also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
+
+    ### Talking to the API
+
+    The **SROC service team** use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
 
   version: "draft"
   title: SROC Charging Module API
   contact:
     name: SROC Service Team
-    email: alan.cruikshanks@environment-agency.gov.uk
+    email: alan.cruikshanks@defra.gov.uk
     url: 'https://github.com/DEFRA/sroc-service-team'
   license:
     name: Open Government Licence (OGL)
