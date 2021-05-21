@@ -53,6 +53,26 @@ info:
 
     The CM will automatically handle any recalculations to a **bill run's** **invoices** when you do this.
 
+    ## Rules
+
+    When the CM is 'generating' a **bill run** it applies various rules to each invoice to determine its final value and whether it should be included in the transaction file sent to SSCL SOP.
+
+    ### Deminimis
+
+    Invoices with a total value less than £5 are not issued to the customer and hence do not appear in a transaction file. This rule applies only to invoices (where the value is positive); credit notes under £5 are issued to the customer as usual.
+
+    ### Minimum charge
+
+    When the total value of a group of transactions falls below £25, a minimum charge rule is applied. This results in the creation of an additional transaction equal to the difference between £25 and the originally calculated total value. Minimum charge logic does not always apply - it is only relevant to annual billing transactions and to new licences (those where a particular customer is being charged for the first time).
+
+    When relevant, it is applied to all transactions being charged in a single bill run to the same customer on the same licence for the same financial year. It is also applied separately to credit transactions (those with a negative value) and debit transactions (those with a positive value).
+
+    It is the responsibility of the client system to tell the CM whether a **transaction** is subject to minimum charge.
+
+    ### Zero value
+
+    Invoices with a net value of zero (£0) are not issued to the customer and hence do not need to appear in a transaction file. This rule is distinct from the [deminimis rule](#deminimis), meaning that zero value invoices are not flagged as deminimis.
+
     ## Developing against the API
 
     In order to develop a client system that uses the API you'll want to understand how to make requests and try them out. We hope the following will help with that.
