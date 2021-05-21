@@ -5,6 +5,20 @@ info:
 
     Provides an interface for calculating charges, creating and queuing transactions, and generating transaction and customer files used to produce Environment Agency invoices.
 
+    ## Overview
+
+    The Environment Agency's customers are invoiced from the SSCL SOP system. The invoices are based on transaction files imported by SOP that contain which customers need invoicing or crediting and for how much. The Charging Module (CM) was built to generate those transaction files.
+
+    It does this based on individual **transaction** information which client systems send to it. These are grouped under a **bill run** and when 'generated' each one will result in a transaction file.
+
+    > There are exceptions to this but we'll cover them later!
+
+    When a **transaction** is sent to the CM it calls a 'rules service' using a mix of information from the request and values it works out. That service will work out the 'charge' for the transaction and return it to the CM.
+
+    Once all the **transactions** are in the **bill run** can be 'generated'. The **transactions** are grouped by customer and financial year and then the CM applies various rules to the grouping, determined by the **regime** the **bill run** is for. The result is an invoice or credit note that is ready to be 'sent' to SSCL via the transaction file.
+
+    The exceptions are invoice or credit notes that have 0 value or that don't meet a certain threshold again determined by the rules for the **regime**.
+
     ## Working with the API
 
     The [SROC service team](https://github.com/DEFRA/sroc-service-team) use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
