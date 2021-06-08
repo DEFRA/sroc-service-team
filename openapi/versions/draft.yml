@@ -2986,11 +2986,11 @@ paths:
         | 3  | `TH230000222` | Customer reference |
         | 4  | `Environment Agency` | Customer name |
         | 5  | `Permits dept.` | Address line 1 |
-        | 6  | `4th Floor` | Address line 1 |
-        | 7  | `Horizon House` | Address line 2 |
-        | 8  | `Deanery Road` | Address line 3 |
-        | 9  | `Bristol` | Address line 4 |
-        | 10 | `United Kingdom` | Address line 5 |
+        | 6  | `4th Floor` | Address line 2 |
+        | 7  | `Horizon House` | Address line 3 |
+        | 8  | `Deanery Road` | Address line 4 |
+        | 9  | `Bristol` | Address line 5 |
+        | 10 | `United Kingdom` | Address line 6 |
         | 11 | `BS1 5AH` | Postcode |
 
         #### Tail
