@@ -32,11 +32,11 @@ post:
     | Column Index | Example | Notes |
     |--------------|---------|-------|
     | 1  | `H` | Row type indicator |
-    | 2  | `0000001` | Row index |
+    | 2  | `0000000` | Row index |
     | 3  | `NAL` | Regime reference |
     | 4  | `A` | Region |
     | 5  | `C` | File type indicator |
-    | 6  | `nalac50001` | Customer file reference |
+    | 6  | `50001` | Customer file reference |
     | 7  | `25 March 2021` | Date the file was generated |
 
     #### Body
@@ -46,7 +46,7 @@ post:
     | Column Index | Example | Notes |
     |--------------|---------|-------|
     | 1  | `D` | Row type indicator |
-    | 2  | `0000002` | Row index |
+    | 2  | `0000001` | Row index |
     | 3  | `TH230000222` | Customer reference |
     | 4  | `Environment Agency` | Customer name |
     | 5  | `Permits dept.` | Address line 1 |
@@ -64,7 +64,7 @@ post:
     | Column Index | Example | Notes |
     |--------------|---------|-------|
     | 1  | `T` | Row type indicator |
-    | 2  | `0000003` | Row index |
+    | 2  | `0000002` | Row index |
     | 3  | `3` | Row count |
 
   tags:
