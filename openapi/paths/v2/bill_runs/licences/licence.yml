@@ -10,3 +10,18 @@ delete:
   responses:
     '204':
       description: "Success"
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          examples:
+            'Bill run unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+            'Licence unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Licence 458d2739-6ae6-4919-ac12-5536589d3af9 is unknown.

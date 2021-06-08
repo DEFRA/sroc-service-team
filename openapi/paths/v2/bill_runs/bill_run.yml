@@ -243,6 +243,15 @@ get:
                           licenceNumber: 'FOOO/BARRR/306'
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
 delete:
   operationId: DeleteBillRun
   description: "Deletes a specified bill run and all invoices, licences, and transactions linked to it. Bill run must be unbilled."
@@ -254,6 +263,15 @@ delete:
   responses:
     '204':
       description: "Success"
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
     '409':
       description: "Failed - the bill run is not in the right state"
       content:

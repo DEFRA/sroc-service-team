@@ -74,14 +74,20 @@ get:
                       eiucSourceFactor: 0
                       eiucFactor: 0
     '404':
-      description: "Failed - the invoice is unknown"
+      description: "Failed - unknown ID"
       content:
         application/json:
-          schema:
-            example:
-              statusCode: 404
-              error: Not found
-              message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
+          examples:
+            'Bill run unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+            'Invoice unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
     '409':
       description: "Failed - the invoice is not linked to that bill run"
       content:

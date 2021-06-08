@@ -9,6 +9,15 @@ patch:
   responses:
     '204':
       description: "Success"
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
     '409':
       description: "Failed - the bill run is not in the right state"
       content:

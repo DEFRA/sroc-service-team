@@ -20,6 +20,21 @@ patch:
               rebilledType: C
             - id: db82bf38-638a-44d3-b1b3-1ae8524d9c38
               rebilledType: R
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          examples:
+            'Bill run unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+            'Invoice unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
     '409':
       description: "Failed - the invoice has already been rebilled"
       content:
