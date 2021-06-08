@@ -7,9 +7,9 @@ info:
 
     ## Overview
 
-    The Environment Agency's customers are invoiced from the SSCL SOP system. The invoices are based on transaction files imported by SOP that contain which customers need invoicing or crediting and for how much. The Charging Module (CM) was built to generate those transaction files.
+    The Environment Agency's customers are invoiced from the SSCL SOP system. The invoices are based on transaction files imported by SOP that contain details of which customers need invoicing or crediting and for how much. The Charging Module (CM) was built to generate those transaction files.
 
-    It does this based on individual **transaction** information which client systems send to it. These are grouped under a **bill run** and when 'generated' each one will result in a transaction file.
+    It does this based on individual **transaction** information which client systems send to it. These are grouped under a **bill run**. When 'generated' each **bill run** will result in a transaction file.
 
     > There are exceptions to this but we'll cover them later!
 
@@ -21,7 +21,7 @@ info:
 
     ### Customer changes
 
-    To ensure invoices get to customers SSCL needs to have up-to-date customer details. The CM also provides a mechanism for client systems to tell SSCL about any changes using another import file. The changes are logged by the CM and the next time a **bill run** for the same area as the customer is 'sent' their changes will be added to that file for import by SSCL SOP.
+    To ensure invoices get to customers SSCL needs to have up-to-date customer details. The CM also provides a mechanism for client systems to tell SSCL about any new customers or changes to customer details using another import file. The changes are logged by the CM and the next time a **bill run** for the same area as the customer is 'sent' their changes will be added to that file for import by SSCL SOP.
 
     In case no matching **bill runs** are 'sent' that week, the CM also creates the customer import file once a week for any changes that didn't get picked up.
 
@@ -37,21 +37,23 @@ info:
 
     - `POST /v2/{regime}/bill-runs` Create a new **bill run**. It will return the **bill run's** ID which will be needed in all subsequent requests
     - `POST /v2/{regime}/bill-runs/{billRunId}/transactions'` Create a **transaction** against the **bill run**. The CM will use the 'rules service' to calculate the **transaction's** charge value
-    - `PATCH /v2/{regime}/bill-runs/{billRunId}/generate` Tell the CM to 'generate' the **bill run**. This involves applying a serious of **regime** specific rules against. From it the final invoice or credit note values will be determined
+    - `PATCH /v2/{regime}/bill-runs/{billRunId}/generate` Tell the CM to 'generate' the **bill run**. This involves applying a series of **regime** specific rules against the transactions in the **bill run**. From it the final invoice or credit note values will be determined
     - `PATCH /v2/{regime}/bill-runs/{billRunId}/approve` Confirm to the CM that the **bill run** has been checked and approved for sending to SSCL
     - `PATCH /v2/{regime}/bill-runs/{billRunId}/send` Tell the CM to generate the transaction file ready for importing by SSCL SOP
 
-    There are various `GET` endpoints that can be used to query the status or contents of a **bill run** at all stages. But these requests are the mininum needed to get a transaction file to SSCL SOP.
+    There are various `GET` endpoints that can be used to query the status or contents of a **bill run** at all stages. But these requests are the minimum needed to get a transaction file to SSCL SOP.
 
     ### Amending a bill run
 
-    Up till a **bill run** is 'sent' it can be amended. This means deleting **invoices**, adding new **transactions**, or deleting the **bill run** altogether.
+    Up till a **bill run** is 'approved' it can be amended. This means deleting **invoices**, adding new **transactions**, or deleting the **bill run** altogether.
 
     - `DELETE /v2/{regime}/bill-runs/{billRunId}/invoices/{invoiceId}`
     - `POST /v2/{regime}/bill-runs/{billRunId}/transactions'`
     - `DELETE /v2/{regime}/bill-runs/{billRunId}`
 
-    The CM will automatically handle any recalculations to a **bill run's** **invoices** when you do this.
+    When invoices are removed, if a **bill run** has been generated the CM will automatically handle updating the bill run summary information.
+
+    If a transaction is added to a **bill run** it means the invoice needs to be recalculated, which in turn means the **bill run** details need recalculating. So, in this case the CM will re-initialise the **bill run** and the client system is expected to call the **bill run** `/generate` endpoint again.
 
     ## Rules
 
