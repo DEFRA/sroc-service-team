@@ -16,6 +16,15 @@ post:
             billRun:
               id: '2bbbe459-966e-4026-b5d2-2f10867bdddd'
               billRunNumber: 10004
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
     '422':
       description: "Failed - bill run cannot be generated because there is an issue with its data"
       content:

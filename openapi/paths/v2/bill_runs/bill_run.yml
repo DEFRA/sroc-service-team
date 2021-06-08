@@ -243,6 +243,15 @@ get:
                           licenceNumber: 'FOOO/BARRR/306'
                         - id: '77502697-e274-491a-bd6d-84ec557b0485'
                           licenceNumber: 'FOOO/BARRR/307'
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
     '404':
       description: "Failed - unknown ID"
       content:
@@ -263,6 +272,15 @@ delete:
   responses:
     '204':
       description: "Success"
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
     '404':
       description: "Failed - unknown ID"
       content:

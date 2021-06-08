@@ -73,6 +73,15 @@ get:
                       s130Agreement:
                       eiucSourceFactor: 0
                       eiucFactor: 0
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
     '404':
       description: "Failed - unknown ID"
       content:
@@ -110,3 +119,27 @@ delete:
   responses:
     '204':
       description: "Success"
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          examples:
+            'Bill run unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+            'Invoice unknown':
+              value:
+                statusCode: 404
+                error: Not found
+                message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.

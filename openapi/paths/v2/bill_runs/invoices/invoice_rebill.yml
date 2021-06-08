@@ -20,6 +20,15 @@ patch:
               rebilledType: C
             - id: db82bf38-638a-44d3-b1b3-1ae8524d9c38
               rebilledType: R
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
     '404':
       description: "Failed - unknown ID"
       content:

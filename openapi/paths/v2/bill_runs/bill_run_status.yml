@@ -38,6 +38,15 @@ get:
             '08 Not billed':
               value:
                 status: 'billing_not_required'
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
     '404':
       description: "Failed - unknown ID"
       content:
