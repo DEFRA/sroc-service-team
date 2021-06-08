@@ -452,6 +452,8 @@ transactionPost:
       $ref: 'fields.yml#/waterUndertaker'
     regionalChargingArea:
       $ref: 'fields.yml#/sucEiucRegionName'
+    section126Factor:
+      $ref: 'fields.yml#/section126Factor'
     section127Agreement:
       $ref: 'fields.yml#/section127Agreement'
     section130Agreement:
