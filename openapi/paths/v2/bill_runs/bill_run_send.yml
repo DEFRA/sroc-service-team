@@ -15,7 +15,7 @@ patch:
 
     The CM will then generate the transaction import file and transfer it to an AWS S3 bucket. From there it will be picked up by an [FME job](https://www.safe.com/fme/) which will grab the file and handle the transfer to a location accessible by SSCL SOP.
 
-    Once transferred to the AWS S3 bucket the **bill run's* status will be updated to `billed`.
+    Once transferred to the AWS S3 bucket the **bill run's** status will be updated to `billed`.
 
     > _If a bill run contains no chargeable invoices or credit notes, for example, because they are zero value, the status will be updated to `billing_not_required`_
 
