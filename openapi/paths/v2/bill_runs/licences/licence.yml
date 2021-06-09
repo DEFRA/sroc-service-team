@@ -34,6 +34,15 @@ delete:
                 statusCode: 404
                 error: Not found
                 message: Licence 458d2739-6ae6-4919-ac12-5536589d3af9 is unknown.
+    '409':
+      description: "Failed - the action conflicts with something"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 409
+              error: Conflict
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be edited because its status is billed.
     '422':
       description: "Failed - issue with the requested data"
       content:

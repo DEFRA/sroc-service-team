@@ -28,14 +28,20 @@ patch:
               error: Not found
               message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
     '409':
-      description: "Failed - the bill run is not in the right state"
+      description: "Failed - the action conflicts with something"
       content:
         application/json:
-          schema:
-            example:
-              statusCode: 409
-              error: Conflict
-              message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 does not have a status of 'generated'.
+          examples:
+            'Bill run cannot be updated':
+              value:
+                statusCode: 409
+                error: Conflict
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be patched because its status is billed.
+            'Bill run is not generated':
+              value:
+                statusCode: 409
+                error: Conflict
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not have a status of 'generated'.
     '422':
       description: "Failed - issue with the requested data"
       content:
