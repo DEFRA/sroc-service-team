@@ -72,7 +72,7 @@ patch:
     | 26 | `A43814_TST` | Licence number (blank if compensation charge or minimum charge is true) |
     | 27 | `01-APR-2020 - 31-MAR-2021` | Charge period (blank if compensation charge or minimum charge is true) |
     | 28 | `310/365` | Prorata days (blank if compensation charge or minimum charge is true) |
-    | 29 | `1384` | Volume (blank if compensation charge or minimum charge is true) |
+    | 29 | `1384` | Standard Unit Charge (SUC) (blank if compensation charge or minimum charge is true) |
     | 30 | `5586 Ml` | Volume in mega litres (blank if compensation charge or minimum charge is true) |
     | 31 | `0.2` | Source factor (blank if compensation charge or minimum charge is true) |
     | 32 | `1.6` | Season factor (blank if compensation charge or minimum charge is true) |
