@@ -67,7 +67,7 @@ patch:
     | 21 |  | Unused |
     | 22 | `ARCA` | Line area code |
     | 23 | `Well at Chigley Town Hall` | Line description |
-    | 24 | `A` | (always A) |
+    | 24 | `A` | Income stream code (always A) |
     | 25 |  | Unused |
     | 26 | `A43814_TST` | Licence number (blank if compensation charge or minimum charge is true) |
     | 27 | `01-APR-2020 - 31-MAR-2021` | Charge period (blank if compensation charge or minimum charge is true) |
@@ -84,8 +84,8 @@ patch:
     | 38 | `0.2` | Environmental Improvement Unit Charge (EIUC) Source factor |
     | 39 | `0.2` | EIUC |
     | 40 |  | Unused |
-    | 41 | `1` | (always 1) |
-    | 42 | `Each` | (always Each) |
+    | 41 | `1` | Quantity (always 1) |
+    | 42 | `Each` | Unit of Measure (always Each) |
     | 43 | `31517` | Transaction value (signed) |
 
     #### Tail
