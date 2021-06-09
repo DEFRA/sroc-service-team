@@ -351,6 +351,15 @@ paths:
                   admin: 'false'
                   createdAt: '2020-12-02T09:19:22.065Z'
                   updatedAt: '2020-12-02T09:19:22.065Z'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: No regime found with id 83562322-cb05-48cc-bc43-b06b3e5381f6
   "/admin/authorised-systems":
     get:
       operationId: ListAuthorisedSystems
@@ -719,6 +728,15 @@ paths:
       responses:
         '204':
           description: Success
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: No authorised system found with id ae181118-f17a-4eb1-b501-28bc193d7404
       requestBody:
         content:
           application/json:
@@ -799,6 +817,15 @@ paths:
       responses:
         '204':
           description: Success
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
         '409':
           description: Failed - the bill run is not in the right state
           content:
@@ -809,6 +836,16 @@ paths:
                   error: Conflict
                   message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not
                     have a status of 'pending'.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 422
+                  error: Unprocessable Entity
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked
+                    to regime wrls.
   "/admin/{regime}/customers":
     patch:
       operationId: SendCustomer
@@ -1183,6 +1220,15 @@ paths:
                   customerFileId: d04652ab-8ddb-411e-b683-53c25855f7a3
                   createdAt: '2021-04-29T13:15:30.358Z'
                   updatedAt: '2021-04-29T13:15:30.358Z'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: No customer file found with id 8fb7e93c-1fc7-47cd-90d5-cdb1a8a63730
   "/admin/test/transaction/{transactionId}":
     get:
       operationId: ViewTestTransaction
@@ -1228,6 +1274,15 @@ paths:
                   billRunId: 647196ac-83a8-4f5a-8436-6a2dac00b72d
                   customerReference: TH230000222
                   financialYear: 2018
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: No transaction found with id 323d6e4d-2703-4790-a1d5-81532d4291fd
   "/v2/{regime}/bill-runs":
     post:
       operationId: CreateBillRun
@@ -1279,12 +1334,26 @@ paths:
                 billRun:
                   id: 2bbbe459-966e-4026-b5d2-2f10867bdddd
                   billRunNumber: 10004
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
         '422':
-          description: Failed - bill run cannot be generated because there is an issue
-            with its data
+          description: Failed - issue with the requested data
           content:
             application/json:
               examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
                 Missing region:
                   value:
                     statusCode: 422
@@ -1381,18 +1450,83 @@ paths:
                 transaction:
                   id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
                   clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
-        '409':
-          description: Failed - Transaction cannot be added because Client ID already
-            exists
+        '400':
+          description: Failed - issue with the Rules Service
+          content:
+            application/json:
+              examples:
+                Cannot connect to rules service:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Error communicating with the rules service: [error code]'
+                Rule service returned a 5xx:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Rules service error: [error message]'
+        '403':
+          description: Failed - not authorised
           content:
             application/json:
               schema:
                 example:
-                  statusCode: 409
-                  error: Conflict
-                  message: A transaction with Client ID '2395429b-e703-43bc-8522-ce3f67507ffa'
-                    for Regime 'wrls' already exists.
-                  clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+        '409':
+          description: Failed - the action conflicts with something
+          content:
+            application/json:
+              examples:
+                Bill run cannot be changed:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot
+                      be edited because its status is billed.
+                Client ID matches existing transaction:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: A transaction with Client ID '2395429b-e703-43bc-8522-ce3f67507ffa'
+                      for Regime 'wrls' already exists.
+                    clientId: 2395429b-e703-43bc-8522-ce3f67507ff
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
+                Ruleset not found:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Ruleset not found, please check periodStart value.
+                Rule service data error:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service error: [error message]'
+                Rule service data message:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service returned the following: [message]'
       requestBody:
         content:
           application/json:
@@ -2078,6 +2212,34 @@ paths:
                           licenceNumber: FOOO/BARRR/306
                         - id: 77502697-e274-491a-bd6d-84ec557b0485
                           licenceNumber: FOOO/BARRR/307
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 422
+                  error: Unprocessable Entity
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked
+                    to regime wrls.
     delete:
       operationId: DeleteBillRun
       description: Deletes a specified bill run and all invoices, licences, and transactions
@@ -2113,16 +2275,44 @@ paths:
       responses:
         '204':
           description: Success
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
         '409':
-          description: Failed - the bill run is not in the right state
+          description: Failed - the action conflicts with something
           content:
             application/json:
               schema:
                 example:
                   statusCode: 409
                   error: Conflict
-                  message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 has a status
-                    of 'billed'.
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be
+                    edited because its status is billed.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 422
+                  error: Unprocessable Entity
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked
+                    to regime wrls.
   "/v2/{regime}/bill-runs/{billRunId}/generate":
     patch:
       operationId: GenerateBillRun
@@ -2159,33 +2349,58 @@ paths:
       responses:
         '204':
           description: Success
-        '409':
-          description: Failed - the bill run is already being generated
+        '403':
+          description: Failed - not authorised
           content:
             application/json:
               schema:
                 example:
-                  statusCode: 409
-                  error: Conflict
-                  message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0
-                    is already being generated
-        '422':
-          description: Failed - bill run cannot be generated because there is an issue
-            with its data
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+        '409':
+          description: Failed - the action conflicts with something
           content:
             application/json:
               examples:
-                Bill run unknown:
+                Bill run cannot be updated:
                   value:
-                    statusCode: 422
-                    error: Unprocessable Entity
-                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown
-                Invalid bill run status:
-                  value:
-                    statusCode: 422
-                    error: Unprocessable Entity
+                    statusCode: 409
+                    error: Conflict
                     message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot
-                      be edited because its status is billed
+                      be patched because its status is billed.
+                Bill run is already generating:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0
+                      is already being generated
+                Bill run is already generated:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0
+                      has already been generated.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
                 No transactions:
                   value:
                     statusCode: 422
@@ -2273,6 +2488,34 @@ paths:
                 '08 Not billed':
                   value:
                     status: billing_not_required
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 422
+                  error: Unprocessable Entity
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked
+                    to regime wrls.
   "/v2/{regime}/bill-runs/{billRunId}/approve":
     patch:
       operationId: ApproveBillRun
@@ -2309,16 +2552,52 @@ paths:
       responses:
         '204':
           description: Success
-        '409':
-          description: Failed - the bill run is not in the right state
+        '403':
+          description: Failed - not authorised
           content:
             application/json:
               schema:
                 example:
-                  statusCode: 409
-                  error: Conflict
-                  message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 does not
-                    have a status of 'generated'.
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+        '409':
+          description: Failed - the action conflicts with something
+          content:
+            application/json:
+              examples:
+                Bill run cannot be updated:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot
+                      be patched because its status is billed.
+                Bill run is not generated:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not
+                      have a status of 'generated'.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
   "/v2/{regime}/bill-runs/{billRunId}/send":
     patch:
       operationId: SendBillRun
@@ -2452,27 +2731,52 @@ paths:
       responses:
         '204':
           description: Success
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
         '409':
-          description: Failed - the bill run is not in the right state
+          description: Failed - the action conflicts with something
           content:
             application/json:
-              schema:
-                example:
-                  statusCode: 409
-                  error: Conflict
-                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not
-                    have a status of 'approved'.
+              examples:
+                Bill run cannot be updated:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot
+                      be patched because its status is billed.
+                Bill run is not approved:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not
+                      have a status of 'approved'.
         '422':
-          description: Failed - bill run cannot be sent because there is an issue
-            with its data
+          description: Failed - issue with the requested data
           content:
             application/json:
-              schema:
-                example:
-                  statusCode: 422
-                  error: Unprocessable Entity
-                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be
-                    sent because its status is billed
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
   "/v2/{regime}/bill-runs/{billRunId}/invoices/{invoiceId}":
     get:
       operationId: ViewBillRunInvoice
@@ -2728,15 +3032,30 @@ paths:
                           s130Agreement:
                           eiucSourceFactor: 0
                           eiucFactor: 0
-        '404':
-          description: Failed - the invoice is unknown
+        '403':
+          description: Failed - not authorised
           content:
             application/json:
               schema:
                 example:
-                  statusCode: 404
-                  error: Not found
-                  message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              examples:
+                Bill run unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+                Invoice unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
         '409':
           description: Failed - the invoice is not linked to that bill run
           content:
@@ -2747,6 +3066,17 @@ paths:
                   error: Conflict
                   message: Invoice db82bf38-638a-44d3-b1b3-1ae8524d9c38 is not linked
                     to bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
     delete:
       operationId: DeleteBillRunInvoice
       description: Delete the specified invoice and all linked licences and transactions.
@@ -2791,6 +3121,51 @@ paths:
       responses:
         '204':
           description: Success
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              examples:
+                Bill run unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+                Invoice unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
+        '409':
+          description: Failed - the action conflicts with something
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 409
+                  error: Conflict
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be
+                    edited because its status is billed.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
   "/v2/{regime}/calculate-charge":
     post:
       operationId: CalculateCharge
@@ -2881,6 +3256,50 @@ paths:
                   eiucSourceFactor: 0
                   eiuc: 0
                   suc: 1495
+        '400':
+          description: Failed - issue with the Rules Service
+          content:
+            application/json:
+              examples:
+                Cannot connect to rules service:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Error communicating with the rules service: [error code]'
+                Rule service returned a 5xx:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Rules service error: [error message]'
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Ruleset not found:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Ruleset not found, please check periodStart value.
+                Rule service data error:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service error: [error message]'
+                Rule service data message:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service returned the following: [message]'
       requestBody:
         content:
           application/json:
@@ -3120,6 +3539,15 @@ paths:
       responses:
         '201':
           description: Success
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
       requestBody:
         content:
           application/json:
@@ -3283,6 +3711,30 @@ paths:
                   rebilledType: C
                 - id: db82bf38-638a-44d3-b1b3-1ae8524d9c38
                   rebilledType: R
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              examples:
+                Bill run unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+                Invoice unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Invoice aa630ae0-0e51-4166-9025-66576c513f7f is unknown.
         '409':
           description: Failed - the invoice has already been rebilled
           content:
@@ -3313,6 +3765,17 @@ paths:
                     message: Invoice ba31bd7b-a13e-4820-b15d-6f70fb2c52490 is for
                       region T but bill run aa630ae0-0e51-4166-9025-66576c513f7f is
                       for region A.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
   "/v2/{regime}/bill-runs/{billRunId}/licences/{licenceId}":
     delete:
       operationId: DeleteBillRunLicence
@@ -3358,6 +3821,51 @@ paths:
       responses:
         '204':
           description: Success
+        '403':
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        '404':
+          description: Failed - unknown ID
+          content:
+            application/json:
+              examples:
+                Bill run unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+                Licence unknown:
+                  value:
+                    statusCode: 404
+                    error: Not found
+                    message: Licence 458d2739-6ae6-4919-ac12-5536589d3af9 is unknown.
+        '409':
+          description: Failed - the action conflicts with something
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 409
+                  error: Conflict
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be
+                    edited because its status is billed.
+        '422':
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not
+                      linked to regime wrls.
 security:
 - OAuth2: []
 components:

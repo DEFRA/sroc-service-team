@@ -108,21 +108,46 @@ patch:
   responses:
     '204':
       description: "Success"
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
     '409':
-      description: "Failed - the bill run is not in the right state"
+      description: "Failed - the action conflicts with something"
       content:
         application/json:
-          schema:
-            example:
-              statusCode: 409
-              error: Conflict
-              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not have a status of 'approved'.
+          examples:
+            'Bill run cannot be updated':
+              value:
+                statusCode: 409
+                error: Conflict
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be patched because its status is billed.
+            'Bill run is not approved':
+              value:
+                statusCode: 409
+                error: Conflict
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 does not have a status of 'approved'.
     '422':
-      description: "Failed - bill run cannot be sent because there is an issue with its data"
+      description: "Failed - issue with the requested data"
       content:
         application/json:
-          schema:
-            example:
-              statusCode: 422
-              error: Unprocessable Entity
-              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be sent because its status is billed
+          examples:
+            'Bill run not linked to regime':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.

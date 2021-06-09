@@ -74,6 +74,15 @@ post:
   responses:
     '201':
       description: Success
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
   requestBody:
     content:
       application/json:

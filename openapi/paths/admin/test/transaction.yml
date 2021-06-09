@@ -32,3 +32,12 @@ get:
               billRunId: 647196ac-83a8-4f5a-8436-6a2dac00b72d
               customerReference: TH230000222
               financialYear: 2018
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: No transaction found with id 323d6e4d-2703-4790-a1d5-81532d4291fd
