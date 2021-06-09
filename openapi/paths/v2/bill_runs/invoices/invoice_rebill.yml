@@ -69,3 +69,13 @@ patch:
                 statusCode: 409
                 error: Conflict
                 message: Invoice ba31bd7b-a13e-4820-b15d-6f70fb2c52490 is for region T but bill run aa630ae0-0e51-4166-9025-66576c513f7f is for region A.
+    '422':
+      description: "Failed - issue with the requested data"
+      content:
+        application/json:
+          examples:
+            'Bill run not linked to regime':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.

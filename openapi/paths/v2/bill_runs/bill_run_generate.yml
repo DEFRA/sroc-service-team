@@ -28,29 +28,35 @@ patch:
               error: Not found
               message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
     '409':
-      description: "Failed - the bill run is already being generated"
-      content:
-        application/json:
-          schema:
-            example:
-              statusCode: 409
-              error: Conflict
-              message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is already being generated
-    '422':
-      description: "Failed - bill run cannot be generated because there is an issue with its data"
+      description: "Failed - the action conflicts with something"
       content:
         application/json:
           examples:
-            'Bill run unknown':
+            'Bill run cannot be updated':
+              value:
+                statusCode: 409
+                error: Conflict
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be patched because its status is billed.
+            'Bill run is already generating':
+              value:
+                statusCode: 409
+                error: Conflict
+                message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is already being generated
+            'Bill run is already generated':
+              value:
+                statusCode: 409
+                error: Conflict
+                message: Summary for bill run fd2ab097-3097-42bd-849e-046aa250a0d0 has already been generated.
+    '422':
+      description: "Failed - issue with the requested data"
+      content:
+        application/json:
+          examples:
+            'Bill run not linked to regime':
               value:
                 statusCode: 422
                 error: Unprocessable Entity
-                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown
-            'Invalid bill run status':
-              value:
-                statusCode: 422
-                error: Unprocessable Entity
-                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be edited because its status is billed
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.
             'No transactions':
               value:
                 statusCode: 422

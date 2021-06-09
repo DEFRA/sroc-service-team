@@ -26,10 +26,15 @@ post:
               error: Forbidden
               message: Unauthorised for regime 'wrls'
     '422':
-      description: "Failed - bill run cannot be generated because there is an issue with its data"
+      description: "Failed - issue with the requested data"
       content:
         application/json:
           examples:
+            'Bill run not linked to regime':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.
             'Missing region':
               value:
                 statusCode: 422

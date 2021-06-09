@@ -261,6 +261,15 @@ get:
               statusCode: 404
               error: Not found
               message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+    '422':
+      description: "Failed - issue with the requested data"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 422
+              error: Unprocessable Entity
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.
 delete:
   operationId: DeleteBillRun
   description: "Deletes a specified bill run and all invoices, licences, and transactions linked to it. Bill run must be unbilled."
@@ -299,3 +308,12 @@ delete:
               statusCode: 409
               error: Conflict
               message: Bill run 212b0102-ca9c-4b41-881b-f20e7721f2c9 has a status of 'billed'.
+    '422':
+      description: "Failed - issue with the requested data"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 422
+              error: Unprocessable Entity
+              message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.
