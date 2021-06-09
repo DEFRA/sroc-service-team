@@ -2616,7 +2616,7 @@ paths:
 
         The CM will then generate the transaction import file and transfer it to an AWS S3 bucket. From there it will be picked up by an [FME job](https://www.safe.com/fme/) which will grab the file and handle the transfer to a location accessible by SSCL SOP.
 
-        Once transferred to the AWS S3 bucket the **bill run's* status will be updated to `billed`.
+        Once transferred to the AWS S3 bucket the **bill run's** status will be updated to `billed`.
 
         > _If a bill run contains no chargeable invoices or credit notes, for example, because they are zero value, the status will be updated to `billing_not_required`_
 
@@ -2668,12 +2668,12 @@ paths:
         | 21 |  | Unused |
         | 22 | `ARCA` | Line area code |
         | 23 | `Well at Chigley Town Hall` | Line description |
-        | 24 | `A` | (always A) |
+        | 24 | `A` | Income stream code (always A) |
         | 25 |  | Unused |
         | 26 | `A43814_TST` | Licence number (blank if compensation charge or minimum charge is true) |
         | 27 | `01-APR-2020 - 31-MAR-2021` | Charge period (blank if compensation charge or minimum charge is true) |
         | 28 | `310/365` | Prorata days (blank if compensation charge or minimum charge is true) |
-        | 29 | `1384` | Volume (blank if compensation charge or minimum charge is true) |
+        | 29 | `1384` | Standard Unit Charge (SUC) (blank if compensation charge or minimum charge is true) |
         | 30 | `5586 Ml` | Volume in mega litres (blank if compensation charge or minimum charge is true) |
         | 31 | `0.2` | Source factor (blank if compensation charge or minimum charge is true) |
         | 32 | `1.6` | Season factor (blank if compensation charge or minimum charge is true) |
@@ -2685,8 +2685,8 @@ paths:
         | 38 | `0.2` | Environmental Improvement Unit Charge (EIUC) Source factor |
         | 39 | `0.2` | EIUC |
         | 40 |  | Unused |
-        | 41 | `1` | (always 1) |
-        | 42 | `Each` | (always Each) |
+        | 41 | `1` | Quantity (always 1) |
+        | 42 | `Each` | Unit of Measure (always Each) |
         | 43 | `31517` | Transaction value (signed) |
 
         #### Tail
