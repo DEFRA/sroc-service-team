@@ -81,20 +81,20 @@ info:
 
     ### Talking to INTEGRATION
 
-    We have an AWS `INTEGRATION` environment setup and available specifically for client systems to use. For access contact the [SROC Service Team](alan.cruikshanks@defra.gov.uk).
+    We have an AWS `INTEGRATION` environment setup and available specifically for client systems to use. For access contact the [Charging Module team](alan.cruikshanks@defra.gov.uk).
 
     ### Running the API locally
 
-    The [SROC service team](https://github.com/DEFRA/sroc-service-team) also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
+    The [Charging Module team](https://github.com/DEFRA/sroc-service-team) also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
 
     ### Talking to the API
 
-    The **SROC service team** use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
+    The **Charging Module team** use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
 
   version: "draft"
   title: SROC Charging Module API
   contact:
-    name: SROC Service Team
+    name: Charging Module team
     email: alan.cruikshanks@defra.gov.uk
     url: 'https://github.com/DEFRA/sroc-service-team'
   license:

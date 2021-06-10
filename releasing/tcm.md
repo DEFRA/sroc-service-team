@@ -1,6 +1,6 @@
 # TCM
 
-This covers the release process for the [SROC Tactical Charging Module](https://github.com/DEFRA/sroc-tcm-admin).
+This covers the release process for the [Tactical Charging Module](https://github.com/DEFRA/sroc-tcm-admin).
 
 It covers
 
@@ -181,14 +181,14 @@ There are plenty of existing ones to base it on covering a number of different t
 
 ### Create calendar appointment
 
-Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and test analyst carrying out the release. In `optional` add from the SROC team
+Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and test analyst carrying out the release. In `optional` add from the Charging Module team
 
 - project manager
 - test manager
 - dev team
 
 ```text
-title: SROC TCM Admin - Release [version] to PRODUCTION
+title: Tactical Charging Module - Release [version] to PRODUCTION
 
 [Copy of release note content]
 
@@ -211,7 +211,7 @@ Once web-ops confirm the changes have been applied, the test analyst will perfor
 
 ### Confirm release successful
 
-Create an email with approximately the following format and send to **SM-Defra-Change Management**. In `CC` add web-ops lead plus from the SROC team
+Create an email with approximately the following format and send to **SM-Defra-Change Management**. In `CC` add web-ops lead plus from the Charging Module team
 
 - project manager
 - test manager
@@ -223,7 +223,7 @@ Subject: [RfC reference] completed successfully
 
 Hello
 
-This is to let you know [RfC reference] for the SROC TCM Admin service was completed successfully.
+This is to let you know [RfC reference] for the Tactical Charging Module service was completed successfully.
 
 [Sign off]
 ```
