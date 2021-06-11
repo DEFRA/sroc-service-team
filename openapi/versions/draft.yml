@@ -3635,7 +3635,7 @@ paths:
       description: Request to rebill an invoice. Returns ID of the invoice that will
         cancel out the original invoice, and the one to replace it.
       tags:
-      - unavailable
+      - bill-run
       parameters:
       - name: regime
         in: path
