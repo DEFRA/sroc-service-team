@@ -15,6 +15,7 @@ This acts as a repo of guides and documents specific to the team, plus it's wher
 - [Postman guide](/postman/README.md)
 - [Principles](principles.md)
 - [Releasing](/releasing/README.md)
+- [Request for Change](/rfc/README.md)
 - [Services](/services/README.md)
 - [Ways of working](ways_of_working.md)
 
