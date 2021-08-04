@@ -50,3 +50,13 @@ We have provided examples of completed RfC's for each service which can also be 
 ## When the RfC is completed
 
 Though they'll have details on when the change will happen Change Management rely on teams letting them know when changes are complete and whether they were successful. Be sure to email `changeadministration@defra.gov.uk` once the change is applied.
+
+```text
+title: RfC CHG0049495 completed
+
+Hello
+
+This is to confirm RfC CHG0049495 was completed successfully with no downtime.
+
+[email sign off]
+```
