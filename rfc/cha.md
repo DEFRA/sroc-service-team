@@ -77,7 +77,7 @@ The next section of the form has 6 tabs. The only ones we care about are 'Planni
 >
 > Failure to implement the change risks the live service running vulnerable, insecure code (lack of patching), additional workload and reputational risk to the dept. (not fixing bugs with charge calculations and invoicing), and failure to implement features needed by client services (inability to invoice customers).
 
-### Blackout plan
+### Backout plan
 
 > Should any stage of the deployment fail the whole deployment will fail.
 >
