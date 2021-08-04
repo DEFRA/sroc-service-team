@@ -56,7 +56,7 @@ title: RfC CHG0049495 completed
 
 Hello
 
-This is to confirm RfC CHG0049495 was completed successfully with no downtime.
+This is to confirm RfC CHG0049495 for the Charging Module API was completed successfully with no downtime.
 
 [email sign off]
 ```
