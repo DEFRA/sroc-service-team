@@ -89,14 +89,16 @@ The next section of the form has 6 tabs. The only ones we care about are 'Planni
 
 ## Schedule
 
-Avoid Friday's if you can. Even if the change is small and low risk no one likes to tempt fate before the weekend!
+The form will default to the first available date and time. So, for example, if you opened it on `4 August at 12:37pm` it would default to `18 Aug at 13:52:44`. This is because it automatically adds a set number of hours (we think 337) to the current date and time when the form is started.
 
-Check the calendars of the web-ops team before hand as well. As long as
+We aim to do deployments in the morning. This is to give us more time to rectify any issues. We also avoid Friday. Even if the change is small and low risk no one likes to tempt fate before the weekend!
+
+So, typically we would select the next day (`19 August at approx 10:00` in our example) having checked the calendars of the web-ops team as well. As long as
 
 - there are no other RfC's that AM/PM
 - the change is something they've done before
 
-You should be fine to go ahead and schedule it. If unsure contact web-ops first to agree a date and time.
+You should be fine to go ahead and schedule it. If unsure contact web-ops first to agree a date and time before submitting.
 
 ### Planned start date
 
@@ -104,7 +106,7 @@ You should be fine to go ahead and schedule it. If unsure contact web-ops first 
 
 ### Planned end date
 
-> 07/05/2021 10:00:00
+> 07/05/2021 10:30:00
 
 ## Risk assessment
 
