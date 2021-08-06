@@ -2,7 +2,7 @@ delete:
   operationId: DeleteBillRunLicence
   description: "Delete the specified licence and all linked transactions. As part of the deletion the linked invoice and bill run will also be updated."
   tags:
-    - unavailable
+    - bill-run
   parameters:
     - $ref: '../../../../schema/parameters.yml#/regime'
     - $ref: '../../../../schema/parameters.yml#/billRunId'

@@ -111,6 +111,10 @@ billRun:
                 $ref: 'fields.yml#/debitLineValue'
               netTotal:
                 $ref: 'fields.yml#/netTotal'
+              rebilledType:
+                $ref: 'fields.yml#/rebilledType'
+              rebilledInvoiceId:
+                $ref: 'fields.yml#/rebilledInvoiceId'
               licences:
                 type: array
                 items:
@@ -327,6 +331,10 @@ invoice:
       $ref: 'fields.yml#/debitLineValue'
     netTotal:
       $ref: 'fields.yml#/netTotal'
+    rebilledType:
+      $ref: 'fields.yml#/rebilledType'
+    rebilledInvoiceId:
+      $ref: 'fields.yml#/rebilledInvoiceId'
     licences:
       type: array
       items:
