@@ -45,13 +45,14 @@ info:
 
     ### Amending a bill run
 
-    Up till a **bill run** is 'approved' it can be amended. This means deleting **invoices**, adding new **transactions**, or deleting the **bill run** altogether.
+    Up till a **bill run** is 'approved' it can be amended. This means deleting **invoices** or **licences**, adding new **transactions**, or deleting the **bill run** altogether.
 
     - `DELETE /v2/{regime}/bill-runs/{billRunId}/invoices/{invoiceId}`
+    - `DELETE /v2/{regime}/bill-runs/{billRunId}/licences/{licenceId}`
     - `POST /v2/{regime}/bill-runs/{billRunId}/transactions'`
     - `DELETE /v2/{regime}/bill-runs/{billRunId}`
 
-    When invoices are removed, if a **bill run** has been generated the CM will automatically handle updating the bill run summary information.
+    When invoices or licences are removed, if a **bill run** has been generated the CM will automatically handle updating the bill run summary information.
 
     If a transaction is added to a **bill run** it means the invoice needs to be recalculated, which in turn means the **bill run** details need recalculating. So, in this case the CM will re-initialise the **bill run** and the client system is expected to call the **bill run** `/generate` endpoint again.
 
