@@ -66,11 +66,18 @@ info:
 
     ### Minimum charge
 
-    When the total value of a group of transactions falls below £25, a minimum charge rule is applied. This results in the creation of an additional transaction equal to the difference between £25 and the originally calculated total value. Minimum charge logic does not always apply - it is only relevant to annual billing transactions and to new licences (those where a particular customer is being charged for the first time).
+    Some regimes support the idea of a minimum charge, for example, when a new licence is created so the customer is being charged for the first time. Transactions that are subject to this can be flagged as `subjectToMinimumCharge`. When the total value of these transactions falls below £25, a minimum charge rule is applied. This results in the creation of an additional transaction equal to the difference between £25 and the originally calculated total value.
 
-    When relevant, it is applied to all transactions being charged in a single bill run to the same customer on the same licence for the same financial year. It is also applied separately to credit transactions (those with a negative value) and debit transactions (those with a positive value).
+    To determine the total the transactions are grouped
 
-    It is the responsibility of the client system to tell the CM whether a **transaction** is subject to minimum charge.
+    - customer reference
+    - financial year
+    - licence number
+    - transaction type (credit or debit)
+
+    Plus they must be flagged as `subjectToMinimumCharge`. Transactions that have the same details but ***don't*** have this flag set will not be grouped when determing the total.
+
+    _It is the responsibility of the client system to tell the CM whether a **transaction** is subject to minimum charge._
 
     ### Zero value
 
