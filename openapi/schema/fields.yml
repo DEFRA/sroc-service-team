@@ -280,6 +280,11 @@ preSrocCutoffDate:
   type: string
   format: date
   example: '2020-04-01'
+rebilledInvoiceId:
+  description: "If a rebilled invoice this is the ID of the originating invoice. Else will default to '99999999-9999-9999-9999-999999999999'"
+  type: string
+  format: uuid
+  example: '99999999-9999-9999-9999-999999999999'
 rebilledType:
   description: "The type of invoice in relation to rebilling. `O` (Original) means the invoice is not a result of rebilling. `C` (Cancel) is an invoice generated as a result of rebilling to 'cancel' the original invoice. `R` (Rebill) is the invoice generated to 'rebill' the original invoice."
   type: string
