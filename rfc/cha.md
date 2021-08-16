@@ -28,6 +28,10 @@ Most are drop-downs. Anything not mentioned will either have a default or update
 
 > James Kelly
 
+### BAU or Project
+
+> BAU
+
 ### Short description
 
 > Deploy service update - Charging Module API
@@ -122,9 +126,13 @@ This is a link in the form. Often it does not appear until you have completed th
 
 ### How many systems are impacted?
 
+_Which we interpret as the application itself._
+
 > 1-3
 
 ### How many services are impacted?
+
+_Which we interpret as the number of client services using our system._
 
 > 1-3
 
@@ -158,7 +166,7 @@ This is a link in the form. Often it does not appear until you have completed th
 
 ### How many users are affected?
 
-> Internal & External customers
+> 1 to 10
 
 ### Select service classification
 
