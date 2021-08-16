@@ -162,7 +162,7 @@ This is a link in the form. Often it does not appear until you have completed th
 
 ### How many users are affected?
 
-> Internal & External customers
+> 1 to 10
 
 ### Select service classification
 
