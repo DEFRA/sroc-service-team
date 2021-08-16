@@ -126,9 +126,13 @@ This is a link in the form. Often it does not appear until you have completed th
 
 ### How many systems are impacted?
 
+_Which we interpret as the application itself._
+
 > 1-3
 
 ### How many services are impacted?
+
+_Which we interpret as the number of client services using our system._
 
 > 1-3
 
