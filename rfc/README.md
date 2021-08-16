@@ -47,6 +47,7 @@ We have provided examples of completed RfC's for each service which can also be 
 - [SROC Charging Module API](/rfc/cha.md)
 - [SROC Tactical Charging Module](/rfc/tcm.md)
 
+> The examples are intended as refreshers for those who have experience of raising RfC's or who are doing it for a different service for the first time.
 ## When the RfC is completed
 
 Though they'll have details on when the change will happen Change Management rely on teams letting them know when changes are complete and whether they were successful. Be sure to email `changeadministration@defra.gov.uk` once the change is applied.
