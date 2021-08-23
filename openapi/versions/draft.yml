@@ -1237,6 +1237,18 @@ paths:
                   statusCode: 404
                   error: Not found
                   message: No customer file found with id 8fb7e93c-1fc7-47cd-90d5-cdb1a8a63730
+  "/admin/test/data-export":
+    patch:
+      operationId: DataExport
+      description: Manually trigger the data export process. This triggers creation
+        of CSV files of several database tables and sending of them to an S3 bucket.
+      tags:
+      - admin
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Failure
   "/admin/test/transaction/{transactionId}":
     get:
       operationId: ViewTestTransaction

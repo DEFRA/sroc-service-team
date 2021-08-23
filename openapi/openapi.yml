@@ -177,6 +177,9 @@ paths:
   '/admin/test/customers/{customerFileId}':
     $ref: 'paths/admin/test/customer.yml'
 
+  '/admin/test/data-export':
+    $ref: 'paths/admin/test/data_export.yml'
+
   '/admin/test/transaction/{transactionId}':
     $ref: 'paths/admin/test/transaction.yml'
 

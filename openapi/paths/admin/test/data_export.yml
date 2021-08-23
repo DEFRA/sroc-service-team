@@ -1,0 +1,10 @@
+patch:
+  operationId: DataExport
+  description: "Manually trigger the data export process. This triggers creation of CSV files of several database tables and sending of them to an S3 bucket."
+  tags:
+    - admin
+  responses:
+    '204':
+      description: "Success"
+    '400':
+      description: "Failure"
