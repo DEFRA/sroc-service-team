@@ -1,6 +1,8 @@
-# SROC Service team
+# Charging Module Team
 
-A team of rocking 🎸 folk dedicated to supporting all the things **Strategic Review of Charging**!
+A team of rocking 🎸 folk dedicated to supporting all the things **charging**!
+
+> Our vision is a common platform for charge management, providing a simple, consistent and transparent capability for all customers
 
 This acts as a repo of guides and documents specific to the team, plus it's where we manage our list of issues rather than trying to manage them in individual projects.
 
@@ -13,6 +15,7 @@ This acts as a repo of guides and documents specific to the team, plus it's wher
 - [Postman guide](/postman/README.md)
 - [Principles](principles.md)
 - [Releasing](/releasing/README.md)
+- [Request for Change](/rfc/README.md)
 - [Services](/services/README.md)
 - [Ways of working](ways_of_working.md)
 

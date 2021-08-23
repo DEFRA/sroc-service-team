@@ -27,3 +27,12 @@ get:
                 admin: 'false'
                 createdAt: '2020-12-02T09:19:22.065Z'
                 updatedAt: '2020-12-02T09:19:22.065Z'
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: No regime found with id 83562322-cb05-48cc-bc43-b06b3e5381f6

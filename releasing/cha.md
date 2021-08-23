@@ -1,6 +1,6 @@
 # Release process
 
-This covers the release process for the [SROC Charging Module API](https://github.com/DEFRA/sroc-charging-module-api).
+This covers the release process for the [Charging Module API](https://github.com/DEFRA/sroc-charging-module-api).
 
 It covers
 
@@ -157,7 +157,7 @@ Do **not** click the *Build Now* button! That comes later 😁
 
 > At this time the WRLS team is our only client system!
 
-Create an email with approximately the following format and send to the client service's development and test team leads. In `CC` add from the SROC team
+Create an email with approximately the following format and send to the client service's development and test team leads. In `CC` add from the Charging Module team
 
 - project manager
 - test manager
@@ -165,11 +165,11 @@ Create an email with approximately the following format and send to the client s
 - dev team
 
 ```text
-Subject: SROC Charging Module API - v0.8.1 ready for release to INTEGRATION
+Subject: Charging Module API - v0.8.1 ready for release to INTEGRATION
 
 Hello
 
-This is to let you know we are ready to release v0.8.1 of the SROC Charging Module API to the INTEGRATION environment.
+This is to let you know we are ready to release v0.8.1 of the Charging Module API to the INTEGRATION environment.
 
 The CHANGELOG for v0.8.1 is below. You can find the full CHANGELOG at https://github.com/DEFRA/sroc-charging-module-api/blob/master/CHANGELOG.md
 
@@ -182,7 +182,7 @@ We just need to confirm with you a suitable date and time to update the environm
 
 #### Create INT calendar appointment
 
-Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the client service's development and test team leads. In `optional` add from the SROC team
+Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the client service's development and test team leads. In `optional` add from the Charging Module team
 
 - project manager
 - test manager
@@ -190,11 +190,11 @@ Once a date and time has been agreed create a calendar appointment with approxim
 - dev team
 
 ```text
-Title: SROC Charging Module API - Release v0.8.1 to INTEGRATION
+Title: Charging Module API - Release v0.8.1 to INTEGRATION
 
 No actual meeting will take place!
 
-This is just a reminder to all that the SROC Charging Module API INTEGRATION environment will be updated at this time.
+This is just a reminder to all that the Charging Module API INTEGRATION environment will be updated at this time.
 ```
 
 This will serve as both a confirmation and reminder to all of the agreed date and time.
@@ -205,7 +205,7 @@ At the agreed time and date, find the `INT_01_CHA_DEPLOY` job in the Jenkins ins
 
 #### Send INT release done email to clients
 
-Create an email with approximately the following format and send to the client service's development and test team leads. In `CC` add from the SROC team
+Create an email with approximately the following format and send to the client service's development and test team leads. In `CC` add from the Charging Module team
 
 - project manager
 - test manager
@@ -213,11 +213,11 @@ Create an email with approximately the following format and send to the client s
 - dev team
 
 ```text
-Subject: SROC Charging Module API - v0.8.1 released to INTEGRATION
+Subject: Charging Module API - v0.8.1 released to INTEGRATION
 
 Hello
 
-This is to let you know that v0.8.1 of the SROC Charging Module API has been released to the INTEGRATION environment.
+This is to let you know that v0.8.1 of the Charging Module API has been released to the INTEGRATION environment.
 
 Any issues or questions please let us know.
 
@@ -294,14 +294,14 @@ There are plenty of existing ones to base it on covering a number of different t
 
 ### Create calendar appointment
 
-Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and test analyst carrying out the release. In `optional` add from the SROC team
+Once a date and time has been agreed create a calendar appointment with approximately the following format in your Defra Outlook. Invite the appointed web-ops and test analyst carrying out the release. In `optional` add from the Charging Module team
 
 - project manager
 - test manager
 - dev team
 
 ```text
-title: SROC Charging Module API - Release [version] to PRODUCTION
+title: Charging Module API - Release [version] to PRODUCTION
 
 [Copy of release note content]
 
@@ -324,7 +324,7 @@ Once web-ops confirm the changes have been applied, the test analyst will perfor
 
 ### Confirm release successful
 
-Create an email with approximately the following format and send to **SM-Defra-Change Management**. In `CC` add web-ops lead plus from the SROC team
+Create an email with approximately the following format and send to **SM-Defra-Change Management**. In `CC` add web-ops lead plus from the Charging Module team
 
 - project manager
 - test manager
@@ -336,7 +336,7 @@ Subject: [RfC reference] completed successfully
 
 Hello
 
-This is to let you know [RfC reference] for the SROC Charging Module API was completed successfully.
+This is to let you know [RfC reference] for the Charging Module API was completed successfully.
 
 [Sign off]
 ```

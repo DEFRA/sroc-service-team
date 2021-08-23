@@ -37,6 +37,15 @@ patch:
   responses:
     '204':
       description: "Success"
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: No authorised system found with id ae181118-f17a-4eb1-b501-28bc193d7404
   requestBody:
     content:
       application/json:

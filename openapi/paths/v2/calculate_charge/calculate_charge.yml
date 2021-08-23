@@ -23,6 +23,50 @@ post:
               eiucSourceFactor: 0
               eiuc: 0
               suc: 1495
+    '400':
+      description: "Failed - issue with the Rules Service"
+      content:
+        application/json:
+          examples:
+            'Cannot connect to rules service':
+              value:
+                statusCode: 400
+                error: Bad Request
+                message: "Error communicating with the rules service: [error code]"
+            'Rule service returned a 5xx':
+              value:
+                statusCode: 400
+                error: Bad Request
+                message: "Rules service error: [error message]"
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
+    '422':
+      description: "Failed - issue with the requested data"
+      content:
+        application/json:
+          examples:
+            'Ruleset not found':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Ruleset not found, please check periodStart value.
+            'Rule service data error':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: "Rules service error: [error message]"
+            'Rule service data message':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: "Rules service returned the following: [message]"
   requestBody:
     content:
       application/json:

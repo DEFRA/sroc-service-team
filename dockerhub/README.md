@@ -44,9 +44,9 @@ volumes:
   cma_api_db_volume:
 ```
 
-You will need to create a [.env file](https://docs.docker.com/compose/env-file/) with the correct values before you first attempt to build the environment. The project's repo has an [example](https://github.com/DEFRA/sroc-charging-module-api/blob/main/.env.example). But you will need to contact the SROC delivery team to obtain the necessary credentials you'll need to actually make it work.
+You will need to create a [.env file](https://docs.docker.com/compose/env-file/) with the correct values before you first attempt to build the environment. The project's repo has an [example](https://github.com/DEFRA/sroc-charging-module-api/blob/main/.env.example). But you will need to contact the Charging Module team to obtain the necessary credentials you'll need to actually make it work.
 
-> ***NEVER*** commit the `.env` to source control. The credentials the SROC delivery team provide _must_ remain secret.
+> ***NEVER*** commit the `.env` to source control. The credentials the Charging Module team provide _must_ remain secret.
 
 With the `.env` file in place, you can tell compose to grab the images and start the environment for the first time with `docker-compose up`.
 
@@ -106,7 +106,7 @@ The environment should now be ready to use.
 
 ## Authentication
 
-With the `.env` provided by the SROC team, and having run `make seed` the authorised systems (users) you'll need to access the API will automatically have been created.
+With the `.env` provided by the Charging Module team, and having run `make seed` the authorised systems (users) you'll need to access the API will automatically have been created.
 
 We encourage all users of this API to check out our [JSON Web Keys readme](https://github.com/DEFRA/sroc-charging-module-api/tree/main/keys) which goes into detail about how requests are authenticated.
 

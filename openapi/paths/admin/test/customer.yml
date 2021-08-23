@@ -32,3 +32,12 @@ get:
                 customerFileId: 'd04652ab-8ddb-411e-b683-53c25855f7a3'
                 createdAt: '2021-04-29T13:15:30.358Z'
                 updatedAt: '2021-04-29T13:15:30.358Z'
+    '404':
+      description: "Failed - unknown ID"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 404
+              error: Not found
+              message: No customer file found with id 8fb7e93c-1fc7-47cd-90d5-cdb1a8a63730

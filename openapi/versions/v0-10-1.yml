@@ -1,8 +1,6 @@
 openapi: 3.0.0
 info:
   description: |
-    > This `draft` version represents the next release of the API.
-
     Provides an interface for calculating charges, creating and queuing transactions, and generating transaction and customer files used to produce Environment Agency invoices.
 
     ## Overview
@@ -45,14 +43,13 @@ info:
 
     ### Amending a bill run
 
-    Up till a **bill run** is 'approved' it can be amended. This means deleting **invoices** or **licences**, adding new **transactions**, or deleting the **bill run** altogether.
+    Up till a **bill run** is 'approved' it can be amended. This means deleting **invoices**, adding new **transactions**, or deleting the **bill run** altogether.
 
     - `DELETE /v2/{regime}/bill-runs/{billRunId}/invoices/{invoiceId}`
-    - `DELETE /v2/{regime}/bill-runs/{billRunId}/licences/{licenceId}`
     - `POST /v2/{regime}/bill-runs/{billRunId}/transactions'`
     - `DELETE /v2/{regime}/bill-runs/{billRunId}`
 
-    When invoices or licences are removed, if a **bill run** has been generated the CM will automatically handle updating the bill run summary information.
+    When invoices are removed, if a **bill run** has been generated the CM will automatically handle updating the bill run summary information.
 
     If a transaction is added to a **bill run** it means the invoice needs to be recalculated, which in turn means the **bill run** details need recalculating. So, in this case the CM will re-initialise the **bill run** and the client system is expected to call the **bill run** `/generate` endpoint again.
 
@@ -66,18 +63,11 @@ info:
 
     ### Minimum charge
 
-    Some regimes support the idea of a minimum charge, for example, when a new licence is created so the customer is being charged for the first time. Transactions that are subject to this can be flagged as `subjectToMinimumCharge`. When the total value of these transactions falls below £25, a minimum charge rule is applied. This results in the creation of an additional transaction equal to the difference between £25 and the originally calculated total value.
+    When the total value of a group of transactions falls below £25, a minimum charge rule is applied. This results in the creation of an additional transaction equal to the difference between £25 and the originally calculated total value. Minimum charge logic does not always apply - it is only relevant to annual billing transactions and to new licences (those where a particular customer is being charged for the first time).
 
-    To determine the total the transactions are grouped
+    When relevant, it is applied to all transactions being charged in a single bill run to the same customer on the same licence for the same financial year. It is also applied separately to credit transactions (those with a negative value) and debit transactions (those with a positive value).
 
-    - customer reference
-    - financial year
-    - licence number
-    - transaction type (credit or debit)
-
-    Plus they must be flagged as `subjectToMinimumCharge`. Transactions that have the same details but ***don't*** have this flag set will not be grouped when determing the total.
-
-    _It is the responsibility of the client system to tell the CM whether a **transaction** is subject to minimum charge._
+    It is the responsibility of the client system to tell the CM whether a **transaction** is subject to minimum charge.
 
     ### Zero value
 
@@ -89,19 +79,19 @@ info:
 
     ### Talking to INTEGRATION
 
-    We have an AWS `INTEGRATION` environment setup and available specifically for client systems to use. For access contact the [Charging Module team](alan.cruikshanks@defra.gov.uk).
+    We have an AWS `INTEGRATION` environment setup and available specifically for client systems to use. For access contact the [SROC Service Team](alan.cruikshanks@defra.gov.uk).
 
     ### Running the API locally
 
-    The [Charging Module team](https://github.com/DEFRA/sroc-service-team) also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
+    The [SROC service team](https://github.com/DEFRA/sroc-service-team) also provide a [Docker image](https://hub.docker.com/r/environmentagency/sroc-charging-module-api) you can use to run the API locally. Checkout out their [docs](https://github.com/DEFRA/sroc-service-team/tree/main/dockerhub) for info on how to get it up and running locally.
 
     ### Talking to the API
 
-    The **Charging Module team** use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
-  version: draft
+    The **SROC service team** use [Postman](https://www.postman.com/) as the means to interact with the API. Check out their [docs](https://github.com/DEFRA/sroc-service-team/postman) for info on how to go about setting up your own Postman environment.
+  version: v0.10.1
   title: SROC Charging Module API
   contact:
-    name: Charging Module team
+    name: SROC Service Team
     email: alan.cruikshanks@defra.gov.uk
     url: https://github.com/DEFRA/sroc-service-team
   license:
@@ -1228,20 +1218,6 @@ paths:
                   customerFileId: d04652ab-8ddb-411e-b683-53c25855f7a3
                   createdAt: '2021-04-29T13:15:30.358Z'
                   updatedAt: '2021-04-29T13:15:30.358Z'
-<<<<<<< HEAD
-  "/admin/test/data-export":
-    patch:
-      operationId: DataExport
-      description: Manually trigger the data export process. This triggers creation
-        of CSV files of several database tables and sending of them to an S3 bucket.
-      tags:
-      - admin
-      responses:
-        '204':
-          description: Success
-        '400':
-          description: Failure
-=======
         '404':
           description: Failed - unknown ID
           content:
@@ -1251,7 +1227,6 @@ paths:
                   statusCode: 404
                   error: Not found
                   message: No customer file found with id 8fb7e93c-1fc7-47cd-90d5-cdb1a8a63730
->>>>>>> main
   "/admin/test/transaction/{transactionId}":
     get:
       operationId: ViewTestTransaction
@@ -1988,25 +1963,6 @@ paths:
                               description: Value of total debits minus total credits
                               type: number
                               example: 573.45
-                            rebilledType:
-                              description: The type of invoice in relation to rebilling.
-                                `O` (Original) means the invoice is not a result of
-                                rebilling. `C` (Cancel) is an invoice generated as
-                                a result of rebilling to 'cancel' the original invoice.
-                                `R` (Rebill) is the invoice generated to 'rebill'
-                                the original invoice.
-                              type: string
-                              enum:
-                              - C
-                              - O
-                              - R
-                              example: R
-                            rebilledInvoiceId:
-                              description: If a rebilled invoice this is the ID of
-                                the originating invoice. Else will default to '99999999-9999-9999-9999-999999999999'
-                              type: string
-                              format: uuid
-                              example: 99999999-9999-9999-9999-999999999999
                             licences:
                               type: array
                               items:
@@ -2064,7 +2020,7 @@ paths:
                         debitLineValue: 2500
                         netTotal: 2500
                         rebilledType: O
-                        rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
+                        rebilledInvoiceId:
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -2095,7 +2051,7 @@ paths:
                         debitLineValue: 2500
                         netTotal: 2500
                         rebilledType: O
-                        rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
+                        rebilledInvoiceId:
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -2126,7 +2082,7 @@ paths:
                         debitLineValue: 2500
                         netTotal: 2500
                         rebilledType: O
-                        rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
+                        rebilledInvoiceId:
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -2157,7 +2113,7 @@ paths:
                         debitLineValue: 2500
                         netTotal: 2500
                         rebilledType: O
-                        rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
+                        rebilledInvoiceId:
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -2188,7 +2144,7 @@ paths:
                         debitLineValue: 2500
                         netTotal: 2500
                         rebilledType: O
-                        rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
+                        rebilledInvoiceId:
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -2219,7 +2175,7 @@ paths:
                         debitLineValue: 2500
                         netTotal: 2500
                         rebilledType: O
-                        rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
+                        rebilledInvoiceId:
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -2249,8 +2205,6 @@ paths:
                         creditLineValue: 2500
                         debitLineValue: 2500
                         netTotal: 0
-                        rebilledType: O
-                        rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
                         licences:
                         - id: 3bde68ad-f55e-4a15-b1d8-c2fcd0a95fea
                           licenceNumber: FOOO/BARRR/306
@@ -2929,24 +2883,6 @@ paths:
                     description: Value of total debits minus total credits
                     type: number
                     example: 573.45
-                  rebilledType:
-                    description: The type of invoice in relation to rebilling. `O`
-                      (Original) means the invoice is not a result of rebilling. `C`
-                      (Cancel) is an invoice generated as a result of rebilling to
-                      'cancel' the original invoice. `R` (Rebill) is the invoice generated
-                      to 'rebill' the original invoice.
-                    type: string
-                    enum:
-                    - C
-                    - O
-                    - R
-                    example: R
-                  rebilledInvoiceId:
-                    description: If a rebilled invoice this is the ID of the originating
-                      invoice. Else will default to '99999999-9999-9999-9999-999999999999'
-                    type: string
-                    format: uuid
-                    example: 99999999-9999-9999-9999-999999999999
                   licences:
                     type: array
                     items:
@@ -3049,7 +2985,7 @@ paths:
                   debitLineValue: 0
                   netTotal: -2093
                   rebilledType: O
-                  rebilledInvoiceId: 99999999-9999-9999-9999-999999999999
+                  rebilledInvoiceId:
                   licences:
                   - id: f62faabc-d65e-4242-a106-9777c1d57db7
                     licenceNumber: TONY/TF9222/38
@@ -3697,7 +3633,7 @@ paths:
       description: Request to rebill an invoice. Returns ID of the invoice that will
         cancel out the original invoice, and the one to replace it.
       tags:
-      - bill-run
+      - unavailable
       parameters:
       - name: regime
         in: path
@@ -3844,7 +3780,7 @@ paths:
       description: Delete the specified licence and all linked transactions. As part
         of the deletion the linked invoice and bill run will also be updated.
       tags:
-      - bill-run
+      - unavailable
       parameters:
       - name: regime
         in: path
