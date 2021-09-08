@@ -986,7 +986,7 @@ paths:
                   count: 10
                 - type: minimum-charge
                   count: 10
-  "/admin/test/{regime}/customers":
+  "/admin/test/{regime}/customer-files":
     get:
       operationId: ListCustomerFiles
       description: Request a list of 'customer files'. Each record contains the details
@@ -1091,7 +1091,7 @@ paths:
                 updatedAt: '2021-04-29T13:15:30.690Z'
                 status: exported
                 exportedAt: '2021-04-29T13:15:30.683Z'
-  "/admin/test/customers/{customerFileId}":
+  "/admin/test/customer-files/{customerFileId}":
     get:
       operationId: ViewCustomerFile
       description: Request details of a 'customer file'. Returns the 'customer file'
