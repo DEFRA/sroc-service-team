@@ -162,7 +162,7 @@ _Which we interpret as the number of client services using our system._
 
 ### How many users are affected?
 
-> 1 to 10
+> < 100
 
 ### Select service classification
 
