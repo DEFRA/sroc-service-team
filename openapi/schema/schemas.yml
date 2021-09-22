@@ -251,6 +251,15 @@ customerChangePost:
     - customerReference
     - customerName
     - addressLine1
+customerFileList:
+  type: object
+  properties:
+      fileReference:
+        $ref: 'fields.yml#/customerFileReference'
+      exportedCustomers:
+        type: array
+        items:
+          $ref: 'fields.yml#/customerReference'
 customerFile:
   type: object
   properties:
