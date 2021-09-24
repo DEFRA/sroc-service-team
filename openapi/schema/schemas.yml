@@ -254,12 +254,18 @@ customerChangePost:
 customerFileList:
   type: object
   properties:
-      fileReference:
-        $ref: 'fields.yml#/customerFileReference'
-      exportedCustomers:
-        type: array
-        items:
-          $ref: 'fields.yml#/customerReference'
+    id:
+      $ref: 'fields.yml#/customerFileId'
+    fileReference:
+      $ref: 'fields.yml#/customerFileReference'
+    status:
+      $ref: 'fields.yml#/customerFileStatus'
+    exportedAt:
+      $ref: 'fields.yml#/customerFileExportedAt'
+    exportedCustomers:
+      type: array
+      items:
+        $ref: 'fields.yml#/customerReference'
 customerFile:
   type: object
   properties:

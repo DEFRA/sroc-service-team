@@ -17,12 +17,18 @@ get:
             items:
               $ref: '../../../schema/schemas.yml#/customerFileList'
           example:
-            - fileReference: nalac50001
+            - id: 9523ff61-bd21-4800-aa7d-d97aa6c923aa
+              fileReference: nalac50001
+              status: exported
+              exportedAt: 2021-09-22T12:34:56.789Z
               exportedCustomers:
                 - AB01BEEB
                 - BB01BEEB
                 - CB01BEEB
-            - fileReference: nalac50002
+            - id: aa271bc5-0e36-4aeb-b636-64d95482825f
+              fileReference: nalac50002
+              status: exported
+              exportedAt: 2021-09-23T13:57:24.680Z
               exportedCustomers:
                 - DB02BEEB
                 - EB02BEEB
