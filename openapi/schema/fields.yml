@@ -177,6 +177,12 @@ customerReference:
   description: "Customer Number of the invoicee"
   type: string
   example: 'B19120000A'
+days:
+  description: "Number of days of customer files to retrieve, where 0 = files generated today, 1 = files generated yesterday and today, etc."
+  type: integer
+  minimum: 0
+  default: 30
+  example: 15
 debitLineValue:
   description: "Total value of transactions marked as debits"
   type: number

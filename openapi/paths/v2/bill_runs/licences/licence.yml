@@ -1,6 +1,6 @@
 delete:
   operationId: DeleteBillRunLicence
-  description: "Delete the specified licence and all linked transactions. As part of the deletion the linked invoice and bill run will also be updated."
+  description: "Delete the specified licence and all linked transactions. The linked bill run status will temporarily be set to `pending` during deletion and restored to its original status when deletion is complete. As part of the deletion the linked invoice and bill run will also be updated. If this results in the linked invoice being empty then it will also be deleted. If _this_ results in the bill run being empty then its status will be set to `initialised`."
   tags:
     - bill-run
   parameters:

@@ -1,0 +1,43 @@
+get:
+  operationId: ListCustomerFiles
+  description: "Request a list of 'customer files'. Each record contains the details for a file of customer changes the API generated and sent to SSCL."
+  tags:
+    - customer
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+    - $ref: '../../../schema/parameters.yml#/days'
+    
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../../schema/schemas.yml#/customerFileList'
+          example:
+            - id: 9523ff61-bd21-4800-aa7d-d97aa6c923aa
+              fileReference: nalac50001
+              status: exported
+              exportedAt: 2021-09-22T12:34:56.789Z
+              exportedCustomers:
+                - AB01BEEB
+                - BB01BEEB
+                - CB01BEEB
+            - id: aa271bc5-0e36-4aeb-b636-64d95482825f
+              fileReference: nalac50002
+              status: exported
+              exportedAt: 2021-09-23T13:57:24.680Z
+              exportedCustomers:
+                - DB02BEEB
+                - EB02BEEB
+                - FB02BEEB
+    '400':
+      description: Failed - issue with the request parameter
+      content:
+        application/json:
+          example:
+            statusCode: 400,
+            error: Bad Request
+            message: Invalid request params input
