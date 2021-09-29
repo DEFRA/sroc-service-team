@@ -1,5 +1,5 @@
 get:
-  operationId: ListCustomerFiles
+  operationId: ListCustomerFilesTest
   description: "Request a list of 'customer files'. Each record contains the details for a file of customer changes the API generated and sent to SSCL."
   tags:
     - admin
