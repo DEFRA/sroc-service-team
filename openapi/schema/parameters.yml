@@ -22,8 +22,7 @@ customerFileId:
 days:
   name: days
   in: path
-  required: false
-  description: "Number of days of customer files to retrieve, where 0 = files generated today, 1 = files generated yesterday and today, etc."
+  description: "OPTIONAL. Number of days of customer files to retrieve, where 0 = files generated today, 1 = files generated yesterday and today, etc. Defaults to 30 days if not provided"
   schema:
     $ref: 'fields.yml#/days'
 invoiceId:
