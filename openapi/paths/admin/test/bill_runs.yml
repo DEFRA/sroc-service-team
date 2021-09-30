@@ -1,6 +1,8 @@
 post:
   operationId: CreateTestBillRun
-  description: "This endpoint creates a test bill run for a region. It is intended for quickly creating large bill runs so we can access the performance and operation of endpoints when working with them. You can control the type of invoices generated within the bill run using the request payload. The types are
+  description: "This endpoint creates a test bill run for a region. It is intended for quickly creating large bill runs so we can assess the performance and operation of endpoints when working with them. You can control the type of invoices generated within the bill run using the request payload. The types are
+
+  - `standard` - 3 debit lines in an invoice
 
   - `mixed-invoice` - 2 debit lines and 1 credit line resulting in an invoice
 
@@ -13,7 +15,7 @@ post:
   - `minimum-charge` - 3 debit transactions that total less than £25 and are all subject to minimum charge
 
 
-  Every invoice created results in 3 transactions. So, the following request would result in a bill run with 100 invoices and 300 transactions.
+  By default, every invoice created results in 3 transactions. So, the following request would result in a bill run with 100 invoices and 300 transactions.
 
 
   ```
@@ -24,6 +26,20 @@ post:
         { \"type\": \"mixed-credit\", \"count\": 40 },
         { \"type\": \"zero-value\", \"count\": 10 },
         { \"type\": \"deminimis\", \"count\": 10 }
+    ]
+  }
+  ```
+
+
+  You can affect the number of transactions per invoice by including the `transactionMultiplier` property in the request payload. The followng request would result in 1 `mixed-invoice` with 50 debit lines and 25 credit lines.
+
+
+  ```
+  {
+    \"region\": \"A\",
+    \"transactionMultiplier\": 25,
+    \"mix\": [
+        { \"type\": \"mixed-invoice\", \"count\": 1 }
     ]
   }
   ```
@@ -70,7 +86,10 @@ post:
         schema:
           example:
             region: A
+            transactionMultiplier: 10
             mix:
+            - type: standard
+              count: 10
             - type: mixed-invoice
               count: 35
             - type: mixed-credit
