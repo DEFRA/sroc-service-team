@@ -107,7 +107,7 @@ Once all testing phases are complete we just need confirmation from the team's Q
 
 ### If issues are found
 
-We abort the release process if issues are found that will require code changes.
+We abort the sign off process if issues are found that will require code changes.
 
 Those changes would be managed within the team as normal; logged, prioritised and planned into a sprint. Once implemented if the team feels the application is again ready for release we start the whole process again.
 

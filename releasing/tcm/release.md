@@ -44,11 +44,11 @@ This is to let you know [RfC reference] for the Tactical Charging Module service
 Create an email with approximately the following format and send to the regime leads (check with the team who they are as we don't want to include their emails in a public document). In `CC` add the members of the CM team.
 
 ```text
-Subject: Tactical Charging Module [v3.1.0] release - successful
+Subject: Tactical Charging Module v3.1.0 release - successful
 
 Hello
 
-This is just to confirm the latest release of the Tactical Charging Module [v3.1.0] was completed successfully this morning.
+This is just to confirm the latest release of the Tactical Charging Module v3.1.0 was completed successfully this morning.
 
 [Sign off]
 ```
