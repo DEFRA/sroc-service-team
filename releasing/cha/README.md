@@ -1,9 +1,10 @@
 # SROC Charging Module API
 
-This guide documents the **sign off** and **schedule** stages for the CHA.
+This guide documents the **sign off** and **schedule** stages for the CHA. It also includes notes for the **release** day.
 
 - [Sign off](/releasing/cha/sign_off.md)
 - [Schedule](/releasing/cha/schedule.md)
+- [Release](/releasing/cha/release.md)
 
 ## Our responsibilities
 
