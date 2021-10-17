@@ -1,9 +1,10 @@
 # SROC Tactical Charging Module
 
-This guide documents the **sign off** and **schedule** stages for the CHA.
+This guide documents the **sign off** and **schedule** stages for the TCM. It also includes notes for the **release** day.
 
-- [Sign off](/releasing/cha/sign_off.md)
-- [Schedule](/releasing/cha/schedule.md)
+- [Sign off](/releasing/tcm/sign_off.md)
+- [Schedule](/releasing/tcm/schedule.md)
+- [Release](/releasing/tcm/release.md)
 
 ## Our responsibilities
 

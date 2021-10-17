@@ -9,6 +9,8 @@ The team splits the process into 2
 - **Sign off** we version [tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) the project, deploy that version to the `pre-prod` environment and run our regression and performance tests. Meantime we are generating the [CHANGELOG](https://keepachangelog.com/en/1.0.0/) and updating any relevant documentation.
 - **Schedule** submit the RfC and arrange for the signed off version to be deployed to `production`.
 
+The guides also contain notes about what we need to do on the day of release and if issues should arise.
+
 Because there are slight differences across the two systems, we have separate guidance for each.
 
 - [SROC Charging Module API](/releasing/cha/README.md)
