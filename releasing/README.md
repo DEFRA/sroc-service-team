@@ -4,14 +4,12 @@ Though we have [Continuous Integration](https://www.atlassian.com/continuous-del
 
 The release processes for the [TCM](https://github.com/DEFRA/sroc-tcm-admin) and the [CHA](https://github.com/DEFRA/sroc-charging-module-api) share a number of similarities because they are based on packaging up a 'release' ready to be submitted for approval to deploy via the RfC process.
 
-For each release of a service to production there are 4 stages to the process
+The team splits the process into 2
 
-- **Prepare**
-- **Assure**
-- **Approve**
-- **Ship**
+- **Sign off** we version [tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) the project, deploy that version to the `pre-prod` environment and run our regression and performance tests. Meantime we are generating the [CHANGELOG](https://keepachangelog.com/en/1.0.0/) and updating any relevant documentation.
+- **Schedule** submit the RfC and arrange for the signed off version to be deployed to `production`.
 
-The following documents go into detail about each one for each of the services
+Because there are slight differences across the two systems, we have separate guidance for each.
 
-- [SROC Tactical Charging Module](/releasing/tcm.md)
-- [SROC Charging Module API](/releasing/cha.md)
+- [SROC Charging Module API](/releasing/cha/README.md)
+- [SROC Tactical Charging Module](/releasing/tcm/README.md)
