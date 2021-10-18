@@ -188,7 +188,7 @@ In [Jenkins](https://cha-jenkins.aws-int.defra.cloud/) find the job `INT_01_CHA_
 
 ```bash
 DEPLOY_ENV=tra
-DEPLOY_TAG=v0.8.1
+DEPLOY_TAG=v0.14.1
 ```
 
 Then click the _Build Now_ button and wait for it to succeed.
