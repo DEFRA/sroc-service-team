@@ -12,7 +12,7 @@ Unlike the CHA the TCM is a web application used directly by EA teams who we sup
 
 ### Fixes first
 
-The CM team has committed to fixing 'bugs' first before working on new features or improvements. Bugs have an adverse effect on the quality of a system and how it's perceived by its users. This will effect the teams velocity and the trust our users have in us and the system.
+The CM team has committed to fixing 'bugs' first before working on new features or improvements. Bugs have an adverse effect on the quality of a system and how it's perceived by its users. This will effect the team's velocity and the trust our users have in us and the system.
 
 This is why, like with the CHA, we fix bugs first. For example, if the team were currently in Sprint 58 and a user raised an issue
 

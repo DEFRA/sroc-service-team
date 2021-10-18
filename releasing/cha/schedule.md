@@ -2,8 +2,6 @@
 
 This covers the schedule process for the [Charging Module API](https://github.com/DEFRA/sroc-charging-module-api).
 
-It covers
-
 - [Agree date and time for release](#agree-date-and-time-for-release)
 - [Submit RfC](#submit-rfc)
 - [Prepare a release note](#prepare-a-release-note)
@@ -23,15 +21,17 @@ This should also take into account the type of change being requested.
 - **Normal** - release in 10 working days time or later
   - Approvals are sought by email by the Change management team before approving the RfC
 - **Expedited** - release in 4-10 working days
-  - The next Change Approval Board (CAB) will discuss the RfC . Someone from the team may need to attend to answer any questions before they grant approval
+  - The next Change Approval Board (CAB) will discuss the RfC . Someone from the team _may_ need to attend to answer any questions before they grant approval
 - **Emergency** - release within 3 working days
-  - An emergency CAB will convene to discuss the RfC. Someone from the team *will* need to attend to answer any questions before they grant approval. These are _really_ discouraged by Change management and you _will_ be challenged on why it is needed.
+  - An emergency CAB will convene to discuss the RfC. Someone from the team _will_ need to attend to answer any questions before they grant approval. These are _really_ discouraged by Change management and you _will_ be challenged on why it is needed.
 
 If you need to co-ordinate the date and time for the release you will need to collaborate with these stakeholders.
 
-- our team, specifically the product owner on behalf of the business
-- teams that use the service
+- the CM team delivery manager as they will liaise with the client service leads
+- the CM team QA lead as they will need to be on hand to test the service after release
 - web-ops as they perform all releases and updates to production environments
+
+Unfortunately, until you actually submit the RfC it can be difficult to confirm exactly when the release will be. It has validation in place to ensure the change time frame is met. This is especially so with expedited and emergency changes as you will be endeavouring to find the earliest date and time possible!
 
 ## Submit RfC
 
@@ -78,7 +78,7 @@ This covers the steps involved for this release.
 
 ### Create calendar appointment
 
-Once a date and time has been confirmed create a calendar appointment and add the shared web-ops account **SM-Defra-ddts-aws-webops** and CM team's QA as `required`. Add the rest of the tech team as `optional`. Use the following template for the title and content
+Once a date and time has been confirmed create a calendar appointment and add the shared web-ops account **SM-Defra-ddts-aws-webops** and the CM team's QA as `required`. Add the rest of the CM tech team as `optional`. Use the following template for the title and content
 
 ```text
 title: CHA RFC CHG0053450 v0.14.1
@@ -92,7 +92,7 @@ This will serve as both a confirmation and reminder to all of the agreed date an
 
 ## Send email
 
-Create an email with approximately the following format and send to the client team delivery managers and product owners (check with the team who they are as we don't want to include their emails in a public document). In `CC` add the members of the CM team.
+Create an email with approximately the following format and send to the client team delivery managers and product owners (check with the team who they are as we don't want to include their emails in a public document). In `CC` add all members of the CM team.
 
 ```text
 Subject: Charging Module API - Release v0.14.1 to production
