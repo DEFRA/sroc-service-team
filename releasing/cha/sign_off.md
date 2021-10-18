@@ -79,7 +79,7 @@ Once **Artifactory** lists the correct image you can continue with the rest of t
 
 ## Update the CHANGELOG
 
-We use [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate our CHANGELOGs. The following assumes you have the gem installed (it can also be run [using Docker](https://github.com/github-changelog-generator/github-changelog-generator#running-with-docker)).
+We use [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate our CHANGELOGs. The following assumes you have the gem installed.
 
 From the root of the project run this
 

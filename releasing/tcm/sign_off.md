@@ -54,7 +54,7 @@ git push origin v3.1.0
 
 ## Update the CHANGELOG
 
-We use [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate our CHANGELOGs. The following assumes you have the gem installed (it can also be run [using Docker](https://github.com/github-changelog-generator/github-changelog-generator#running-with-docker)).
+We use [github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator) to generate our CHANGELOGs. The following assumes you have the gem installed.
 
 From the root of the project run this
 
