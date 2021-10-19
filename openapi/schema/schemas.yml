@@ -124,11 +124,21 @@ billRun:
                       $ref: 'fields.yml#/licenceId'
                     licenceNumber:
                       $ref: 'fields.yml#/licenceNumber'
+billRunPostV2:
+  type: object
+  properties:
+    region:
+      $ref: 'fields.yml#/regionCode'
+  required:
+    - region
 billRunPost:
   type: object
   properties:
     region:
       $ref: 'fields.yml#/regionCode'
+    ruleset:
+      $ref: 'fields.yml#/ruleset'
+      default: 'sroc'
   required:
     - region
 billRunPostResponse:

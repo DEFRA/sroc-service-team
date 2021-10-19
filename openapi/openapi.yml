@@ -186,6 +186,9 @@ paths:
   '/v2/{regime}/bill-runs':
     $ref: 'paths/v2/bill_runs/bill_runs.yml'
 
+  '/v3/{regime}/bill-runs':
+    $ref: 'paths/v3/bill_runs/bill_runs.yml'
+
   '/v2/{regime}/bill-runs/{billRunId}/transactions':
     $ref: 'paths/v2/bill_runs/transactions/bill_run_transactions.yml'
 
