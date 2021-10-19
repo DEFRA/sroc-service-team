@@ -1,5 +1,5 @@
 post:
-  operationId: CreateBillRunV2
+  operationId: CreateBillRun
   description: "This endpoint triggers creation of a bill run record for a region. Bill run contains no transactions on creation."
   tags:
     - bill-run
@@ -49,6 +49,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../schema/schemas.yml#/billRunPostV2'
+          $ref: '../../../schema/schemas.yml#/billRunPost'
         example:
           region: 'A'
+          ruleset: 'sroc'

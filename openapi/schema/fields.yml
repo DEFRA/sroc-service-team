@@ -306,6 +306,11 @@ regionCode:
   type: string
   enum: [A, B, E, N, S, T, W, Y]
   example: 'A'
+ruleset:
+  description: "The scheme ruleset that applies"
+  type: string
+  enum: [sroc, presroc]
+  example: 'presroc'
 season:
   description: "Season on which charge calculation based"
   type: string
