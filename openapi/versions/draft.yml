@@ -1175,6 +1175,7 @@ paths:
       description: This endpoint triggers creation of a bill run record for a region. Bill run contains no transactions on creation.
       tags:
         - bill-run
+      deprecated: true
       parameters:
         - name: regime
           in: path
