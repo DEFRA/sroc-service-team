@@ -1,0 +1,136 @@
+post:
+  operationId: CalculateCharge
+  description: "Request to calculate a standalone charge based on a set of charge parameters, without creating a transaction. Input and output data is not retained in the CM."
+  tags:
+    - calculate
+  parameters:
+    - $ref: '../../../schema/parameters.yml#/regime'
+  responses:
+    '200':
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            oneOf: 
+              - $ref: '../../../schema/schemas.yml#/calculateChargePresrocPostResponse'
+              - $ref: '../../../schema/schemas.yml#/calculateChargeSrocPostResponse'
+          examples:
+            'presroc':
+              value:
+                calculation:
+                  chargeValue: 772
+                  sourceFactor: 3
+                  seasonFactor: 1.6
+                  lossFactor: 0.03
+                  licenceHolderChargeAgreement: null
+                  chargeElementAgreement: null
+                  eiucSourceFactor: 0
+                  eiuc: 0
+                  suc: 1495
+            'sroc':
+              value:
+                calculation:
+                  chargeValue: 3395
+                  baseCharge: 9700
+                  waterCompanyChargeValue: 0
+                  supportedSourceValue: 0
+                  winterOnlyFactor: null
+                  section130Factor: 0.5
+                  section127Factor: null
+                  compensationChargePercent: 70
+    '400':
+      description: "Failed - issue with the Rules Service"
+      content:
+        application/json:
+          examples:
+            'Cannot connect to rules service':
+              value:
+                statusCode: 400
+                error: Bad Request
+                message: "Error communicating with the rules service: [error code]"
+            'Rule service returned a 5xx':
+              value:
+                statusCode: 400
+                error: Bad Request
+                message: "Rules service error: [error message]"
+    '403':
+      description: "Failed - not authorised"
+      content:
+        application/json:
+          schema:
+            example:
+              statusCode: 403
+              error: Forbidden
+              message: Unauthorised for regime 'wrls'
+    '422':
+      description: "Failed - issue with the requested data"
+      content:
+        application/json:
+          examples:
+            'Ruleset not found':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: Ruleset not found, please check periodStart value.
+            'Rule service data error':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: "Rules service error: [error message]"
+            'Rule service data message':
+              value:
+                statusCode: 422
+                error: Unprocessable Entity
+                message: "Rules service returned the following: [message]"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          oneOf:
+            - $ref: '../../../schema/schemas.yml#/calculateChargePresrocPost'
+            - $ref: '../../../schema/schemas.yml#/calculateChargeSrocPost'
+        examples:
+          'presroc':
+            value:
+              ruleset: presroc
+              periodStart: 01-APR-2020
+              periodEnd: 31-MAR-2021
+              credit: false
+              billableDays: 214
+              authorisedDays: 214
+              volume: '3.5865'
+              source: Supported
+              season: Summer
+              loss: Low
+              twoPartTariff: false
+              compensationCharge: false
+              eiucSource: Tidal
+              waterUndertaker: false
+              regionalChargingArea: Midlands
+              section126Factor: 1
+              section127Agreement: false
+              section130Agreement: false
+          'sroc':
+            value:
+              ruleset: sroc
+              periodStart: 01-APR-2022
+              periodEnd: 31-MAR-2023
+              credit: false
+              billableDays: 214
+              authorisedDays: 214
+              abatementFactor: '1.0'
+              actualVolume: '2.0'
+              aggregateProportion: '1.0'
+              chargeCategoryCode: 2.1.211
+              compensationCharge: true
+              loss: High
+              regionalChargingArea: Devon and Cornwall (South West)
+              section127Agreement: false
+              section130Agreement: true
+              supportedSource: true
+              supportedSourceName: Candover
+              twoPartTariff: false
+              authorisedVolume: '2.0'
+              waterCompanyCharge: false
+              waterUndertaker: false
+              winterOnly: false

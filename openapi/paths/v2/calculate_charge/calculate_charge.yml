@@ -1,5 +1,5 @@
 post:
-  operationId: CalculateCharge
+  operationId: CalculateChargeV2
   description: "Request to calculate a standalone charge based on a set of charge parameters, without creating a transaction. Input and output data is not retained in the CM."
   tags:
     - calculate
@@ -11,7 +11,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../../schema/schemas.yml#/calculateChargePostResponse'
+            $ref: '../../../schema/schemas.yml#/calculateChargePresrocPostResponse'
           example:
             calculation:
               chargeValue: 772
@@ -71,7 +71,7 @@ post:
     content:
       application/json:
         schema:
-            $ref: '../../../schema/schemas.yml#/calculateChargePost'
+            $ref: '../../../schema/schemas.yml#/calculateChargePostV2'
         example:
           periodStart: 01-APR-2020
           periodEnd: 31-MAR-2021

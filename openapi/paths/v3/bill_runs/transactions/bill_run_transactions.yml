@@ -1,5 +1,5 @@
 post:
-  operationId: AddBillRunTransactionV2
+  operationId: AddBillRunTransaction
   description: "Triggers creation of a transaction and immediately adds it to the specified bill run."
   tags:
     - bill-run
