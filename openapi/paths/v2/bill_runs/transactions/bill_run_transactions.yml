@@ -95,7 +95,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../../schema/schemas.yml#/transactionPost'
+          $ref: '../../../../schema/schemas.yml#/transactionPostV2'
         example:
           periodStart: '01-APR-2019'
           periodEnd: '31-MAR-2020'

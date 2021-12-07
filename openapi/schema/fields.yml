@@ -122,6 +122,10 @@ chargeCategoryCode:
   description: "Reference number of the charge category to be applied to the charge"
   type: string
   example: '2.1.211'
+chargeCategoryDescription:
+  description: "Description associated with the charge reference (category code)"
+  type: string
+  example: "Medium loss non-tidal abstraction of water greater than 35,833 up to and including 166,667 megalitres a year where a Tier 2 model applies."
 chargeElementAgreement:
   description: "Summary of the Section 126 or Section 127 charge calculations in a specific format required by the transaction file"
   type: string
@@ -413,6 +417,10 @@ supplementaryTwoPartTariff:
   type: boolean
   example: true
 supportedSource:
+  description: "Name of the supported source relevant to the charge, where applicable"
+  type: boolean
+  example: true
+supportedSourceName:
   description: "Boolean indicator to show whether a supported source supplement is to be added to a charge"
   type: string
   enum: ['Candover', 'Dee', 'Earl Soham - Deben', 'Glen Groundwater', 'Great East Anglian Groundwater', 'Great East Anglian Surface Water', 'Kielder', 'Lodes Granta Groundwater', 'Lower Yorkshire Derwent', 'Medway - Allington', 'Nene – Northampton', 'Nene – Water Newton', 'Ouse - Offord', 'Ouse – Eaton Socon', 'Ouse – Hermitage', 'Rhee Groundwater', 'Severn', 'Thames', 'Thet and Little Ouse Surface Water', 'Waveney Groundwater', 'Waveney Surface Water', 'Welland – Tinwell Sluices', 'Witham and Ancholme', 'Wye']
