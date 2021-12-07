@@ -156,7 +156,7 @@ billRunStatus:
   properties:
     status:
       $ref: 'fields.yml#/billRunStatus'
-calculateChargePost:
+calculateChargePostV2:
   type: object
   properties:
     periodStart:
@@ -209,7 +209,128 @@ calculateChargePost:
     - regionalChargingArea
     - credit
     - waterUndertaker
-calculateChargePostResponse:
+calculateChargePresrocPost:
+  title: 'presroc schema'
+  type: object
+  properties:
+    ruleset:
+      $ref: 'fields.yml#/ruleset'
+    periodStart:
+      $ref: 'fields.yml#/periodStart'
+    periodEnd:
+      $ref: 'fields.yml#/periodEnd'
+    credit:
+      $ref: 'fields.yml#/creditTransaction'
+    billableDays:
+      $ref: 'fields.yml#/billableDays'
+    authorisedDays:
+      $ref: 'fields.yml#/authorisedDays'
+    volume:
+      $ref: 'fields.yml#/volume'
+    source:
+      $ref: 'fields.yml#/source'
+    season:
+      $ref: 'fields.yml#/season'
+    loss:
+      $ref: 'fields.yml#/loss'
+    twoPartTariff:
+      $ref: 'fields.yml#/supplementaryTwoPartTariff'
+    compensationCharge:
+      $ref: 'fields.yml#/compensationCharge'
+    eiucSource:
+      $ref: 'fields.yml#/eiucAdjustedSource'
+    waterUndertaker:
+      $ref: 'fields.yml#/waterUndertaker'
+    regionalChargingArea:
+      $ref: 'fields.yml#/sucEiucRegionName'
+    section126Factor:
+      $ref: 'fields.yml#/section126Factor'
+    section127Agreement:
+      $ref: 'fields.yml#/section127Agreement'
+    section130Agreement:
+      $ref: 'fields.yml#/section130Agreement'
+  required:
+    - ruleset
+    - periodStart
+    - periodEnd
+    - billableDays
+    - authorisedDays
+    - volume
+    - source
+    - season
+    - loss
+    - section130Agreement
+    - section127Agreement
+    - twoPartTariff
+    - compensationCharge
+    - regionalChargingArea
+    - credit
+    - waterUndertaker
+calculateChargeSrocPost:
+  title: 'sroc schema'
+  type: object
+  properties:
+    ruleset:
+      $ref: 'fields.yml#/ruleset'
+    periodStart:
+      $ref: 'fields.yml#/periodStart'
+    periodEnd:
+      $ref: 'fields.yml#/periodEnd'
+    credit:
+      $ref: 'fields.yml#/credit'
+    abatementFactor:
+      $ref: 'fields.yml#/abatementFactor'
+    actualVolume:
+      $ref: 'fields.yml#/actualVolume'
+    aggregateProportion:
+      $ref: 'fields.yml#/aggregateProportion'
+    authorisedDays:
+      $ref: 'fields.yml#/authorisedDays'
+    authorisedVolume:
+      $ref: 'fields.yml#/authorisedVolume'
+    billableDays:
+      $ref: 'fields.yml#/billableDays'
+    chargeCategoryCode:
+      $ref: 'fields.yml#/chargeCategoryCode'
+    compensationCharge:
+      $ref: 'fields.yml#/compensationCharge'
+    loss:
+      $ref: 'fields.yml#/loss'
+    regionalChargingArea:
+      $ref: 'fields.yml#/regionalChargingArea'
+    section127Agreement:
+      $ref: 'fields.yml#/section127Agreement'
+    section130Agreement:
+      $ref: 'fields.yml#/section130Agreement'
+    supportedSource:
+      $ref: 'fields.yml#/supportedSource'
+    twoPartTariff:
+      $ref: 'fields.yml#/twoPartTariff'
+    waterCompanyCharge:
+      $ref: 'fields.yml#/waterCompanyCharge'
+    waterUndertaker:
+      $ref: 'fields.yml#/waterUndertaker'
+    winterOnly:
+      $ref: 'fields.yml#/winterOnly'
+  required:
+    - authorisedDays
+    - authorisedVolume
+    - billableDays
+    - chargeCategoryCode
+    - compensationCharge
+    - credit
+    - loss
+    - periodEnd
+    - periodStart
+    - ruleset
+    - section127Agreement
+    - section130Agreement
+    - supportedSource
+    - twoPartTariff
+    - waterCompanyCharge
+    - winterOnly
+calculateChargePresrocPostResponse:
+  title: 'presroc schema'
   type: object
   properties:
     calculation:
@@ -233,6 +354,29 @@ calculateChargePostResponse:
           $ref: 'fields.yml#/eiuc'
         suc:
           $ref: 'fields.yml#/suc'
+calculateChargeSrocPostResponse:
+  title: 'sroc schema'
+  type: object
+  properties:
+    calculation:
+      type: object
+      properties:
+        chargeValue:
+          $ref: 'fields.yml#/chargeValue'
+        baseCharge:
+          $ref: 'fields.yml#/baseCharge'
+        waterCompanyChargeValue:
+          $ref: 'fields.yml#/waterCompanyChargeValue'
+        supportedSourceValue:
+          $ref: 'fields.yml#/supportedSourceValue'
+        winterOnlyFactor:
+          $ref: 'fields.yml#/winterOnlyFactor'
+        section130Factor:
+          $ref: 'fields.yml#/section130Factor'
+        section127Factor:
+          $ref: 'fields.yml#/section127Factor'
+        compensationChargePercent:
+          $ref: 'fields.yml#/compensationChargePercent'
 customerChangePost:
   type: object
   properties:
@@ -451,7 +595,7 @@ status:
     status:
       type: string
       example: 'alive'
-transactionPost:
+transactionPostV2:
   type: object
   properties:
     periodStart:
@@ -531,6 +675,179 @@ transactionPost:
     - lineDescription
     - waterUndertaker
     - chargePeriod
+transactionPresrocPost:
+  title: 'presroc schema'
+  type: object
+  properties:
+    ruleset:
+      $ref: 'fields.yml#/ruleset'
+    periodStart:
+      $ref: 'fields.yml#/periodStart'
+    periodEnd:
+      $ref: 'fields.yml#/periodEnd'
+    subjectToMinimumCharge:
+      $ref: 'fields.yml#/subjectToMinimumCharge'
+    credit:
+      $ref: 'fields.yml#/creditTransaction'
+    billableDays:
+      $ref: 'fields.yml#/billableDays'
+    authorisedDays:
+      $ref: 'fields.yml#/authorisedDays'
+    volume:
+      $ref: 'fields.yml#/volume'
+    source:
+      $ref: 'fields.yml#/source'
+    season:
+      $ref: 'fields.yml#/season'
+    loss:
+      $ref: 'fields.yml#/loss'
+    twoPartTariff:
+      $ref: 'fields.yml#/supplementaryTwoPartTariff'
+    compensationCharge:
+      $ref: 'fields.yml#/compensationCharge'
+    eiucSource:
+      description: "Source on which compensation charge calculation based. This field is required when creating a transacton if `compensationCharge` is set to `true`"
+      $ref: 'fields.yml#/eiucAdjustedSource'
+    waterUndertaker:
+      $ref: 'fields.yml#/waterUndertaker'
+    regionalChargingArea:
+      $ref: 'fields.yml#/sucEiucRegionName'
+    section126Factor:
+      $ref: 'fields.yml#/section126Factor'
+    section127Agreement:
+      $ref: 'fields.yml#/section127Agreement'
+    section130Agreement:
+      $ref: 'fields.yml#/section130Agreement'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    lineDescription:
+      $ref: 'fields.yml#/lineDescription'
+    licenceNumber:
+      $ref: 'fields.yml#/licenceNumber'
+    chargePeriod:
+      $ref: 'fields.yml#/chargePeriod'
+    chargeElementId:
+      $ref: 'fields.yml#/chargeElementId'
+    batchNumber:
+      $ref: 'fields.yml#/batchNumber'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    areaCode:
+      $ref: 'fields.yml#/areaCode'
+    clientId:
+      $ref: 'fields.yml#/clientId'
+  required:
+    - region
+    - periodStart
+    - periodEnd
+    - customerReference
+    - licenceNumber
+    - billableDays
+    - authorisedDays
+    - volume
+    - source
+    - season
+    - loss
+    - section130Agreement
+    - section127Agreement
+    - twoPartTariff
+    - compensationCharge
+    - regionalChargingArea
+    - credit
+    - areaCode
+    - lineDescription
+    - waterUndertaker
+    - chargePeriod
+transactionSrocPost:
+  title: 'sroc schema'
+  type: object
+  properties:
+    ruleset:
+      $ref: 'fields.yml#/ruleset'
+    periodStart:
+      $ref: 'fields.yml#/periodStart'
+    periodEnd:
+      $ref: 'fields.yml#/periodEnd'
+    credit:
+      $ref: 'fields.yml#/credit'
+    abatementFactor:
+      $ref: 'fields.yml#/abatementFactor'
+    actualVolume:
+      $ref: 'fields.yml#/actualVolume'
+    aggregateProportion:
+      $ref: 'fields.yml#/aggregateProportion'
+    areaCode:
+      $ref: 'fields.yml#/areaCode'
+    authorisedDays:
+      $ref: 'fields.yml#/authorisedDays'
+    authorisedVolume:
+      $ref: 'fields.yml#/authorisedVolume'
+    batchNumber:
+      $ref: 'fields.yml#/batchNumber'
+    billableDays:
+      $ref: 'fields.yml#/billableDays'
+    chargeCategoryCode:
+      $ref: 'fields.yml#/chargeCategoryCode'
+    chargeCategoryDescription:
+      $ref: 'fields.yml#/chargeCategoryDescription'
+    chargePeriod:
+      $ref: 'fields.yml#/chargePeriod'
+    clientId:
+      $ref: 'fields.yml#/clientId'
+    compensationCharge:
+      $ref: 'fields.yml#/compensationCharge'
+    customerReference:
+      $ref: 'fields.yml#/customerReference'
+    licenceNumber:
+      $ref: 'fields.yml#/licenceNumber'
+    lineDescription:
+      $ref: 'fields.yml#/lineDescription'
+    loss:
+      $ref: 'fields.yml#/loss'
+    region:
+      $ref: 'fields.yml#/regionCode'
+    regionalChargingArea:
+      $ref: 'fields.yml#/regionalChargingArea'
+    section127Agreement:
+      $ref: 'fields.yml#/section127Agreement'
+    section130Agreement:
+      $ref: 'fields.yml#/section130Agreement'
+    supportedSource:
+      $ref: 'fields.yml#/supportedSource'
+    supportedSourceName:
+      $ref: 'fields.yml#/supportedSourceName'
+    twoPartTariff:
+      $ref: 'fields.yml#/twoPartTariff'
+    waterCompanyCharge:
+      $ref: 'fields.yml#/waterCompanyCharge'
+    waterUndertaker:
+      $ref: 'fields.yml#/waterUndertaker'
+    winterOnly:
+      $ref: 'fields.yml#/winterOnly'
+  required:
+    - areaCode
+    - authorisedDays
+    - authorisedVolume
+    - billableDays
+    - chargeCategoryCode
+    - chargeCategoryDescription
+    - chargePeriod
+    - clientId
+    - compensationCharge
+    - credit
+    - customerReference
+    - licenceNumber
+    - lineDescription
+    - loss
+    - periodEnd
+    - periodStart
+    - ruleset
+    - section127Agreement
+    - section130Agreement
+    - supportedSource
+    - twoPartTariff
+    - waterCompanyCharge
+    - winterOnly
 transactionPostResponse:
   type: object
   properties:

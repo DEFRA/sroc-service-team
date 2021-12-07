@@ -192,6 +192,9 @@ paths:
   '/v2/{regime}/bill-runs/{billRunId}/transactions':
     $ref: 'paths/v2/bill_runs/transactions/bill_run_transactions.yml'
 
+  '/v3/{regime}/bill-runs/{billRunId}/transactions':
+    $ref: 'paths/v3/bill_runs/transactions/bill_run_transactions.yml'
+
   '/v2/{regime}/bill-runs/{billRunId}':
     $ref: 'paths/v2/bill_runs/bill_run.yml'
 
@@ -212,6 +215,9 @@ paths:
 
   '/v2/{regime}/calculate-charge':
     $ref: 'paths/v2/calculate_charge/calculate_charge.yml'
+
+  '/v3/{regime}/calculate-charge':
+    $ref: 'paths/v3/calculate_charge/calculate_charge.yml'
 
   '/v2/{regime}/customer-changes':
     $ref: 'paths/v2/customer_changes/customer_changes.yml'
