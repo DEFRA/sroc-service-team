@@ -1377,7 +1377,7 @@ paths:
               ruleset: sroc
   /v2/{regime}/bill-runs/{billRunId}/transactions:
     post:
-      operationId: AddBillRunTransaction
+      operationId: AddBillRunTransactionV2
       description: Triggers creation of a transaction and immediately adds it to the specified bill run.
       tags:
         - bill-run
@@ -1748,6 +1748,680 @@ paths:
               region: W
               areaCode: ARCA
               clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
+  /v3/{regime}/bill-runs/{billRunId}/transactions:
+    post:
+      operationId: AddBillRunTransaction
+      description: Triggers creation of a transaction and immediately adds it to the specified bill run.
+      tags:
+        - bill-run
+      parameters:
+        - name: regime
+          in: path
+          required: true
+          description: Charging regime to use
+          schema:
+            description: Short reference for a regime, referred to as a 'slug'. This is also what we expect to see in the path as the regime identifier when making a request
+            type: string
+            enum:
+              - cfd
+              - pas
+              - wml
+              - wrls
+            example: wrls
+        - name: billRunId
+          in: path
+          required: true
+          description: Internal ID (GUID) allocated by the CM when creating a bill run.
+          schema:
+            description: Internal ID (GUID) allocated by the CM when creating a bill run.
+            type: string
+            format: uuid
+            example: fd2ab097-3097-42bd-849e-046aa250a0d0
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transaction:
+                    type: object
+                    properties:
+                      id:
+                        description: Internal ID (GUID) allocated by the CM when creating a transaction, not necessarily visible to the user
+                        type: string
+                        format: uuid
+                        example: fd2ab097-3097-42bd-849e-046aa250a0d0
+                      clientId:
+                        description: ID of the transaction in the client system. If provided at the time of creation the API will first check no existing transactions with the same ID for that regime exist.
+                        type: string
+                        nullable: true
+                        example: hb3ab097-8567-42bd-849e-046aa250a8u8
+              example:
+                transaction:
+                  id: fd88e6c5-8da8-4e4f-b22f-c66554cd5bf3
+                  clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
+        "400":
+          description: Failed - issue with the Rules Service
+          content:
+            application/json:
+              examples:
+                Cannot connect to rules service:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Error communicating with the rules service: [error code]'
+                Rule service returned a 5xx:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Rules service error: [error message]'
+        "403":
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        "404":
+          description: Failed - unknown ID
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 404
+                  error: Not found
+                  message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is unknown.
+        "409":
+          description: Failed - the action conflicts with something
+          content:
+            application/json:
+              examples:
+                Bill run cannot be changed:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 cannot be edited because its status is billed.
+                Client ID matches existing transaction:
+                  value:
+                    statusCode: 409
+                    error: Conflict
+                    message: A transaction with Client ID '2395429b-e703-43bc-8522-ce3f67507ffa' for Regime 'wrls' already exists.
+                    clientId: 2395429b-e703-43bc-8522-ce3f67507ff
+        "422":
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Bill run not linked to regime:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.
+                Ruleset not found:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Ruleset not found, please check periodStart value.
+                Rule service data error:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service error: [error message]'
+                Rule service data message:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service returned the following: [message]'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - title: presroc schema
+                  type: object
+                  properties:
+                    ruleset:
+                      description: The scheme ruleset that applies
+                      type: string
+                      enum:
+                        - sroc
+                        - presroc
+                      example: presroc
+                    periodStart:
+                      description: The start date of the charge period covered by a transaction
+                      type: string
+                      example: 01-APR-2018
+                    periodEnd:
+                      description: The end date of the charge period covered by a transaction
+                      type: string
+                      example: 31-MAR-2019
+                    subjectToMinimumCharge:
+                      description: Boolean indicator to show whether a transaction is subject to minimum charge. For example, transactions for new licences are subject to minimum charge
+                      type: boolean
+                      example: false
+                    credit:
+                      description: Boolean indicator to show whether the transaction is a credit (negative value)
+                      type: boolean
+                      example: false
+                    billableDays:
+                      description: The number of days covered by a charge
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 149
+                    authorisedDays:
+                      description: The number of days per year in which abstraction is authorised under the terms of the licence
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 214
+                    volume:
+                      description: The volume (in thousands of cubic metres) on which the charge is based
+                      type: number
+                      minimum: 0
+                      example: 19.909
+                    source:
+                      description: Source on which standard charge calculation based
+                      type: string
+                      enum:
+                        - Supported
+                        - Kielder
+                        - Unsupported
+                        - Tidal
+                      example: Unsupported
+                    season:
+                      description: Season on which charge calculation based
+                      type: string
+                      enum:
+                        - Summer
+                        - Winter
+                        - All Year
+                      example: Summer
+                    loss:
+                      description: Loss on which charge calculation based
+                      type: string
+                      enum:
+                        - High
+                        - Medium
+                        - Low
+                        - Very Low
+                      example: Medium
+                    twoPartTariff:
+                      description: Boolean indicator to show whether the transaction is for the second part of a 2-part tariff charge
+                      type: boolean
+                      example: true
+                    compensationCharge:
+                      description: Boolean indicator to show whether the transaction relates to a compensation charge
+                      type: boolean
+                      example: false
+                    eiucSource:
+                      description: Source on which compensation charge calculation based. This field is required when creating a transacton if `compensationCharge` is set to `true`
+                      type: string
+                      example: Tidal
+                    waterUndertaker:
+                      description: Boolean indicator to show whether the transaction is for a water undertaker
+                      type: boolean
+                      example: false
+                    regionalChargingArea:
+                      description: The name of the region relevant to the determination of the SUC and / or EIUC value to be used in the calculation
+                      type: string
+                      enum:
+                        - Anglian
+                        - Midlands
+                        - South West
+                        - North West
+                        - Southern
+                        - Thames
+                        - Northumbria
+                        - Yorkshire
+                        - Wales
+                      example: Northumbria
+                    section126Factor:
+                      description: The factor to apply to the charge where a section 126 charge agreement is relevant to the transaction
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                      example: 0.75
+                    section127Agreement:
+                      description: Indicator to show whether a section 127 charge agreement applies to the transaction
+                      type: boolean
+                      example: false
+                    section130Agreement:
+                      description: Indicator to show whether a section 130 charge agreement applies to the transaction
+                      type: boolean
+                      example: true
+                    customerReference:
+                      description: Customer Number of the invoicee
+                      type: string
+                      example: B19120000A
+                    lineDescription:
+                      description: Description of the reason for the charge, to appear on the invoice sent to the customer
+                      type: string
+                      maxLength: 240
+                      example: Borehole at Runhall, Norfolk.
+                    licenceNumber:
+                      description: The reference of the licence to which a charge / transaction relates
+                      type: string
+                      maxLength: 150
+                      example: 7/34/16/*G/0093
+                    chargePeriod:
+                      description: The charge period for a transaction (i.e. charge period start date to charge period end date)
+                      type: string
+                      example: 01-APR-2018 - 31-MAR-2019
+                    chargeElementId:
+                      description: An indicator (normally an integer) to distinguish between the different charge elements on a specific licence.
+                      type: string
+                      nullable: true
+                      example: "1"
+                    batchNumber:
+                      description: Number to be generated by WRLS indicating the 'batch' in which creation of a transaction was requested
+                      type: string
+                      nullable: true
+                      example: TONY100
+                    region:
+                      description: A single-digit region identifier for a transaction or customer
+                      type: string
+                      enum:
+                        - A
+                        - B
+                        - E
+                        - "N"
+                        - S
+                        - T
+                        - W
+                        - "Y"
+                      example: A
+                    areaCode:
+                      description: Code identifying the historic area (within a region) for the transaction.
+                      type: string
+                      enum:
+                        - ARCA
+                        - AREA
+                        - ARNA
+                        - CASC
+                        - MIDLS
+                        - MIDLT
+                        - MIDUS
+                        - MIDUT
+                        - AACOR
+                        - AADEV
+                        - AANWX
+                        - AASWX
+                        - NWCEN
+                        - NWNTH
+                        - NWSTH
+                        - HAAR
+                        - KAEA
+                        - SAAR
+                        - AGY2N
+                        - AGY2S
+                        - AGY3
+                        - AGY3N
+                        - AGY3S
+                        - AGY4N
+                        - AGY4S
+                        - "N"
+                        - SE
+                        - SE1
+                        - SE2
+                        - SW
+                        - ABNRTH
+                        - DALES
+                        - NAREA
+                        - RIDIN
+                        - DEFAULT
+                        - MULTI
+                      example: NWCEN
+                    clientId:
+                      description: ID of the transaction in the client system. If provided at the time of creation the API will first check no existing transactions with the same ID for that regime exist.
+                      type: string
+                      nullable: true
+                      example: hb3ab097-8567-42bd-849e-046aa250a8u8
+                  required:
+                    - region
+                    - periodStart
+                    - periodEnd
+                    - customerReference
+                    - licenceNumber
+                    - billableDays
+                    - authorisedDays
+                    - volume
+                    - source
+                    - season
+                    - loss
+                    - section130Agreement
+                    - section127Agreement
+                    - twoPartTariff
+                    - compensationCharge
+                    - regionalChargingArea
+                    - credit
+                    - areaCode
+                    - lineDescription
+                    - waterUndertaker
+                    - chargePeriod
+                - title: sroc schema
+                  type: object
+                  properties:
+                    ruleset:
+                      description: The scheme ruleset that applies
+                      type: string
+                      enum:
+                        - sroc
+                        - presroc
+                      example: presroc
+                    periodStart:
+                      description: The start date of the charge period covered by a transaction
+                      type: string
+                      example: 01-APR-2018
+                    periodEnd:
+                      description: The end date of the charge period covered by a transaction
+                      type: string
+                      example: 31-MAR-2019
+                    credit:
+                      description: Boolean indicator to show whether the transaction is a credit
+                      type: boolean
+                      example: false
+                    abatementFactor:
+                      description: Factor to apply to a charge where an abatement applies
+                      type: number
+                      default: 1
+                      example: 0.5
+                    actualVolume:
+                      description: The actual volume of water abstracted by a licence holder
+                      type: number
+                      minimum: 0
+                      exclusiveMinimum: true
+                      example: 5
+                    aggregateProportion:
+                      description: Factor to apply to cater for the proportioning of charges between licences where aggregation applies
+                      type: number
+                      default: 1
+                      example: 0.5
+                    areaCode:
+                      description: Code identifying the historic area (within a region) for the transaction.
+                      type: string
+                      enum:
+                        - ARCA
+                        - AREA
+                        - ARNA
+                        - CASC
+                        - MIDLS
+                        - MIDLT
+                        - MIDUS
+                        - MIDUT
+                        - AACOR
+                        - AADEV
+                        - AANWX
+                        - AASWX
+                        - NWCEN
+                        - NWNTH
+                        - NWSTH
+                        - HAAR
+                        - KAEA
+                        - SAAR
+                        - AGY2N
+                        - AGY2S
+                        - AGY3
+                        - AGY3N
+                        - AGY3S
+                        - AGY4N
+                        - AGY4S
+                        - "N"
+                        - SE
+                        - SE1
+                        - SE2
+                        - SW
+                        - ABNRTH
+                        - DALES
+                        - NAREA
+                        - RIDIN
+                        - DEFAULT
+                        - MULTI
+                      example: NWCEN
+                    authorisedDays:
+                      description: The number of days per year in which abstraction is authorised under the terms of the licence
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 214
+                    authorisedVolume:
+                      description: The volume of water authorised for abstraction
+                      type: number
+                      minimum: 0
+                      exclusiveMinimum: true
+                      example: 5
+                    batchNumber:
+                      description: Number to be generated by WRLS indicating the 'batch' in which creation of a transaction was requested
+                      type: string
+                      nullable: true
+                      example: TONY100
+                    billableDays:
+                      description: The number of days covered by a charge
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 149
+                    chargeCategoryCode:
+                      description: Reference number of the charge category to be applied to the charge
+                      type: string
+                      example: 2.1.211
+                    chargeCategoryDescription:
+                      description: Description associated with the charge reference (category code)
+                      type: string
+                      example: Medium loss non-tidal abstraction of water greater than 35,833 up to and including 166,667 megalitres a year where a Tier 2 model applies.
+                    chargePeriod:
+                      description: The charge period for a transaction (i.e. charge period start date to charge period end date)
+                      type: string
+                      example: 01-APR-2018 - 31-MAR-2019
+                    clientId:
+                      description: ID of the transaction in the client system. If provided at the time of creation the API will first check no existing transactions with the same ID for that regime exist.
+                      type: string
+                      nullable: true
+                      example: hb3ab097-8567-42bd-849e-046aa250a8u8
+                    compensationCharge:
+                      description: Boolean indicator to show whether the transaction relates to a compensation charge
+                      type: boolean
+                      example: false
+                    customerReference:
+                      description: Customer Number of the invoicee
+                      type: string
+                      example: B19120000A
+                    licenceNumber:
+                      description: The reference of the licence to which a charge / transaction relates
+                      type: string
+                      maxLength: 150
+                      example: 7/34/16/*G/0093
+                    lineDescription:
+                      description: Description of the reason for the charge, to appear on the invoice sent to the customer
+                      type: string
+                      maxLength: 240
+                      example: Borehole at Runhall, Norfolk.
+                    loss:
+                      description: Loss on which charge calculation based
+                      type: string
+                      enum:
+                        - High
+                        - Medium
+                        - Low
+                        - Very Low
+                      example: Medium
+                    region:
+                      description: A single-digit region identifier for a transaction or customer
+                      type: string
+                      enum:
+                        - A
+                        - B
+                        - E
+                        - "N"
+                        - S
+                        - T
+                        - W
+                        - "Y"
+                      example: A
+                    regionalChargingArea:
+                      description: Name of the region to be used when determining the regional factor to be applied for a compensation charge
+                      type: string
+                      enum:
+                        - Anglian
+                        - Dee
+                        - Devon and Cornwall (South West)
+                        - Midlands
+                        - North and South Wessex
+                        - North West
+                        - Northumbria
+                        - South West (incl Wessex)
+                        - Southern
+                        - Thames
+                        - Wales
+                        - Wye
+                        - Yorkshire
+                      example: Devon and Cornwall (South West)
+                    section127Agreement:
+                      description: Indicator to show whether a section 127 charge agreement applies to the transaction
+                      type: boolean
+                      example: false
+                    section130Agreement:
+                      description: Indicator to show whether a section 130 charge agreement applies to the transaction
+                      type: boolean
+                      example: true
+                    supportedSource:
+                      description: Name of the supported source relevant to the charge, where applicable
+                      type: boolean
+                      example: true
+                    supportedSourceName:
+                      description: Boolean indicator to show whether a supported source supplement is to be added to a charge
+                      type: string
+                      enum:
+                        - Candover
+                        - Dee
+                        - Earl Soham - Deben
+                        - Glen Groundwater
+                        - Great East Anglian Groundwater
+                        - Great East Anglian Surface Water
+                        - Kielder
+                        - Lodes Granta Groundwater
+                        - Lower Yorkshire Derwent
+                        - Medway - Allington
+                        - Nene – Northampton
+                        - Nene – Water Newton
+                        - Ouse - Offord
+                        - Ouse – Eaton Socon
+                        - Ouse – Hermitage
+                        - Rhee Groundwater
+                        - Severn
+                        - Thames
+                        - Thet and Little Ouse Surface Water
+                        - Waveney Groundwater
+                        - Waveney Surface Water
+                        - Welland – Tinwell Sluices
+                        - Witham and Ancholme
+                        - Wye
+                      example: Thames
+                    twoPartTariff:
+                      description: Boolean indicator to show whether a transaction/charge request relates to the 2nd part of a two-part tariff bill
+                      type: boolean
+                      example: true
+                    waterCompanyCharge:
+                      description: Boolean indicator to show whether the water company supplement is to be added to a charge
+                      type: boolean
+                      example: true
+                    waterUndertaker:
+                      description: Boolean indicator to show whether the transaction is for a water undertaker
+                      type: boolean
+                      example: false
+                    winterOnly:
+                      description: Boolean indicator to show whether a charge relates to a licence that authorises abstraction in the winter season only
+                      type: boolean
+                      example: true
+                  required:
+                    - areaCode
+                    - authorisedDays
+                    - authorisedVolume
+                    - billableDays
+                    - chargeCategoryCode
+                    - chargeCategoryDescription
+                    - chargePeriod
+                    - clientId
+                    - compensationCharge
+                    - credit
+                    - customerReference
+                    - licenceNumber
+                    - lineDescription
+                    - loss
+                    - periodEnd
+                    - periodStart
+                    - ruleset
+                    - section127Agreement
+                    - section130Agreement
+                    - supportedSource
+                    - twoPartTariff
+                    - waterCompanyCharge
+                    - winterOnly
+            examples:
+              presroc:
+                value:
+                  ruleset: presroc
+                  periodStart: 01-APR-2019
+                  periodEnd: 31-MAR-2020
+                  subjectToMinimumCharge: false
+                  credit: false
+                  billableDays: 310
+                  authorisedDays: 365
+                  volume: "6.22"
+                  source: Supported
+                  season: Summer
+                  loss: Low
+                  twoPartTariff: false
+                  compensationCharge: false
+                  eiucSource: Tidal
+                  waterUndertaker: false
+                  regionalChargingArea: Anglian
+                  section127Agreement: false
+                  section130Agreement: false
+                  customerReference: TH230000222
+                  lineDescription: Well at Chigley Town Hall
+                  licenceNumber: TONY/TF9222/37
+                  chargePeriod: 01-APR-2018 - 31-MAR-2019
+                  chargeElementId: ""
+                  batchNumber: TONY10
+                  region: W
+                  areaCode: ARCA
+                  clientId: 2395429b-e703-43bc-8522-ce3f67507ffa
+              sroc:
+                value:
+                  ruleset: sroc
+                  periodStart: 01-APR-2022
+                  periodEnd: 31-MAR-2023
+                  credit: false
+                  abatementFactor: 1
+                  actualVolume: 2
+                  aggregateProportion: 1
+                  areaCode: ARCA
+                  authorisedDays: 214
+                  authorisedVolume: 2
+                  billableDays: 214
+                  chargeCategoryCode: 2.1.211
+                  chargeCategoryDescription: CHARGE_CATEGORY_DESCRIPTION
+                  chargePeriod: 01-APR-2022 - 31-MAR-2023
+                  compensationCharge: true
+                  customerReference: CUSTOMER_REF
+                  licenceNumber: LICENCE_NUMBER
+                  lineDescription: LINE_DESCRIPTION
+                  loss: High
+                  region: A
+                  regionalChargingArea: Devon and Cornwall (South West)
+                  section127Agreement: false
+                  section130Agreement: true
+                  supportedSource: true
+                  supportedSourceName: Candover
+                  twoPartTariff: false
+                  waterCompanyCharge: false
+                  waterUndertaker: false
+                  winterOnly: false
   /v2/{regime}/bill-runs/{billRunId}:
     get:
       operationId: ViewBillRun
@@ -3049,7 +3723,7 @@ paths:
                     message: Bill run fd2ab097-3097-42bd-849e-046aa250a0d0 is not linked to regime wrls.
   /v2/{regime}/calculate-charge:
     post:
-      operationId: CalculateCharge
+      operationId: CalculateChargeV2
       description: Request to calculate a standalone charge based on a set of charge parameters, without creating a transaction. Input and output data is not retained in the CM.
       tags:
         - calculate
@@ -3073,6 +3747,7 @@ paths:
           content:
             application/json:
               schema:
+                title: presroc schema
                 type: object
                 properties:
                   calculation:
@@ -3310,6 +3985,495 @@ paths:
               section126Factor: 1
               section127Agreement: false
               section130Agreement: false
+  /v3/{regime}/calculate-charge:
+    post:
+      operationId: CalculateCharge
+      description: Request to calculate a standalone charge based on a set of charge parameters, without creating a transaction. Input and output data is not retained in the CM.
+      tags:
+        - calculate
+      parameters:
+        - name: regime
+          in: path
+          required: true
+          description: Charging regime to use
+          schema:
+            description: Short reference for a regime, referred to as a 'slug'. This is also what we expect to see in the path as the regime identifier when making a request
+            type: string
+            enum:
+              - cfd
+              - pas
+              - wml
+              - wrls
+            example: wrls
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - title: presroc schema
+                    type: object
+                    properties:
+                      calculation:
+                        type: object
+                        properties:
+                          chargeValue:
+                            description: The value of the transaction in pence based on the response from the rules service
+                            type: number
+                            example: 9290
+                          sourceFactor:
+                            description: The source factor applied to the calculation
+                            type: number
+                            example: 9
+                          seasonFactor:
+                            description: The season factor applied to the calculation
+                            type: number
+                            example: 0.16
+                          lossFactor:
+                            description: The loss factor applied to the calculation
+                            type: number
+                            example: 0.003
+                          licenceHolderChargeAgreement:
+                            description: Summary of the Section 130 charge calculation in a specific format required by the transaction file
+                            type: string
+                            nullable: true
+                            example: S130U x 0.5
+                          chargeElementAgreement:
+                            description: Summary of the Section 126 or Section 127 charge calculations in a specific format required by the transaction file
+                            type: string
+                            nullable: true
+                            example: S126 x 0.8
+                          eiucSourceFactor:
+                            description: The EIUC adjusted source factor applied to the calculation
+                            type: number
+                            example: 0.2
+                          eiuc:
+                            description: Environmental Improvement Unit Charge (EIUC) for the transaction
+                            type: number
+                            example: 0.2
+                          suc:
+                            description: Standard Unit Charge (SUC) for the transaction
+                            type: number
+                            example: 27.51
+                  - title: sroc schema
+                    type: object
+                    properties:
+                      calculation:
+                        type: object
+                        properties:
+                          chargeValue:
+                            description: The value of the transaction in pence based on the response from the rules service
+                            type: number
+                            example: 9290
+                          baseCharge:
+                            description: Value in pence associated with the supplied charge category code
+                            type: integer
+                            example: 200000
+                          waterCompanyChargeValue:
+                            description: Value in pence of the water company supplement, where applied
+                            type: integer
+                            example: 78500
+                          supportedSourceValue:
+                            description: Value in pence of the supported source supplement, where applied
+                            type: integer
+                            example: 124800
+                          winterOnlyFactor:
+                            description: The factor applied to the charge (if any) for a licence authorising abstraction in the winter months only
+                            type: number
+                            example: 0.5
+                          section130Factor:
+                            description: The factor applied to the charge (if any) for a Section 130 agreement
+                            type: number
+                            example: 0.5
+                          section127Factor:
+                            description: The factor applied to the charge (if any) for a Section 127 agreement
+                            type: number
+                            example: 0.5
+                          compensationChargePercent:
+                            description: The percentage multiplier applied to a compensation charge, based on the regionalChargingArea
+                            type: number
+                            example: 0
+              examples:
+                presroc:
+                  value:
+                    calculation:
+                      chargeValue: 772
+                      sourceFactor: 3
+                      seasonFactor: 1.6
+                      lossFactor: 0.03
+                      licenceHolderChargeAgreement: null
+                      chargeElementAgreement: null
+                      eiucSourceFactor: 0
+                      eiuc: 0
+                      suc: 1495
+                sroc:
+                  value:
+                    calculation:
+                      chargeValue: 3395
+                      baseCharge: 9700
+                      waterCompanyChargeValue: 0
+                      supportedSourceValue: 0
+                      winterOnlyFactor: null
+                      section130Factor: 0.5
+                      section127Factor: null
+                      compensationChargePercent: 70
+        "400":
+          description: Failed - issue with the Rules Service
+          content:
+            application/json:
+              examples:
+                Cannot connect to rules service:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Error communicating with the rules service: [error code]'
+                Rule service returned a 5xx:
+                  value:
+                    statusCode: 400
+                    error: Bad Request
+                    message: 'Rules service error: [error message]'
+        "403":
+          description: Failed - not authorised
+          content:
+            application/json:
+              schema:
+                example:
+                  statusCode: 403
+                  error: Forbidden
+                  message: Unauthorised for regime 'wrls'
+        "422":
+          description: Failed - issue with the requested data
+          content:
+            application/json:
+              examples:
+                Ruleset not found:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: Ruleset not found, please check periodStart value.
+                Rule service data error:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service error: [error message]'
+                Rule service data message:
+                  value:
+                    statusCode: 422
+                    error: Unprocessable Entity
+                    message: 'Rules service returned the following: [message]'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - title: presroc schema
+                  type: object
+                  properties:
+                    ruleset:
+                      description: The scheme ruleset that applies
+                      type: string
+                      enum:
+                        - sroc
+                        - presroc
+                      example: presroc
+                    periodStart:
+                      description: The start date of the charge period covered by a transaction
+                      type: string
+                      example: 01-APR-2018
+                    periodEnd:
+                      description: The end date of the charge period covered by a transaction
+                      type: string
+                      example: 31-MAR-2019
+                    credit:
+                      description: Boolean indicator to show whether the transaction is a credit (negative value)
+                      type: boolean
+                      example: false
+                    billableDays:
+                      description: The number of days covered by a charge
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 149
+                    authorisedDays:
+                      description: The number of days per year in which abstraction is authorised under the terms of the licence
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 214
+                    volume:
+                      description: The volume (in thousands of cubic metres) on which the charge is based
+                      type: number
+                      minimum: 0
+                      example: 19.909
+                    source:
+                      description: Source on which standard charge calculation based
+                      type: string
+                      enum:
+                        - Supported
+                        - Kielder
+                        - Unsupported
+                        - Tidal
+                      example: Unsupported
+                    season:
+                      description: Season on which charge calculation based
+                      type: string
+                      enum:
+                        - Summer
+                        - Winter
+                        - All Year
+                      example: Summer
+                    loss:
+                      description: Loss on which charge calculation based
+                      type: string
+                      enum:
+                        - High
+                        - Medium
+                        - Low
+                        - Very Low
+                      example: Medium
+                    twoPartTariff:
+                      description: Boolean indicator to show whether the transaction is for the second part of a 2-part tariff charge
+                      type: boolean
+                      example: true
+                    compensationCharge:
+                      description: Boolean indicator to show whether the transaction relates to a compensation charge
+                      type: boolean
+                      example: false
+                    eiucSource:
+                      description: Source on which compensation charge calculation based
+                      type: string
+                      example: Tidal
+                    waterUndertaker:
+                      description: Boolean indicator to show whether the transaction is for a water undertaker
+                      type: boolean
+                      example: false
+                    regionalChargingArea:
+                      description: The name of the region relevant to the determination of the SUC and / or EIUC value to be used in the calculation
+                      type: string
+                      enum:
+                        - Anglian
+                        - Midlands
+                        - South West
+                        - North West
+                        - Southern
+                        - Thames
+                        - Northumbria
+                        - Yorkshire
+                        - Wales
+                      example: Northumbria
+                    section126Factor:
+                      description: The factor to apply to the charge where a section 126 charge agreement is relevant to the transaction
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                      example: 0.75
+                    section127Agreement:
+                      description: Indicator to show whether a section 127 charge agreement applies to the transaction
+                      type: boolean
+                      example: false
+                    section130Agreement:
+                      description: Indicator to show whether a section 130 charge agreement applies to the transaction
+                      type: boolean
+                      example: true
+                  required:
+                    - ruleset
+                    - periodStart
+                    - periodEnd
+                    - billableDays
+                    - authorisedDays
+                    - volume
+                    - source
+                    - season
+                    - loss
+                    - section130Agreement
+                    - section127Agreement
+                    - twoPartTariff
+                    - compensationCharge
+                    - regionalChargingArea
+                    - credit
+                    - waterUndertaker
+                - title: sroc schema
+                  type: object
+                  properties:
+                    ruleset:
+                      description: The scheme ruleset that applies
+                      type: string
+                      enum:
+                        - sroc
+                        - presroc
+                      example: presroc
+                    periodStart:
+                      description: The start date of the charge period covered by a transaction
+                      type: string
+                      example: 01-APR-2018
+                    periodEnd:
+                      description: The end date of the charge period covered by a transaction
+                      type: string
+                      example: 31-MAR-2019
+                    credit:
+                      description: Boolean indicator to show whether the transaction is a credit
+                      type: boolean
+                      example: false
+                    abatementFactor:
+                      description: Factor to apply to a charge where an abatement applies
+                      type: number
+                      default: 1
+                      example: 0.5
+                    actualVolume:
+                      description: The actual volume of water abstracted by a licence holder
+                      type: number
+                      minimum: 0
+                      exclusiveMinimum: true
+                      example: 5
+                    aggregateProportion:
+                      description: Factor to apply to cater for the proportioning of charges between licences where aggregation applies
+                      type: number
+                      default: 1
+                      example: 0.5
+                    authorisedDays:
+                      description: The number of days per year in which abstraction is authorised under the terms of the licence
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 214
+                    authorisedVolume:
+                      description: The volume of water authorised for abstraction
+                      type: number
+                      minimum: 0
+                      exclusiveMinimum: true
+                      example: 5
+                    billableDays:
+                      description: The number of days covered by a charge
+                      type: integer
+                      minimum: 0
+                      maximum: 366
+                      example: 149
+                    chargeCategoryCode:
+                      description: Reference number of the charge category to be applied to the charge
+                      type: string
+                      example: 2.1.211
+                    compensationCharge:
+                      description: Boolean indicator to show whether the transaction relates to a compensation charge
+                      type: boolean
+                      example: false
+                    loss:
+                      description: Loss on which charge calculation based
+                      type: string
+                      enum:
+                        - High
+                        - Medium
+                        - Low
+                        - Very Low
+                      example: Medium
+                    regionalChargingArea:
+                      description: Name of the region to be used when determining the regional factor to be applied for a compensation charge
+                      type: string
+                      enum:
+                        - Anglian
+                        - Dee
+                        - Devon and Cornwall (South West)
+                        - Midlands
+                        - North and South Wessex
+                        - North West
+                        - Northumbria
+                        - South West (incl Wessex)
+                        - Southern
+                        - Thames
+                        - Wales
+                        - Wye
+                        - Yorkshire
+                      example: Devon and Cornwall (South West)
+                    section127Agreement:
+                      description: Indicator to show whether a section 127 charge agreement applies to the transaction
+                      type: boolean
+                      example: false
+                    section130Agreement:
+                      description: Indicator to show whether a section 130 charge agreement applies to the transaction
+                      type: boolean
+                      example: true
+                    supportedSource:
+                      description: Name of the supported source relevant to the charge, where applicable
+                      type: boolean
+                      example: true
+                    twoPartTariff:
+                      description: Boolean indicator to show whether a transaction/charge request relates to the 2nd part of a two-part tariff bill
+                      type: boolean
+                      example: true
+                    waterCompanyCharge:
+                      description: Boolean indicator to show whether the water company supplement is to be added to a charge
+                      type: boolean
+                      example: true
+                    waterUndertaker:
+                      description: Boolean indicator to show whether the transaction is for a water undertaker
+                      type: boolean
+                      example: false
+                    winterOnly:
+                      description: Boolean indicator to show whether a charge relates to a licence that authorises abstraction in the winter season only
+                      type: boolean
+                      example: true
+                  required:
+                    - authorisedDays
+                    - authorisedVolume
+                    - billableDays
+                    - chargeCategoryCode
+                    - compensationCharge
+                    - credit
+                    - loss
+                    - periodEnd
+                    - periodStart
+                    - ruleset
+                    - section127Agreement
+                    - section130Agreement
+                    - supportedSource
+                    - twoPartTariff
+                    - waterCompanyCharge
+                    - winterOnly
+            examples:
+              presroc:
+                value:
+                  ruleset: presroc
+                  periodStart: 01-APR-2020
+                  periodEnd: 31-MAR-2021
+                  credit: false
+                  billableDays: 214
+                  authorisedDays: 214
+                  volume: "3.5865"
+                  source: Supported
+                  season: Summer
+                  loss: Low
+                  twoPartTariff: false
+                  compensationCharge: false
+                  eiucSource: Tidal
+                  waterUndertaker: false
+                  regionalChargingArea: Midlands
+                  section126Factor: 1
+                  section127Agreement: false
+                  section130Agreement: false
+              sroc:
+                value:
+                  ruleset: sroc
+                  periodStart: 01-APR-2022
+                  periodEnd: 31-MAR-2023
+                  credit: false
+                  billableDays: 214
+                  authorisedDays: 214
+                  abatementFactor: "1.0"
+                  actualVolume: "2.0"
+                  aggregateProportion: "1.0"
+                  chargeCategoryCode: 2.1.211
+                  compensationCharge: true
+                  loss: High
+                  regionalChargingArea: Devon and Cornwall (South West)
+                  section127Agreement: false
+                  section130Agreement: true
+                  supportedSource: true
+                  supportedSourceName: Candover
+                  twoPartTariff: false
+                  authorisedVolume: "2.0"
+                  waterCompanyCharge: false
+                  waterUndertaker: false
+                  winterOnly: false
   /v2/{regime}/customer-changes:
     post:
       operationId: CreateCustomerChange
