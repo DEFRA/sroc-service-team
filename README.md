@@ -11,13 +11,14 @@ This acts as a repo of guides and documents specific to the team, plus it's wher
 - [Databases](/databases/README.md)
 - [Docker Hub](/dockerhub/README.md)
 - [Guide to ssh](ssh.md)
-- [OpenAPI documentation](/openapi/README.md)
 - [Postman guide](/postman/README.md)
 - [Principles](principles.md)
 - [Releasing](/releasing/README.md)
 - [Request for Change](/rfc/README.md)
 - [Services](/services/README.md)
 - [Ways of working](ways_of_working.md)
+
+> For anything to do with our OpenAPI documentation for the [Charging Module API](https://github.com/DEFRA/sroc-charging-module-api) see [SROC Charging Module API Docs](https://github.com/DEFRA/sroc-charging-module-api-docs)
 
 ## Contributing to this project
 
