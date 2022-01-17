@@ -1,6 +1,6 @@
 # RS RfC example
 
-The following is an example of a completed myIT RfC for the [Rules service](/services/README.md). Unlike the [CHA](/rfc/cha.md) and the [TCM](/rfc/tcm.md) this is based on **Standard Change STDCHG0001214 - Chargiung Module Rules Service - Ruleset updates - Tactical Charging Module**.
+The following is an example of a completed myIT RfC for the [Rules service](/services/README.md). Unlike the [CHA](/rfc/cha.md) and the [TCM](/rfc/tcm.md) this is based on **Standard Change STDCHG0001214 - Charging Module Rules Service - Ruleset updates - Tactical Charging Module**.
 
 > Normally each digital service maps to a 'configuration item' in myIT. All RfC's then link to the item. However, after the TCM configuration item was created all subsequent changes and issues for the CHA and RS were also logged against it. This is why you'll often see references to the TCM in CHA and RS related events.
 
