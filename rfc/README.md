@@ -10,12 +10,12 @@ Submit your RfC in [myIT](https://defra.service-now.com) (also known as **Servic
 
 ## Time frames
 
-There are 3 types of RfC. The key differentiators are
+There are 4 types of RfC. The key differentiators are
 
 - the lead time before you can apply the change
 - the approval process it goes through
 
-Expedited and emergency changes are used only as a last resort.
+Expedited and emergency changes are used only as a last resort. Standard changes are pre-approved and based on evidence of having implemented the same 'change' via 3 previous `Normal` RfC's.
 
 ### Normal
 
@@ -30,6 +30,14 @@ For changes that need implementing in 4 to 10 days. The next Change Approval Boa
 For changes that need implementing in 1 to 3 days. An emergency CAB will convene to discuss the RfC. Someone from the team will need to attend to answer any questions before they grant approval.
 
 These are really discouraged by Change management and you _will_ be challenged on why it is needed.
+
+### Standard
+
+Are pre-approved and can be implemented whenever the service team is ready.
+
+Unfortunately, [myIT](https://defra.service-now.com) sometimes uses the term 'standard' to mean a `Normal` change. But a `Standard` change is a pre-approved RfC which is based on a **Standard Change Proposal**. If a service can demonstrate they have implemented the same 'change' without error on at least 3 occasions they can submit a standard change proposal. When approved the proposal becomes a template in myIT. Any RfC created from that template is pre-approved and does not have to wait 10 days before it can be implemented.
+
+The key thing to understand is that it's pre-approval for a _specific_ kind of change to a service. If a service needs to make a different type of change they must still submit a `Normnal` RfC. For example, the Rules Service is allowed to carry out it's annual update to the regime rules under a `Standard` change (see standard change proposal `STDCHG0001214`). But if it needed to make a different kind of change, for example an upgrade to the rules service, this would need to be done as a `Normal` change with it's 10 working day waiting period.
 
 ## Submitting an RfC
 
