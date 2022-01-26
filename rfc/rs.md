@@ -8,11 +8,23 @@ You should be able to use it as the basis for new ones. Most fields will be comp
 
 ## Creating the RfC
 
+We have found different members of the team see different menu options in myIT. [Option 1](#option-1) is the easiest but if you don't see `Standard Change Catalogue` [Option 2](#option-2) should work for you. In both cases once you have found the `Charge Module Rules Service - Ruleset updates` template a new RfC will appear pre-populated based on it. The rest of the guide covers the fields that still need completing.
+
+### Option 1
+
 In the myIT menu go to `Change -> Standard Change -> Standard Change Catalogue`. Select `Application` from the options presented. `Charge Module Rules Service - Ruleset updates` is normally near the top of the list but use the search if you are having trouble finding it. Select it when you have.
 
 <img src="standard_change_catalogue.jpg" alt="Screenshot of myIT with standard change catalogue selected" style="width: 600px;"/>
 
-A new RfC will appear pre-populated based on the selected template. We now cover the fields that still need completing
+# Option 2
+
+In the myIT menu go to `Change -> Standard Change -> All Templates`. In the `Template name` search field enter **Charge** then press 'Return/Enter' key.
+
+<img src="standard_change_all_templates.jpg" alt="Screenshot of myIT with standard change all templates selected" style="width: 600px;"/>
+
+`Charge Module Rules Service - Ruleset updates` should be one of the results (most likely the only one). Select it and you will be shown the proposal which was submitted to obtain approval for the standard change. Towards the bottom of the page is the 'Related links' section. Select `Create Standard Change`.
+
+<img src="standard_change_related_links.jpg" alt="Screenshot of related links section of the standard change proposal"/>
 
 ## Top section
 
