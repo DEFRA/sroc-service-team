@@ -18,7 +18,7 @@ In the myIT menu go to `Change -> Standard Change -> Standard Change Catalogue`.
 
 # Option 2
 
-In the myIT menu go to `Change -> Standard Change -> All Templates`. In the `Template name` search field enter **Charge** then press 'Return/Enter' key.
+In the myIT menu go to `Change -> Standard Change Proposals -> All Templates`. In the `Template name` search field enter **Charge** then press 'Return/Enter' key.
 
 <img src="standard_change_all_templates.jpg" alt="Screenshot of myIT with standard change all templates selected" style="width: 600px;"/>
 
